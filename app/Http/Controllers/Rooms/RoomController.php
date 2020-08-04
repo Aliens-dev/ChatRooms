@@ -15,21 +15,12 @@ class RoomController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $rooms = Room::all();
+        return $this->showAll($rooms);
     }
 
     /**
@@ -60,17 +51,6 @@ class RoomController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         //
     }
@@ -111,10 +91,11 @@ class RoomController extends ApiController
      */
     public function destroy(Room $room)
     {
-//        $response = Gate::inspect('delete', $room);
-//        if($response->denied()) {
-//            return $this->ErrorResponse();
-//        }
-//        return $this->SuccessResponse();
+        $response = Gate::inspect('delete', $room);
+        if($response->denied()) {
+            return $this->ErrorResponse();
+        }
+        Room::find($room->id)->delete();
+        return $this->SuccessResponse();
     }
 }

@@ -6,6 +6,7 @@ use App\Room;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Laravel\Passport\Passport;
 use Tests\TestCase;
 
 class RoomTest extends TestCase
@@ -76,10 +77,40 @@ class RoomTest extends TestCase
             ->assertJson(['success' => false])
             ->assertStatus(401);
     }
-
+    /** @test */
     public function a_user_can_delete_his_room()
     {
+        $this->withoutExceptionHandling();
 
+        $user = $this->signIn();
+
+        $room = factory(Room::class)->create(['user_id' => $user->id]);
+
+        $this->assertDatabaseHas('rooms', ['name' => $room->name, 'id' => $room->id]);
+
+        $this->json('DELETE', '/rooms/'. $room->id)
+            ->assertStatus(200);
+        $this->assertDatabaseMissing('rooms',['name' => $room->name, 'id' => $room->id]);
     }
 
+    /** @test */
+    public function a_user_cannot_delete_rooms_of_others()
+    {
+        $this->withoutExceptionHandling();
+
+        $me = factory(User::class)->create();
+
+        $otherUser = factory(User::class)->create();
+
+        $room = factory(Room::class)->create(['user_id' => $otherUser->id]);
+
+        $this->assertDatabaseHas('rooms', ['id' => $room->id, 'name' => $room->name]);
+
+        Passport::actingAs($me);
+        $this->json('DELETE', "/rooms/{$room->id}")
+            ->assertStatus(401);
+
+        $this->assertDatabaseHas('rooms', ['id' => $room->id, 'name' => $room->name]);
+
+    }
 }
