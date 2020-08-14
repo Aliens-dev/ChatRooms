@@ -15,4 +15,8 @@ class Room extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function members() {
+        return $this->belongsToMany(User::class,'room_user');
+    }
 }

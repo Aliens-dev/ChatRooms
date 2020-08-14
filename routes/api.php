@@ -6,13 +6,19 @@ use Illuminate\Support\Facades\Route;
 
 
 
-
-Route::get('/login', 'AuthController@login')->name('login');
 Route::post('/login', 'AuthController@loginPost')->name('login');
 
-Route::group(['middleware'=>'auth:api'], function() {
+Route::group(['middleware'=>'jwtauth'], function() {
+
+    Route::post('/checkToken', 'AuthController@checkToken')->name('checkToken');
+    Route::post('/logout', 'AuthController@logout')->name('logout');
+    // Rooms
     Route::get('rooms', 'Rooms\RoomController@index')->name('rooms.index');
     Route::post('rooms', 'Rooms\RoomController@store')->name('rooms.store');
+    Route::get('rooms/{room}','Rooms\RoomController@show')->name('rooms.show');
     Route::patch('rooms/{room}','Rooms\RoomController@update')->name('rooms.update');
     Route::delete('rooms/{room}','Rooms\RoomController@destroy')->name('rooms.destroy');
+    // Participants
+    Route::post('rooms/{room}/users/{user}','Rooms\RoomsUsersController@store')->name('room.user.store');
+
 });

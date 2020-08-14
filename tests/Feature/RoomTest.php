@@ -106,7 +106,7 @@ class RoomTest extends TestCase
 
         $this->assertDatabaseHas('rooms', ['id' => $room->id, 'name' => $room->name]);
 
-        Passport::actingAs($me);
+        $this->actingAs($me);
         $this->json('DELETE', "/rooms/{$room->id}")
             ->assertStatus(401);
 

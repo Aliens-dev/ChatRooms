@@ -19,7 +19,7 @@ class RoomController extends ApiController
      */
     public function index()
     {
-        $rooms = Room::all();
+        $rooms = auth()->user()->rooms()->get();
         return $this->showAll($rooms);
     }
 
@@ -47,12 +47,12 @@ class RoomController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Room $room
+     * @return JsonResponse
      */
-    public function show($id)
+    public function show(Room $room)
     {
-        //
+        return $this->showOne($room);
     }
 
     /**
