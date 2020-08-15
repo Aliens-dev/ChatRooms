@@ -11,13 +11,22 @@ const Sidebar = () => {
             <div className="sidebar-header">CR-AliensDev</div>
             <div className="sidebar-menu">
                 <Link className="sidebar-item" to={ROOM_URL}>
-                    Rooms
+                    <div>
+                        <i  className="far fa-comments"/>
+                    </div>
+                    <span>Rooms</span>
                 </Link>
                 <Link className="sidebar-item" to={`${APP_URL}/joined`} >
-                    Joined
+                    <div>
+                        <i  className="fa fa-users"/>
+                    </div>
+                    <span>Joined</span>
                 </Link>
                 <Link className="sidebar-item" to="#" onClick={_Logout}>
-                    Logout
+                    <div>
+                        <i className="fas fa-sign-out-alt" />
+                    </div>
+                    <span>Logout</span>
                 </Link>
             </div>
         </div>

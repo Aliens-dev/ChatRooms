@@ -1,15 +1,15 @@
 import {Link, Redirect} from "react-router-dom";
 import React, { useContext,useEffect,useRef} from 'react';
 import {AppContext} from "../context/AppContext";
-import {UserLogoutAction} from "../context/actions/AuthActions";
 import Nav from "./Nav";
 import {ROOM_URL} from "../urls/AppBaseUrl";
+import {setNavbarHeightAction} from "../context/actions/GlobalActions";
 
 const Navbar = (props) => {
-    const { auth,_Logout,setNavbarHeight } = useContext(AppContext)
+    const { auth,_Logout,dispatchGlobalState } = useContext(AppContext)
     const navbarRef = useRef(null)
     useEffect(() => {
-        setNavbarHeight(navbarRef.current.clientHeight);
+        dispatchGlobalState(setNavbarHeightAction(navbarRef.current.clientHeight))
     }, [])
     const render = () => {
         if(auth.token) {

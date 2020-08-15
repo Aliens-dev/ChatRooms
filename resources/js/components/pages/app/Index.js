@@ -3,15 +3,16 @@ import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import AppRoutes from "../../routes/AppRoutes";
 import {AppContext} from "../../context/AppContext";
+import {setPageContentHeightAction} from "../../context/actions/GlobalActions";
 
 
 const Index = () => {
 
     const pageContentRef = useRef(null);
-    const {setPageContentHeight} = useContext(AppContext);
+    const {dispatchGlobalState} = useContext(AppContext);
 
     useEffect(() => {
-        setPageContentHeight(pageContentRef.current.clientHeight);
+        dispatchGlobalState(setPageContentHeightAction(pageContentRef.current.clientHeight));
     }, [])
     return (
         <div className="app-page">

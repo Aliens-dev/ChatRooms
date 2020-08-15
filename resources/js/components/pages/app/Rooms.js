@@ -6,6 +6,8 @@ import {AppContext} from "../../context/AppContext";
 import BreadCrumb from "../../components/BreadCrumb";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
 import {APP_URL, ROOM_URL} from "../../urls/AppBaseUrl";
+import UserIcon from "../../components/UserIcon";
+import Loading from "../../components/Loading";
 
 const Rooms = () => {
     const { auth, dispatchAuth,_Logout } = useContext(AppContext);
@@ -34,9 +36,25 @@ const Rooms = () => {
             return (
                 <div className="col-3" key={room.id}>
                     <Card
-                        title={room.name}
                         roomId={room.id}
-                    />
+                    >
+                        <div className="card-image">
+                            <UserIcon letter={room.name[0]} />
+                        </div>
+                        <div className="card-title">
+                            <i className="far fa-comments" />
+                            <div>
+                                { room.name }
+                            </div>
+                        </div>
+                        <div className="card-foot">
+                            <UserIcon width={35} height={35}/>
+                            <UserIcon width={35} height={35}/>
+                            <UserIcon width={35} height={35}/>
+                            <UserIcon width={35} height={35}/>
+                            <UserIcon width={35} height={35}/>
+                        </div>
+                    </Card>
                 </div>
             )
         })
@@ -58,9 +76,10 @@ const Rooms = () => {
             </Nav>
             {
                 loading ?
-                    <div> Loading ...</div>
+                    <Loading />
                     :
-                    <div className="row">
+                    <div className="row rooms">
+
                         {
                             renderCards()
                         }
