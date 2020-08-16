@@ -1,44 +1,45 @@
 <?php
 
-namespace App\Http\Controllers\Rooms;
+namespace App\Http\Controllers\Users;
 
 use App\Http\Controllers\ApiController;
-use App\Room;
+use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
-class RoomsUsersController extends ApiController
+class UsersController extends ApiController
 {
     /**
      * Display a listing of the resource.
      *
-     * @param Room $room
      * @return JsonResponse
      */
-    public function index(Room $room)
+    public function index()
     {
-        $users = $room->members()->get();
+        $users = User::all();
         return $this->showAll($users);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @param Room $room
-     * @param $email
-     * @return JsonResponse
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request,Room $room,User $user)
+    public function store(Request $request)
     {
-        if($room->members->contains($user)) {
-            return $this->ErrorResponse(401);
-        }
-
-        $user->joined()->attach($room);
-        return $this->SuccessResponse();
+        //
     }
 
     /**
@@ -48,6 +49,17 @@ class RoomsUsersController extends ApiController
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         //
     }

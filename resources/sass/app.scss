@@ -142,7 +142,6 @@ $main-blue : #455CC7;
     display:flex;
     border-top:1px solid #EEE;
     height:100%;
-    position:relative;
     .room-users {
         display:flex;
         flex-direction : column;
@@ -194,6 +193,10 @@ $main-blue : #455CC7;
             }
         }
         .room-users-list {
+            display:flex;
+            flex-direction:column;
+            flex-grow:1;
+            border-bottom: 1px solid #EEE;
             .room-user {
                 padding: 5px 10px;
                 border-bottom: 1px solid #EEE;
@@ -204,6 +207,19 @@ $main-blue : #455CC7;
                         font-size:15px;
                         font-weight: 600;
                     }
+                }
+            }
+        }
+        .room-controls{
+            display:flex;
+            align-items: center;
+            padding:10px;
+            justify-content: flex-end;
+            &>div {
+                margin:0 5px;
+                font-size:16px;
+                &:hover {
+                    cursor: pointer;
                 }
             }
         }
@@ -302,6 +318,22 @@ $main-blue : #455CC7;
                 i {
                     font-size:25px;
                 }
+            }
+        }
+    }
+    .add-user {
+        display:flex;
+        justify-content: center;
+        padding:10px 0;
+        flex:1;
+        input {
+            flex:1;
+            padding:5px 10px;
+            border: 1px solid #EEE;
+            border-radius: 5px;
+            &:focus {
+               outline:none;
+                border: 1px solid #CCC;
             }
         }
     }
@@ -441,4 +473,53 @@ $main-blue : #455CC7;
     }
 }
 
+.my-modal {
+    position:absolute;
+    top:0;
+    bottom:0;
+    right:0;
+    left:0;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    background-color:rgba(0,0,0,0.5);
+    .modal-content{
+        background-color:#FFF;
+        display:flex;
+        width:auto;
+        min-width: 300px;
+        .header {
+            height:40px;
+            max-height:40px;
+            display:flex;
+            align-items: center;
+            justify-content: space-between;
+            padding:5px 10px;
+            margin-bottom:10px;
+            border-bottom:1px solid #EEE;
+            i:hover {
+                cursor:pointer;
+            }
+            div {
+                font-weight: 600;
+            }
+        }
+        .body {
+            display:flex;
+            padding:5px 10px;
+            border-bottom:1px solid #EEE;
+        }
+        .foot {
+            height:40px;
+            max-height:40px;
+            padding:5px 10px;
+            display:flex;
+            justify-content: flex-end;
+            align-items:center;
+            button {
+                margin:0 3px;
+            }
+        }
+    }
+}
 

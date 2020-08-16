@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Index from '../pages/app/Index';
+import PrivateRoutes from "./PrivateRoutes";
 
 const Routes = () => {
     return (
@@ -12,9 +13,7 @@ const Routes = () => {
                 <Route path="/" exact component={Home} />
                 <Route path="/login" exact component={Login} />
                 <Route path="/register" exact component={Register} />
-                <Route path="/app" >
-                    <Index />
-                </Route>
+                <PrivateRoutes path="/app" component={Index} />
             </Switch>
         </Router>
     )

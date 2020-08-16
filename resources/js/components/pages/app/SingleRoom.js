@@ -5,11 +5,24 @@ import BreadCrumb from "../../components/BreadCrumb";
 import Nav from "../../components/Nav";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
 import {APP_URL, ROOM_URL} from "../../urls/AppBaseUrl";
-import {setBreadCrumbHeightAction, setPageHeightAction, setRoomHeightAction} from "../../context/actions/GlobalActions";
+import {
+    setBreadCrumbHeightAction,
+    setModalVisibleAction,
+    setPageHeightAction,
+    setRoomHeightAction
+} from "../../context/actions/GlobalActions";
 import Loading from "../../components/Loading";
+import UserIcon from "../../components/UserIcon";
+import Modal from "../../components/Modal";
 
 const SingleRoom = props => {
+
     const [room, setRoom] = useState({});
+    const [users,setUsers] = useState([]);
+    const [members,setMembers] = useState([]);
+
+    const [searchUser,setSearchUser] = useState('');
+
     const {auth,globalState,dispatchGlobalState} = useContext(AppContext);
     const [loading,setLoading] = useState(true);
     const singleRoom = useRef(null);
@@ -18,6 +31,11 @@ const SingleRoom = props => {
     // On Component Mount :
 
     useEffect(() => {
+        getRoom();
+        getMembers();
+    }, []);
+
+    const getRoom = () => {
         axios({
             method:"GET",
             url: '/rooms/' + props.match.params.id,
@@ -33,8 +51,46 @@ const SingleRoom = props => {
                 console.log('error');
                 setLoading(false)
             })
-    }, []);
+    }
 
+    // Get Room users ...
+
+    const getMembers = () => {
+        axios({
+            method:"GET",
+            url: '/rooms/' + props.match.params.id + '/users',
+            headers : {
+                Authorization : 'bearer ' + auth.token,
+            }
+        })
+            .then(res => {
+                setMembers(res.data.data);
+            })
+            .catch(err => {
+                console.log('error');
+            })
+    }
+    useEffect(() => {
+        axios({
+            url: '/users',
+            method: 'GET',
+            headers : {
+                Authorization: 'bearer ' + auth.token,
+            }
+        })
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+
+            })
+    }, [searchUser])
+
+    // add a member to the group
+
+    const addUser  = () => {
+
+    }
 
     useEffect(() => {
         console.log(breadRef)
@@ -74,35 +130,24 @@ const SingleRoom = props => {
                                 <i className="fa fa-search"/>
                             </div>
                             <div className="room-users-list">
-                                <div className="room-user">
-                                    <div className="user-image">
-                                        <img src="https://unsplash.it/50/50"/>
-                                    </div>
-                                    <div className="user-info">
-                                        <div className="username">
-                                            User - 1
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="room-user">
-                                    <div className="user-image">
-                                        <img src="https://unsplash.it/50/50"/>
-                                    </div>
-                                    <div className="user-info">
-                                        <div className="username">
-                                            User - 1
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="room-user">
-                                    <div className="user-image">
-                                        <img src="https://unsplash.it/50/50"/>
-                                    </div>
-                                    <div className="user-info">
-                                        <div className="username">
-                                            User - 1
-                                        </div>
-                                    </div>
+                                {
+                                    members.map(member => {
+                                        return (
+                                            <div className="room-user" key={member.id}>
+                                                <UserIcon />
+                                                <div className="user-info">
+                                                    <div className="username">
+                                                        {member.name}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                            <div className="room-controls">
+                                <div onClick={() => dispatchGlobalState(setModalVisibleAction())}>
+                                    <i className="fa fa-plus" />
                                 </div>
                             </div>
                         </div>
@@ -151,6 +196,23 @@ const SingleRoom = props => {
                                 </div>
                             </div>
                         </div>
+                        <Modal
+                            title="Add User"
+                            onClick={addUser}
+                        >
+                            <div className="add-user">
+                                <input value={searchUser} onChange={(e) => setSearchUser(e.target.value)} placeholder="search for user ..." />
+                                {
+                                    users.map(user => {
+                                        return (
+                                            <div key={user.id}>
+                                                <div>{user.email}</div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </div>
+                        </Modal>
                     </div>
             }
         </div>

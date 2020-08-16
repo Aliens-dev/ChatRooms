@@ -11072,7 +11072,6 @@ a.text-dark:focus {
   display: flex;
   border-top: 1px solid #EEE;
   height: 100%;
-  position: relative;
 }
 
 .room-section .room-users {
@@ -11132,6 +11131,13 @@ a.text-dark:focus {
   color: #666;
 }
 
+.room-section .room-users .room-users-list {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  border-bottom: 1px solid #EEE;
+}
+
 .room-section .room-users .room-users-list .room-user {
   padding: 5px 10px;
   border-bottom: 1px solid #EEE;
@@ -11142,6 +11148,22 @@ a.text-dark:focus {
 .room-section .room-users .room-users-list .room-user .user-info .username {
   font-size: 15px;
   font-weight: 600;
+}
+
+.room-section .room-users .room-controls {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  justify-content: flex-end;
+}
+
+.room-section .room-users .room-controls > div {
+  margin: 0 5px;
+  font-size: 16px;
+}
+
+.room-section .room-users .room-controls > div:hover {
+  cursor: pointer;
 }
 
 .room-section .room-messages {
@@ -11257,6 +11279,25 @@ a.text-dark:focus {
 
 .room-section .room-messages .room-message-input .send i {
   font-size: 25px;
+}
+
+.room-section .add-user {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0;
+  flex: 1;
+}
+
+.room-section .add-user input {
+  flex: 1;
+  padding: 5px 10px;
+  border: 1px solid #EEE;
+  border-radius: 5px;
+}
+
+.room-section .add-user input:focus {
+  outline: none;
+  border: 1px solid #CCC;
 }
 
 .user-image {
@@ -11446,5 +11487,62 @@ a.text-dark:focus {
   100% {
     transform: rotate(360deg);
   }
+}
+
+.my-modal {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.my-modal .modal-content {
+  background-color: #FFF;
+  display: flex;
+  width: auto;
+  min-width: 300px;
+}
+
+.my-modal .modal-content .header {
+  height: 40px;
+  max-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #EEE;
+}
+
+.my-modal .modal-content .header i:hover {
+  cursor: pointer;
+}
+
+.my-modal .modal-content .header div {
+  font-weight: 600;
+}
+
+.my-modal .modal-content .body {
+  display: flex;
+  padding: 5px 10px;
+  border-bottom: 1px solid #EEE;
+}
+
+.my-modal .modal-content .foot {
+  height: 40px;
+  max-height: 40px;
+  padding: 5px 10px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.my-modal .modal-content .foot button {
+  margin: 0 3px;
 }
 

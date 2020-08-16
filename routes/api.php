@@ -19,6 +19,9 @@ Route::group(['middleware'=>'jwtauth'], function() {
     Route::patch('rooms/{room}','Rooms\RoomController@update')->name('rooms.update');
     Route::delete('rooms/{room}','Rooms\RoomController@destroy')->name('rooms.destroy');
     // Participants
+    Route::get('rooms/{room}/users','Rooms\RoomsUsersController@index')->name('room.user.index');
     Route::post('rooms/{room}/users/{user}','Rooms\RoomsUsersController@store')->name('room.user.store');
+
+    Route::get('users', 'Users\UsersController@index')->name('users');
 
 });

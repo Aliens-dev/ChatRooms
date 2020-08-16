@@ -11,7 +11,8 @@ export const AppContext = createContext();
 const AuthState = JSON.parse(localStorage.getItem('chatApp')) || {};
 const GlobalState = {
     navbarHeight: 0, breadcrumbHeight: 0,
-    roomHeight: 0, pageHeight: 0,pageContentHeight : 0
+    roomHeight: 0, pageHeight: 0,pageContentHeight : 0,
+    visibleModal: false,
 };
 
 export const AppProvider = (props) => {

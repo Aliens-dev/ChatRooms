@@ -8,8 +8,8 @@ const AppRoutes = () => {
     const { path } = useRouteMatch();
     return (
         <Switch>
-            <PrivateRoutes path={path+'/rooms'} exact component={Rooms} />
-            <PrivateRoutes path={path+'/rooms/:id'} component={SingleRoom} />
+            <Route path={path+'/rooms'} exact component={Rooms} />
+            <Route path={path+'/rooms/:id'} component={SingleRoom} />
         </Switch>
     )
 }

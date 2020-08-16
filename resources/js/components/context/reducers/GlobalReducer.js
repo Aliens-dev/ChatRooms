@@ -1,5 +1,5 @@
-import {SET_ROOM_HEIGHT,SET_BREADCRUMB_HEIGHT,
-    SET_NAVBAR_HEIGHT,SET_PAGE_HEIGHT,SET_PAGE_CONTENT_HEIGHT} from "../actions/GlobalActions";
+import {SET_ROOM_HEIGHT,SET_BREADCRUMB_HEIGHT,SHOW_MODAL,HIDE_MODAL,
+    SET_NAVBAR_HEIGHT,SET_PAGE_HEIGHT,SET_PAGE_CONTENT_HEIGHT,} from "../actions/GlobalActions";
 
 export const GlobalReducer = (state,action) => {
     switch(action.type) {
@@ -13,6 +13,10 @@ export const GlobalReducer = (state,action) => {
             return {...state,pageHeight: action.payload}
         case SET_PAGE_CONTENT_HEIGHT:
             return {...state,pageContentHeight: action.payload}
+        case SHOW_MODAL:
+            return {...state,visibleModal:true}
+        case HIDE_MODAL :
+            return {...state,visibleModal: false}
         default : return state;
     }
 }

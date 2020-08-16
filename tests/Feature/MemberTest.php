@@ -18,17 +18,12 @@ class MemberTest extends TestCase
     public function an_owner_can_add_participants_to_his_room()
     {
         $this->withoutExceptionHandling();
-
         $user = $this->signIn();
-
         $anotherUser = factory(User::class)->create();
-
         $room = factory(Room::class)->create(['user_id'=> $user->id]);
-
         $this->json('POST', "/rooms/{$room->id}/users/{$anotherUser->id}")
             ->assertStatus(200)
             ->assertJson(['success' => true]);
-
         $this->assertDatabaseHas('room_user', ['user_id' => $anotherUser->id, 'room_id' => $room->id]);
     }
 
