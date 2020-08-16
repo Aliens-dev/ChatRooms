@@ -9,6 +9,7 @@ import UserIcon from "../../components/UserIcon";
 import Loading from "../../components/Loading";
 import {setModalHiddenAction, setModalVisibleAction} from "../../context/actions/GlobalActions";
 import Modal from '../../components/Modal';
+import Nav from "../../components/Nav";
 
 const Rooms = () => {
     const { auth, dispatchGlobalState } = useContext(AppContext);
@@ -56,32 +57,34 @@ const Rooms = () => {
             })
     }
 
-    const renderCards = () => {
+    const renderRooms = (type) => {
         return rooms.map( room => {
-            return (
-                <div className="col-3" key={room.id}>
-                    <Card
-                        roomId={room.id}
-                    >
-                        <div className="card-image">
-                            <UserIcon letter={room.name[0]} />
-                        </div>
-                        <div className="card-title">
-                            <i className="far fa-comments" />
-                            <div>
-                                { room.name }
+            if(room.type === type) {
+                return (
+                    <div className="col-3" key={room.id}>
+                        <Card
+                            roomId={room.id}
+                        >
+                            <div className="card-image">
+                                <UserIcon letter={room.name[0]} />
                             </div>
-                        </div>
-                        <div className="card-foot">
-                            <UserIcon width={35} height={35}/>
-                            <UserIcon width={35} height={35}/>
-                            <UserIcon width={35} height={35}/>
-                            <UserIcon width={35} height={35}/>
-                            <UserIcon width={35} height={35}/>
-                        </div>
-                    </Card>
-                </div>
-            )
+                            <div className="card-title">
+                                <i className="far fa-comments" />
+                                <div>
+                                    { room.name }
+                                </div>
+                            </div>
+                            <div className="card-foot">
+                                <UserIcon width={35} height={35}/>
+                                <UserIcon width={35} height={35}/>
+                                <UserIcon width={35} height={35}/>
+                                <UserIcon width={35} height={35}/>
+                                <UserIcon width={35} height={35}/>
+                            </div>
+                        </Card>
+                    </div>
+                )
+            }
         })
     }
     return (
@@ -108,9 +111,20 @@ const Rooms = () => {
                                 >Add Room</button>
                             </div>
                         </div>
+                        <Nav className="ml-1 mt-2 row">
+                            Public Rooms
+                        </Nav>
                         <div className="row rooms">
                             {
-                                renderCards()
+                                renderRooms(1)
+                            }
+                        </div>
+                        <Nav className="ml-1 mt-2  row">
+                            Private Rooms
+                        </Nav>
+                        <div className="row rooms">
+                            {
+                                renderRooms(0)
                             }
                         </div>
                     </div>

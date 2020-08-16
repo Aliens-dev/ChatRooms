@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Index from '../pages/app/Index';
+import NotFound from '../pages/app/NotFound';
 import PrivateRoutes from "./PrivateRoutes";
 
 const Routes = () => {

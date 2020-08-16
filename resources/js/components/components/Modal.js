@@ -20,6 +20,11 @@ const Modal = (props) => {
         }
     }
 
+    const clicked = () => {
+        if(props.onClick) {
+            props.onClick();
+        }
+    }
     const render = () => {
         if(!globalState.visibleModal) {
             return null;
@@ -37,7 +42,7 @@ const Modal = (props) => {
                             }
                         </div>
                         <div className="foot">
-                            <button className="btn btn-primary" onClick={() => props.onClick()}>Submit</button>
+                            <button className="btn btn-primary" onClick={clicked}>Submit</button>
                             <button className="btn btn-danger" onClick={closeModal}>Close</button>
                         </div>
                     </div>

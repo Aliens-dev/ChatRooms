@@ -14,6 +14,8 @@ Route::group(['middleware'=>'jwtauth'], function() {
     Route::post('/logout', 'AuthController@logout')->name('logout');
     // Rooms
     Route::get('rooms', 'Rooms\RoomController@index')->name('rooms.index');
+    Route::get('rooms/public', 'Rooms\RoomController@publicRooms')->name('rooms.public');
+    Route::get('rooms/joined', 'Rooms\RoomController@joinedRooms')->name('rooms.joined');
     Route::post('rooms', 'Rooms\RoomController@store')->name('rooms.store');
     Route::get('rooms/{room}','Rooms\RoomController@show')->name('rooms.show');
     Route::patch('rooms/{room}','Rooms\RoomController@update')->name('rooms.update');

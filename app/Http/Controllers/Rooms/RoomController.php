@@ -24,6 +24,29 @@ class RoomController extends ApiController
     }
 
     /**
+     * Display a list of public rooms.
+     *
+     * @return JsonResponse
+     */
+
+    public function publicRooms()
+    {
+        $rooms = Room::where('type', '1')->get();
+        return $this->showAll($rooms);
+    }
+
+    /**
+     * Display a list of joined in rooms.
+     *
+     * @return JsonResponse
+     */
+    public function joinedRooms()
+    {
+        $rooms = auth()->user()->joined()->get();
+        return $this->showAll($rooms);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param Request $request

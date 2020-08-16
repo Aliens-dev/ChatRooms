@@ -20,13 +20,19 @@ const Sidebar = () => {
                     <div>
                         <i  className="far fa-comments"/>
                     </div>
-                    <span>Rooms</span>
+                    <span>My rooms</span>
                 </Link>
-                <Link className="sidebar-item" to={`${APP_URL}/joined`} >
+                <Link className="sidebar-item" to={`${APP_URL}/public-rooms`} >
+                    <div>
+                        <i  className="fa fa-globe-americas"/>
+                    </div>
+                    <span>Public rooms</span>
+                </Link>
+                <Link className="sidebar-item" to={`${APP_URL}/joined-rooms`} >
                     <div>
                         <i  className="fa fa-users"/>
                     </div>
-                    <span>Joined</span>
+                    <span>Joined-in Rooms</span>
                 </Link>
                 <Link className="sidebar-item" to="#" onClick={_Logout}>
                     <div>
