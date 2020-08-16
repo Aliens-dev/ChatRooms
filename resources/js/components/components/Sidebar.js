@@ -10,6 +10,12 @@ const Sidebar = () => {
         <div className="sidebar">
             <div className="sidebar-header">CR-AliensDev</div>
             <div className="sidebar-menu">
+                <Link className="sidebar-item" to={APP_URL}>
+                    <div>
+                        <i className="fas fa-tachometer-alt" />
+                    </div>
+                    <span>Dashboard</span>
+                </Link>
                 <Link className="sidebar-item" to={ROOM_URL}>
                     <div>
                         <i  className="far fa-comments"/>

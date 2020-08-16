@@ -2,11 +2,10 @@ import React, {useContext, useEffect, useRef, useState} from 'react';
 import axios from 'axios';
 import {AppContext} from "../../context/AppContext";
 import BreadCrumb from "../../components/BreadCrumb";
-import Nav from "../../components/Nav";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
 import {APP_URL, ROOM_URL} from "../../urls/AppBaseUrl";
 import {
-    setBreadCrumbHeightAction,
+    setBreadCrumbHeightAction, setModalHiddenAction,
     setModalVisibleAction,
     setPageHeightAction,
     setRoomHeightAction
@@ -24,7 +23,6 @@ const SingleRoom = props => {
     const [users,setUsers] = useState([]);
     const [searchUser,setSearchUser] = useState('');
     const [selectSearchUser,setSelectSearchUser] = useState(false);
-
 
     const {auth,globalState,dispatchGlobalState} = useContext(AppContext);
     const [loading,setLoading] = useState(true);
@@ -57,7 +55,6 @@ const SingleRoom = props => {
     }
 
     // Get Room users ...
-
     const getMembers = () => {
         axios({
             method:"GET",
@@ -97,7 +94,6 @@ const SingleRoom = props => {
     }, [searchUser])
 
     // add a member to the group
-
     const addUser  = () => {
         let selectedUser = users.find(user => user.email === searchUser);
         axios({
@@ -108,7 +104,10 @@ const SingleRoom = props => {
             }
         })
             .then(res => {
-                console.log('Success')
+                getMembers();
+                dispatchGlobalState(setModalHiddenAction());
+                setSearchUser('');
+                setUsers([])
             })
             .catch(err => {
                 console.log('Failed!')
@@ -121,7 +120,6 @@ const SingleRoom = props => {
     }, [loading]);
 
     // Get Room Height
-
     useEffect(() => {
         dispatchGlobalState(setRoomHeightAction(globalState.pageHeight - globalState.breadcrumbHeight))
     },[globalState.breadcrumbHeight,globalState.pageHeight]);
@@ -129,10 +127,10 @@ const SingleRoom = props => {
 
     return (
         <div className="single-room" ref={singleRoom} style={{height: globalState.pageHeight + 'px'}}>
-            <div className="room-header" ref={breadRef}>
+            <div ref={breadRef}>
                 <BreadCrumb>
                     <BreadCrumbItem url={APP_URL}>
-                        App
+                        Dashboard
                     </BreadCrumbItem>
                     <BreadCrumbItem url={ROOM_URL}>
                         Rooms
