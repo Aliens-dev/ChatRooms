@@ -18,10 +18,13 @@ import Modal from "../../components/Modal";
 const SingleRoom = props => {
 
     const [room, setRoom] = useState({});
-    const [users,setUsers] = useState([]);
     const [members,setMembers] = useState([]);
 
+    // Search for users ...
+    const [users,setUsers] = useState([]);
     const [searchUser,setSearchUser] = useState('');
+    const [selectSearchUser,setSelectSearchUser] = useState(false);
+
 
     const {auth,globalState,dispatchGlobalState} = useContext(AppContext);
     const [loading,setLoading] = useState(true);
@@ -71,29 +74,48 @@ const SingleRoom = props => {
             })
     }
     useEffect(() => {
-        axios({
-            url: '/users',
-            method: 'GET',
-            headers : {
-                Authorization: 'bearer ' + auth.token,
-            }
-        })
-            .then(res => {
-                console.log(res);
+        if(searchUser !== '') {
+            axios({
+                url: '/users',
+                method: 'GET',
+                params: {
+                    email : searchUser,
+                },
+                headers : {
+                    Authorization: 'bearer ' + auth.token,
+                }
             })
-            .catch(err => {
+                .then(res => {
+                    setUsers(res.data.data);
+                })
+                .catch(err => {
 
-            })
+                })
+        }else {
+            setUsers([]);
+        }
     }, [searchUser])
 
     // add a member to the group
 
     const addUser  = () => {
-
+        let selectedUser = users.find(user => user.email === searchUser);
+        axios({
+            url: `/rooms/${room.id}/users/${selectedUser.id}`,
+            method:'POST',
+            headers : {
+                authorization : 'bearer ' + auth.token,
+            }
+        })
+            .then(res => {
+                console.log('Success')
+            })
+            .catch(err => {
+                console.log('Failed!')
+            })
     }
 
     useEffect(() => {
-        console.log(breadRef)
         dispatchGlobalState(setBreadCrumbHeightAction(breadRef.current.clientHeight))
         dispatchGlobalState(setPageHeightAction(globalState.pageContentHeight - globalState.navbarHeight))
     }, [loading]);
@@ -202,15 +224,17 @@ const SingleRoom = props => {
                         >
                             <div className="add-user">
                                 <input value={searchUser} onChange={(e) => setSearchUser(e.target.value)} placeholder="search for user ..." />
-                                {
-                                    users.map(user => {
-                                        return (
-                                            <div key={user.id}>
-                                                <div>{user.email}</div>
-                                            </div>
-                                        )
-                                    })
-                                }
+                                <div className="search-users-list">
+                                    {
+                                        users.map(user => {
+                                            return (
+                                                <div className="search-user" key={user.id} onClick={() => setSearchUser(user.email)}>
+                                                    <div>{user.email}</div>
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
                         </Modal>
                     </div>

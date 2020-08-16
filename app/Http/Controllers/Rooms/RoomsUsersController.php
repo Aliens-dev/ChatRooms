@@ -28,12 +28,12 @@ class RoomsUsersController extends ApiController
      *
      * @param Request $request
      * @param Room $room
-     * @param $email
+     * @param User $user
      * @return JsonResponse
      */
     public function store(Request $request,Room $room,User $user)
     {
-        if($room->members->contains($user)) {
+        if($room->members->contains($user) || $room->user_id == $user->id) {
             return $this->ErrorResponse(401);
         }
 

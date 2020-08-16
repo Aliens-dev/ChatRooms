@@ -71032,28 +71032,34 @@ var SingleRoom = function SingleRoom(props) {
 
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState4 = _slicedToArray(_useState3, 2),
-      users = _useState4[0],
-      setUsers = _useState4[1];
+      members = _useState4[0],
+      setMembers = _useState4[1]; // Search for users ...
+
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState6 = _slicedToArray(_useState5, 2),
-      members = _useState6[0],
-      setMembers = _useState6[1];
+      users = _useState6[0],
+      setUsers = _useState6[1];
 
   var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState8 = _slicedToArray(_useState7, 2),
       searchUser = _useState8[0],
       setSearchUser = _useState8[1];
 
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState10 = _slicedToArray(_useState9, 2),
+      selectSearchUser = _useState10[0],
+      setSelectSearchUser = _useState10[1];
+
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_2__["AppContext"]),
       auth = _useContext.auth,
       globalState = _useContext.globalState,
       dispatchGlobalState = _useContext.dispatchGlobalState;
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
-      _useState10 = _slicedToArray(_useState9, 2),
-      loading = _useState10[0],
-      setLoading = _useState10[1];
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState12 = _slicedToArray(_useState11, 2),
+      loading = _useState12[0],
+      setLoading = _useState12[1];
 
   var singleRoom = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   var breadRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null); // On Component Mount :
@@ -71095,21 +71101,42 @@ var SingleRoom = function SingleRoom(props) {
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    axios__WEBPACK_IMPORTED_MODULE_1___default()({
-      url: '/users',
-      method: 'GET',
-      headers: {
-        Authorization: 'bearer ' + auth.token
-      }
-    }).then(function (res) {
-      console.log(res);
-    })["catch"](function (err) {});
+    if (searchUser !== '') {
+      axios__WEBPACK_IMPORTED_MODULE_1___default()({
+        url: '/users',
+        method: 'GET',
+        params: {
+          email: searchUser
+        },
+        headers: {
+          Authorization: 'bearer ' + auth.token
+        }
+      }).then(function (res) {
+        setUsers(res.data.data);
+      })["catch"](function (err) {});
+    } else {
+      setUsers([]);
+    }
   }, [searchUser]); // add a member to the group
 
-  var addUser = function addUser() {};
+  var addUser = function addUser() {
+    var selectedUser = users.find(function (user) {
+      return user.email === searchUser;
+    });
+    axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      url: "/rooms/".concat(room.id, "/users/").concat(selectedUser.id),
+      method: 'POST',
+      headers: {
+        authorization: 'bearer ' + auth.token
+      }
+    }).then(function (res) {
+      console.log('Success');
+    })["catch"](function (err) {
+      console.log('Failed!');
+    });
+  };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    console.log(breadRef);
     dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_7__["setBreadCrumbHeightAction"])(breadRef.current.clientHeight));
     dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_7__["setPageHeightAction"])(globalState.pageContentHeight - globalState.navbarHeight));
   }, [loading]); // Get Room Height
@@ -71212,11 +71239,17 @@ var SingleRoom = function SingleRoom(props) {
       return setSearchUser(e.target.value);
     },
     placeholder: "search for user ..."
-  }), users.map(function (user) {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "search-users-list"
+  }, users.map(function (user) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      key: user.id
+      className: "search-user",
+      key: user.id,
+      onClick: function onClick() {
+        return setSearchUser(user.email);
+      }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.email));
-  })))));
+  }))))));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (SingleRoom);

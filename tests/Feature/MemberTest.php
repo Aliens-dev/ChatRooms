@@ -52,5 +52,19 @@ class MemberTest extends TestCase
         $this->assertDatabaseCount('room_user',1);
     }
 
+    /** @test */
 
+    public function  an_owner_cannot_add_him_self_as_a_member()
+    {
+        $this->withoutExceptionHandling();
+        $user = $this->signIn();
+        $room = factory(Room::class)->create(['user_id' => $user->id]);
+
+
+        $this->json('POST', "/rooms/{$room->id}/users/{$user->id}")
+            ->assertStatus(401);
+
+        $this->assertDatabaseMissing('room_user', ['user_id' => $user->id]);
+
+    }
 }

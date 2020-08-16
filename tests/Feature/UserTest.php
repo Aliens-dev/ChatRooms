@@ -29,16 +29,16 @@ class UserTest extends TestCase
     public function a_user_can_search_via_email()
     {
         $this->withoutExceptionHandling();
-
         $user = $this->signIn();
         factory(User::class)->create(['email' => 'johndoe@gmail.com']);
         factory(User::class)->create(['email' => 'johdoe@gmail.com']);
-        factory(User::class)->create(['email' => 'jodoe@gmail.com']);
-        factory(User::class)->create(['email' => 'jodoe@gmail.com']);
+        factory(User::class)->create(['email' => 'joeoe@gmail.com']);
+        factory(User::class)->create(['email' => 'joe@gmail.com']);
         $res = $this->json('GET', '/users', [
-            'query' => 'j'
+            'email' => 'joh'
         ])->assertStatus(200);
         $emails = array_column($res['data'], 'email');
         $this->assertContains('johndoe@gmail.com', $emails);
+        $this->assertContains('johdoe@gmail.com', $emails);
     }
 }

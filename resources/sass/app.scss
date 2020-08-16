@@ -324,6 +324,7 @@ $main-blue : #455CC7;
     .add-user {
         display:flex;
         justify-content: center;
+        flex-direction: column;
         padding:10px 0;
         flex:1;
         input {
@@ -334,6 +335,20 @@ $main-blue : #455CC7;
             &:focus {
                outline:none;
                 border: 1px solid #CCC;
+            }
+        }
+        .search-users-list {
+            display:flex;
+            flex-direction: column;
+            padding:5px 0;
+            .search-user {
+                padding:5px 5px;
+                border: 1px solid #EEE;
+                border-radius: 3px;
+                &:hover {
+                    cursor: pointer;
+                    background-color:#FEFEFE;
+                }
             }
         }
     }
@@ -508,6 +523,8 @@ $main-blue : #455CC7;
             display:flex;
             padding:5px 10px;
             border-bottom:1px solid #EEE;
+            max-height: 500px;
+            overflow: auto;
         }
         .foot {
             height:40px;

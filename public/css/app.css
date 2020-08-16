@@ -11284,6 +11284,7 @@ a.text-dark:focus {
 .room-section .add-user {
   display: flex;
   justify-content: center;
+  flex-direction: column;
   padding: 10px 0;
   flex: 1;
 }
@@ -11298,6 +11299,23 @@ a.text-dark:focus {
 .room-section .add-user input:focus {
   outline: none;
   border: 1px solid #CCC;
+}
+
+.room-section .add-user .search-users-list {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 0;
+}
+
+.room-section .add-user .search-users-list .search-user {
+  padding: 5px 5px;
+  border: 1px solid #EEE;
+  border-radius: 3px;
+}
+
+.room-section .add-user .search-users-list .search-user:hover {
+  cursor: pointer;
+  background-color: #FEFEFE;
 }
 
 .user-image {
@@ -11531,6 +11549,8 @@ a.text-dark:focus {
   display: flex;
   padding: 5px 10px;
   border-bottom: 1px solid #EEE;
+  max-height: 500px;
+  overflow: auto;
 }
 
 .my-modal .modal-content .foot {

@@ -13,11 +13,16 @@ class UsersController extends ApiController
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        if($request->email) {
+            $users = User::where('email', 'like', "%". $request->email ."%")->get();
+        }else {
+            $users = User::all();
+        }
         return $this->showAll($users);
     }
 
