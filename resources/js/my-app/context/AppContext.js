@@ -1,10 +1,11 @@
 import React, { createContext,useReducer ,useState } from 'react';
+
+
 import AuthReducer from "./reducers/AuthReducer";
 import {UserLogoutAction} from "./actions/AuthActions";
 import axios from 'axios';
 import {Redirect} from "react-router-dom";
 import {GlobalReducer} from "./reducers/GlobalReducer";
-
 
 export const AppContext = createContext();
 
@@ -16,6 +17,7 @@ const GlobalState = {
 };
 
 export const AppProvider = (props) => {
+
     const [auth,dispatchAuth] = useReducer(AuthReducer, AuthState);
     const [globalState,dispatchGlobalState] = useReducer(GlobalReducer,GlobalState);
 

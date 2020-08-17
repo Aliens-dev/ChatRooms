@@ -11,7 +11,7 @@ class RoomPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can update the model.
+     * Determine whether the user can view the model.
      *
      * @param  User  $user
      * @param  Room  $room

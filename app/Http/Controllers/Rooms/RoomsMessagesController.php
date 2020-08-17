@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Rooms;
 
+use App\Events\UserSendMessageEvent;
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\Controller;
 use App\Message;
@@ -25,7 +26,7 @@ class RoomsMessagesController extends ApiController
         if($inspect->denied()) {
             return $this->ErrorResponse();
         }
-        $messages = $room->messages()->get();
+        $messages = $room->messages()->orderBy('id')->get();
         return $this->showAll($messages);
     }
 
@@ -59,7 +60,9 @@ class RoomsMessagesController extends ApiController
         $message->message = $request->message;
         $message->save();
 
-        return $this->SuccessResponse();
+        broadcast(new UserSendMessageEvent($message));
+
+        return $this->showOne($message);
     }
 
     /**

@@ -11211,16 +11211,14 @@ a.text-dark:focus {
 
 .room-section .room-messages .room-message-container {
   padding: 10px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
+  display: block;
+  height: 100%;
   border-bottom: 1px solid #EEE;
   position: relative;
   overflow: auto;
 }
 
 .room-section .room-messages .room-message-container .room-message-box {
-  margin: 5px 0;
   padding: 3px 0;
   position: relative;
 }
