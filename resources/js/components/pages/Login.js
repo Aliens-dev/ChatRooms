@@ -2,6 +2,7 @@ import React, {useContext, useState , useEffect} from 'react';
 import Navbar from "../components/Navbar";
 import axios from 'axios';
 import {AppContext} from "../context/AppContext"
+import Loading from "../components/Loading";
 const Login = (props) => {
 
     const [email,setEmail] = useState('');
@@ -50,7 +51,7 @@ const Login = (props) => {
     }
     if(!check) {
         return (
-            <div>Loading ...</div>
+            <Loading />
         )
     }else {
         return (

@@ -13,10 +13,15 @@ class Room extends Model
 
     public function owner()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id' , 'id');
     }
 
     public function members() {
         return $this->belongsToMany(User::class,'room_user');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class,'room_id');
     }
 }

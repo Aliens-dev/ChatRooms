@@ -2,6 +2,7 @@ import React, {useContext, useState, useEffect} from 'react';
 import Navbar from "../components/Navbar";
 import { AppContext} from "../context/AppContext";
 import {UserLoginAction, UserLogoutAction} from "../context/actions/AuthActions";
+import Loading from "../components/Loading";
 
 const Register = (props) => {
     const [check,setCheck] = useState(false);
@@ -33,7 +34,7 @@ const Register = (props) => {
         }
     },[]);
     if(!check) {
-        return <div>Loading ...</div>
+        return <Loading />
     }else {
         return (
             <div>

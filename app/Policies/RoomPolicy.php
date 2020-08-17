@@ -17,6 +17,18 @@ class RoomPolicy
      * @param  Room  $room
      * @return mixed
      */
+    public function view(User $user,Room $room)
+    {
+        return $user->id == $room->user_id || $room->members->contains($user);
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     *
+     * @param  User  $user
+     * @param  Room  $room
+     * @return mixed
+     */
     public function update(User $user, Room $room)
     {
         return $user->id === (int) $room->user_id;

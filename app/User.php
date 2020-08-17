@@ -50,6 +50,23 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsToMany(Room::class,'room_user');
     }
 
+
+    public function inviteMember(User $user,Room $room)
+    {
+        return $room->members()->attach($user);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class,'sender_id');
+    }
+
+
+    public function addRoom($name, $type=1)
+    {
+        return $this->rooms()->create(compact(['name','type']));
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

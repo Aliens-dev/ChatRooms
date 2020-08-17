@@ -111,6 +111,6 @@ class RoomTest extends TestCase
             ->assertStatus(401);
 
         $this->assertDatabaseHas('rooms', ['id' => $room->id, 'name' => $room->name]);
-
     }
+
 }

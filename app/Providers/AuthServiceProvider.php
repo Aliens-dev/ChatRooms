@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Message;
+use App\Policies\MessagePolicy;
+use App\Policies\RoomPolicy;
+use App\Room;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Passport\Passport;
@@ -14,7 +18,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Message::class => MessagePolicy::class,
+        Room::class => RoomPolicy::class,
     ];
 
     /**
@@ -26,14 +31,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Passport::routes();
-
-        Passport::personalAccessClientId(
-            config('passport.personal_access_client.id')
-        );
-
-        Passport::personalAccessClientSecret(
-            config('passport.personal_access_client.secret')
-        );
     }
 }

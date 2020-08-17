@@ -67,4 +67,5 @@ class MemberTest extends TestCase
         $this->assertDatabaseMissing('room_user', ['user_id' => $user->id]);
 
     }
+
 }
