@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useRef, useState,useEffect} from 'react';
 import axios from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
@@ -27,6 +27,12 @@ const SingleRoom = props => {
     const [searchUser,setSearchUser] = useState('');
     const [selectSearchUser,setSelectSearchUser] = useState(false);
 
+    // Active Users
+
+    const [activeUsers,setActiveUsers] = useState([]);
+    const [joinedUser,setJoinedUser] = useState([]);
+    const [leavingUser,setLeavingUser] = useState([]);
+
     // messages
 
     const [message,setMessage] = useState('');
@@ -36,6 +42,17 @@ const SingleRoom = props => {
     const [loading,setLoading] = useState(true);
     const singleRoom = useRef(null);
     const breadRef = useRef(null);
+
+
+    useEffect(()=> {
+        setActiveUsers([...activeUsers, joinedUser]);
+    },[joinedUser]);
+
+    useEffect(()=> {
+        let filter = activeUsers.filter(user => user.id !== leavingUser.id)
+        setActiveUsers(filter);
+    },[leavingUser]);
+
 
     // On Component Mount :
 
@@ -55,7 +72,16 @@ const SingleRoom = props => {
                 },
             },
         });
-        echo.private('room.'+ props.match.params.id)
+        echo.join('room.'+ props.match.params.id)
+            .here(users => {
+                setActiveUsers(users);
+            })
+            .joining(user => {
+                setJoinedUser(user);
+            })
+            .leaving(user => {
+                setLeavingUser(user)
+            })
             .listen('UserSendMessageEvent', (e) => {
                 setSocketMessage(e.data);
             })
@@ -254,6 +280,10 @@ const SingleRoom = props => {
                                                 <div className="username">
                                                     {member.name}
                                                 </div>
+                                                {
+                                                    console.log(activeUsers)
+                                                }
+                                                <div className={`${activeUsers.some(user => user.id === member.id) && 'active-user'}`} />
                                             </div>
                                         </div>
                                     )

@@ -76299,6 +76299,11 @@ var Sidebar = function Sidebar() {
     className: "fa fa-users"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Joined-in Rooms")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     className: "sidebar-item",
+    to: "".concat(_urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__["APP_URL"], "/profile")
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-user"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Profile")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+    className: "sidebar-item",
     to: "#",
     onClick: _Logout
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -77103,6 +77108,58 @@ var JoinedRooms = function JoinedRooms() {
 
 /***/ }),
 
+/***/ "./resources/js/my-app/pages/app/MyProfile.js":
+/*!****************************************************!*\
+  !*** ./resources/js/my-app/pages/app/MyProfile.js ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_BreadCrumb__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/BreadCrumb */ "./resources/js/my-app/components/BreadCrumb.js");
+/* harmony import */ var _components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/BreadCrumbItem */ "./resources/js/my-app/components/BreadCrumbItem.js");
+/* harmony import */ var _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../urls/AppBaseUrl */ "./resources/js/my-app/urls/AppBaseUrl.js");
+/* harmony import */ var _components_Loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/Loading */ "./resources/js/my-app/components/Loading.js");
+/* harmony import */ var _context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../context/actions/GlobalActions */ "./resources/js/my-app/context/actions/GlobalActions.js");
+/* harmony import */ var _components_Nav__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/Nav */ "./resources/js/my-app/components/Nav.js");
+/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/Modal */ "./resources/js/my-app/components/Modal.js");
+
+
+
+
+
+
+
+
+
+var MyProfile = function MyProfile(props) {
+  //const [loading,setLoading] = useState(true);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "home-page"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumb__WEBPACK_IMPORTED_MODULE_1__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    url: _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__["APP_URL"]
+  }, "Dashboard"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    active: true
+  }, "Profile"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "container-fluid"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "ml-3"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    className: "btn btn-primary"
+  }, "Edit Profile"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "row my-profile"
+  }, "My Profile")));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MyProfile);
+
+/***/ }),
+
 /***/ "./resources/js/my-app/pages/app/NotFound.js":
 /*!***************************************************!*\
   !*** ./resources/js/my-app/pages/app/NotFound.js ***!
@@ -77547,36 +77604,61 @@ var SingleRoom = function SingleRoom(props) {
   var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState10 = _slicedToArray(_useState9, 2),
       selectSearchUser = _useState10[0],
-      setSelectSearchUser = _useState10[1]; // messages
+      setSelectSearchUser = _useState10[1]; // Active Users
 
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState12 = _slicedToArray(_useState11, 2),
-      message = _useState12[0],
-      setMessage = _useState12[1];
+      activeUsers = _useState12[0],
+      setActiveUsers = _useState12[1];
 
   var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      messages = _useState14[0],
-      setMessages = _useState14[1];
+      joinedUser = _useState14[0],
+      setJoinedUser = _useState14[1];
 
-  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState16 = _slicedToArray(_useState15, 2),
-      socketMessage = _useState16[0],
-      setSocketMessage = _useState16[1];
+      leavingUser = _useState16[0],
+      setLeavingUser = _useState16[1]; // messages
+
+
+  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState18 = _slicedToArray(_useState17, 2),
+      message = _useState18[0],
+      setMessage = _useState18[1];
+
+  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState20 = _slicedToArray(_useState19, 2),
+      messages = _useState20[0],
+      setMessages = _useState20[1];
+
+  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState22 = _slicedToArray(_useState21, 2),
+      socketMessage = _useState22[0],
+      setSocketMessage = _useState22[1];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_4__["AppContext"]),
       auth = _useContext.auth,
       globalState = _useContext.globalState,
       dispatchGlobalState = _useContext.dispatchGlobalState;
 
-  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
-      _useState18 = _slicedToArray(_useState17, 2),
-      loading = _useState18[0],
-      setLoading = _useState18[1];
+  var _useState23 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState24 = _slicedToArray(_useState23, 2),
+      loading = _useState24[0],
+      setLoading = _useState24[1];
 
   var singleRoom = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
-  var breadRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null); // On Component Mount :
+  var breadRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    setActiveUsers([].concat(_toConsumableArray(activeUsers), [joinedUser]));
+  }, [joinedUser]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    var filter = activeUsers.filter(function (user) {
+      return user.id !== leavingUser.id;
+    });
+    setActiveUsers(filter);
+  }, [leavingUser]); // On Component Mount :
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     getRoom();
@@ -77593,7 +77675,13 @@ var SingleRoom = function SingleRoom(props) {
         }
       }
     });
-    echo["private"]('room.' + props.match.params.id).listen('UserSendMessageEvent', function (e) {
+    echo.join('room.' + props.match.params.id).here(function (users) {
+      setActiveUsers(users);
+    }).joining(function (user) {
+      setJoinedUser(user);
+    }).leaving(function (user) {
+      setLeavingUser(user);
+    }).listen('UserSendMessageEvent', function (e) {
       setSocketMessage(e.data);
     });
   }, []);
@@ -77773,7 +77861,11 @@ var SingleRoom = function SingleRoom(props) {
       className: "user-info"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "username"
-    }, member.name)));
+    }, member.name), console.log(activeUsers), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "".concat(activeUsers.some(function (user) {
+        return user.id === member.id;
+      }) && 'active-user')
+    })));
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "room-controls"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -77854,6 +77946,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _pages_app_PublicRooms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pages/app/PublicRooms */ "./resources/js/my-app/pages/app/PublicRooms.js");
 /* harmony import */ var _pages_app_JoinedRooms__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pages/app/JoinedRooms */ "./resources/js/my-app/pages/app/JoinedRooms.js");
 /* harmony import */ var _pages_app_NotFound__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../pages/app/NotFound */ "./resources/js/my-app/pages/app/NotFound.js");
+/* harmony import */ var _pages_app_MyProfile__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pages/app/MyProfile */ "./resources/js/my-app/pages/app/MyProfile.js");
+
 
 
 
@@ -77883,6 +77977,10 @@ var AppRoutes = function AppRoutes() {
     path: path + '/joined-rooms',
     exact: true,
     component: _pages_app_JoinedRooms__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: path + '/profile',
+    exact: true,
+    component: _pages_app_MyProfile__WEBPACK_IMPORTED_MODULE_8__["default"]
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: path + '/rooms/:id',
     component: _pages_app_SingleRoom__WEBPACK_IMPORTED_MODULE_3__["default"]
@@ -78049,7 +78147,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "APP_URL", function() { return APP_URL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ROOM_URL", function() { return ROOM_URL; });
 var APP_URL = '/app';
-var ROOM_URL = '/app/rooms/';
+var ROOM_URL = '/app/rooms';
 
 /***/ }),
 

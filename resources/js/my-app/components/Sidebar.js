@@ -34,6 +34,12 @@ const Sidebar = () => {
                     </div>
                     <span>Joined-in Rooms</span>
                 </Link>
+                <Link className="sidebar-item" to={`${APP_URL}/profile`} >
+                    <div>
+                        <i  className="fa fa-user"/>
+                    </div>
+                    <span>Profile</span>
+                </Link>
                 <Link className="sidebar-item" to="#" onClick={_Logout}>
                     <div>
                         <i className="fas fa-sign-out-alt" />

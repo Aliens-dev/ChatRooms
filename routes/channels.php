@@ -16,5 +16,7 @@ use Illuminate\Support\Facades\Gate;
 */
 
 Broadcast::channel('room.{id}', function ($user, $id) {
-    return Gate::inspect('view', Room::find($id));
+    if(Gate::inspect('view', Room::find($id))) {
+        return ['id' => $user->id];
+    }
 });

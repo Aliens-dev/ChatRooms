@@ -11148,9 +11148,23 @@ a.text-dark:focus {
   align-items: center;
 }
 
+.room-section .room-users .room-users-list .room-user .user-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+}
+
 .room-section .room-users .room-users-list .room-user .user-info .username {
   font-size: 15px;
   font-weight: 600;
+}
+
+.room-section .room-users .room-users-list .room-user .user-info .active-user {
+  width: 8px;
+  height: 8px;
+  background-color: #1d68a7;
+  border-radius: 50%;
 }
 
 .room-section .room-users .room-controls {

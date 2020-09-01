@@ -208,9 +208,19 @@ $main-blue : #455CC7;
                 display:flex;
                 align-items: center;
                 .user-info {
+                    display:flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    flex:1;
                     .username {
                         font-size:15px;
                         font-weight: 600;
+                    }
+                    .active-user {
+                        width:8px;
+                        height:8px;
+                        background-color: #1d68a7;
+                        border-radius: 50%;
                     }
                 }
             }

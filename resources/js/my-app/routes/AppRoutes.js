@@ -6,6 +6,7 @@ import Dashboard from "../pages/app/Dashboard";
 import PublicRooms from "../pages/app/PublicRooms";
 import JoinedRooms from "../pages/app/JoinedRooms";
 import NotFound from "../pages/app/NotFound";
+import MyProfile from "../pages/app/MyProfile";
 
 const AppRoutes = () => {
     const { path } = useRouteMatch();
@@ -15,6 +16,7 @@ const AppRoutes = () => {
             <Route path={path+'/rooms'} exact component={Rooms} />
             <Route path={path+'/public-rooms'} exact component={PublicRooms} />
             <Route path={path+'/joined-rooms'} exact component={JoinedRooms} />
+            <Route path={path+'/profile'} exact component={MyProfile} />
             <Route path={path+'/rooms/:id'} component={SingleRoom} />
             <Route path="*" component={NotFound}/>
         </Switch>
