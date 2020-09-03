@@ -77546,6 +77546,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Loading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/Loading */ "./resources/js/my-app/components/Loading.js");
 /* harmony import */ var _components_UserIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/UserIcon */ "./resources/js/my-app/components/UserIcon.js");
 /* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../components/Modal */ "./resources/js/my-app/components/Modal.js");
+var _this = undefined;
+
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -77588,65 +77590,80 @@ var SingleRoom = function SingleRoom(props) {
   var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState4 = _slicedToArray(_useState3, 2),
       members = _useState4[0],
-      setMembers = _useState4[1]; // Search for users ...
+      setMembers = _useState4[1];
 
-
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState6 = _slicedToArray(_useState5, 2),
-      users = _useState6[0],
-      setUsers = _useState6[1];
+      myEcho = _useState6[0],
+      setMyEcho = _useState6[1]; // Search for users ...
 
-  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      searchUser = _useState8[0],
-      setSearchUser = _useState8[1];
+      users = _useState8[0],
+      setUsers = _useState8[1];
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState10 = _slicedToArray(_useState9, 2),
-      selectSearchUser = _useState10[0],
-      setSelectSearchUser = _useState10[1]; // Active Users
+      searchUser = _useState10[0],
+      setSearchUser = _useState10[1];
 
-
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState12 = _slicedToArray(_useState11, 2),
-      activeUsers = _useState12[0],
-      setActiveUsers = _useState12[1];
+      selectSearchUser = _useState12[0],
+      setSelectSearchUser = _useState12[1]; // Active Users
+
 
   var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      joinedUser = _useState14[0],
-      setJoinedUser = _useState14[1];
+      activeUsers = _useState14[0],
+      setActiveUsers = _useState14[1];
 
   var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState16 = _slicedToArray(_useState15, 2),
-      leavingUser = _useState16[0],
-      setLeavingUser = _useState16[1]; // messages
+      joinedUser = _useState16[0],
+      setJoinedUser = _useState16[1];
 
-
-  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState18 = _slicedToArray(_useState17, 2),
-      message = _useState18[0],
-      setMessage = _useState18[1];
+      leavingUser = _useState18[0],
+      setLeavingUser = _useState18[1]; // messages
 
-  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+
+  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState20 = _slicedToArray(_useState19, 2),
-      messages = _useState20[0],
-      setMessages = _useState20[1];
+      message = _useState20[0],
+      setMessage = _useState20[1];
 
-  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState22 = _slicedToArray(_useState21, 2),
-      socketMessage = _useState22[0],
-      setSocketMessage = _useState22[1];
+      messages = _useState22[0],
+      setMessages = _useState22[1];
+
+  var _useState23 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState24 = _slicedToArray(_useState23, 2),
+      userWriting = _useState24[0],
+      setUserWriting = _useState24[1];
+
+  var _useState25 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState26 = _slicedToArray(_useState25, 2),
+      isTyping = _useState26[0],
+      setIsTyping = _useState26[1];
+
+  var _useState27 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState28 = _slicedToArray(_useState27, 2),
+      socketMessage = _useState28[0],
+      setSocketMessage = _useState28[1];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_4__["AppContext"]),
       auth = _useContext.auth,
       globalState = _useContext.globalState,
       dispatchGlobalState = _useContext.dispatchGlobalState;
 
-  var _useState23 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
-      _useState24 = _slicedToArray(_useState23, 2),
-      loading = _useState24[0],
-      setLoading = _useState24[1];
+  var _useState29 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState30 = _slicedToArray(_useState29, 2),
+      loading = _useState30[0],
+      setLoading = _useState30[1];
 
   var singleRoom = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   var breadRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
@@ -77658,7 +77675,27 @@ var SingleRoom = function SingleRoom(props) {
       return user.id !== leavingUser.id;
     });
     setActiveUsers(filter);
-  }, [leavingUser]); // On Component Mount :
+  }, [leavingUser]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    console.log(userWriting); //setIsTyping(true);
+  }, [userWriting]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (isTyping) {
+      setTimeout(function () {
+        setUserWriting('');
+        clearTimeout(_this);
+        setIsTyping(false);
+      }, 3000);
+    }
+  }, [isTyping]);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setBreadCrumbHeightAction"])(breadRef.current.clientHeight));
+    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setPageHeightAction"])(globalState.pageContentHeight - globalState.navbarHeight));
+  }, [loading]); // Get Room Height
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setRoomHeightAction"])(globalState.pageHeight - globalState.breadcrumbHeight));
+  }, [globalState.breadcrumbHeight, globalState.pageHeight]); // On Component Mount :
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     getRoom();
@@ -77675,16 +77712,32 @@ var SingleRoom = function SingleRoom(props) {
         }
       }
     });
-    echo.join('room.' + props.match.params.id).here(function (users) {
-      setActiveUsers(users);
-    }).joining(function (user) {
-      setJoinedUser(user);
-    }).leaving(function (user) {
-      setLeavingUser(user);
-    }).listen('UserSendMessageEvent', function (e) {
-      setSocketMessage(e.data);
-    });
+    setMyEcho(echo);
   }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (myEcho) {
+      myEcho.join('room.' + props.match.params.id).listen('UserSendMessageEvent', function (e) {
+        setSocketMessage(e.data);
+      }).here(function (users) {
+        setActiveUsers(users);
+      }).joining(function (user) {
+        setJoinedUser(user);
+      }).leaving(function (user) {
+        setLeavingUser(user);
+      }).listenForWhisper('typing', function (e) {
+        setIsTyping(true);
+        setUserWriting(e.name + ' is Typing ...');
+      });
+    }
+  }, [myEcho]);
+
+  var userTyping = function userTyping(e) {
+    setMessage(e.target.value);
+    myEcho.join('room.' + props.match.params.id).whisper('typing', {
+      name: auth.user.name
+    });
+  };
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (socketMessage) {
       setMessages([].concat(_toConsumableArray(messages), [socketMessage]));
@@ -77815,14 +77868,6 @@ var SingleRoom = function SingleRoom(props) {
     });
   };
 
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setBreadCrumbHeightAction"])(breadRef.current.clientHeight));
-    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setPageHeightAction"])(globalState.pageContentHeight - globalState.navbarHeight));
-  }, [loading]); // Get Room Height
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setRoomHeightAction"])(globalState.pageHeight - globalState.breadcrumbHeight));
-  }, [globalState.breadcrumbHeight, globalState.pageHeight]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "single-room",
     ref: singleRoom,
@@ -77861,7 +77906,7 @@ var SingleRoom = function SingleRoom(props) {
       className: "user-info"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "username"
-    }, member.name), console.log(activeUsers), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, member.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "".concat(activeUsers.some(function (user) {
         return user.id === member.id;
       }) && 'active-user')
@@ -77886,14 +77931,12 @@ var SingleRoom = function SingleRoom(props) {
     className: "room-name"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, room.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, members.length && members[0].name + ' and ' + members.length + ' members'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "room-message-container"
-  }, renderMessages()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+  }, renderMessages(), userWriting), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: "room-message-input",
     onSubmit: sendMessage
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
     value: message,
-    onChange: function onChange(e) {
-      return setMessage(e.target.value);
-    },
+    onChange: userTyping,
     placeholder: "Write a message ..."
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "send",

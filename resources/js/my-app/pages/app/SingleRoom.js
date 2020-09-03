@@ -2,7 +2,6 @@ import React, {useContext, useRef, useState,useEffect} from 'react';
 import axios from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-
 import {AppContext} from "../../context/AppContext";
 import BreadCrumb from "../../components/BreadCrumb";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
@@ -22,6 +21,8 @@ const SingleRoom = props => {
     const [room, setRoom] = useState({});
     const [members,setMembers] = useState([]);
 
+    const [myEcho,setMyEcho] = useState(null)
+
     // Search for users ...
     const [users,setUsers] = useState([]);
     const [searchUser,setSearchUser] = useState('');
@@ -34,9 +35,10 @@ const SingleRoom = props => {
     const [leavingUser,setLeavingUser] = useState([]);
 
     // messages
-
     const [message,setMessage] = useState('');
     const [messages,setMessages] = useState([]);
+    const [userWriting,setUserWriting] = useState('');
+    const [isTyping,setIsTyping] = useState(false);
     const [socketMessage,setSocketMessage] = useState(null);
     const {auth,globalState,dispatchGlobalState} = useContext(AppContext);
     const [loading,setLoading] = useState(true);
@@ -53,6 +55,31 @@ const SingleRoom = props => {
         setActiveUsers(filter);
     },[leavingUser]);
 
+    useEffect(() => {
+        console.log(userWriting);
+        //setIsTyping(true);
+    },[userWriting])
+
+    useEffect(() => {
+        if(isTyping) {
+            setTimeout(() => {
+                setUserWriting('')
+                clearTimeout(this)
+                setIsTyping(false)
+            },3000)
+        }
+    },[isTyping])
+
+
+    useEffect(() => {
+        dispatchGlobalState(setBreadCrumbHeightAction(breadRef.current.clientHeight))
+        dispatchGlobalState(setPageHeightAction(globalState.pageContentHeight - globalState.navbarHeight))
+    }, [loading]);
+
+    // Get Room Height
+    useEffect(() => {
+        dispatchGlobalState(setRoomHeightAction(globalState.pageHeight - globalState.breadcrumbHeight))
+    },[globalState.breadcrumbHeight,globalState.pageHeight]);
 
     // On Component Mount :
 
@@ -72,20 +99,40 @@ const SingleRoom = props => {
                 },
             },
         });
-        echo.join('room.'+ props.match.params.id)
-            .here(users => {
-                setActiveUsers(users);
-            })
-            .joining(user => {
-                setJoinedUser(user);
-            })
-            .leaving(user => {
-                setLeavingUser(user)
-            })
-            .listen('UserSendMessageEvent', (e) => {
-                setSocketMessage(e.data);
-            })
+        setMyEcho(echo)
     }, []);
+
+    useEffect(() => {
+        if(myEcho) {
+            myEcho
+                .join('room.'+ props.match.params.id)
+                .listen('UserSendMessageEvent', (e) => {
+                    setSocketMessage(e.data);
+                })
+                .here(users => {
+                    setActiveUsers(users);
+                })
+                .joining(user => {
+                    setJoinedUser(user);
+                })
+                .leaving(user => {
+                    setLeavingUser(user)
+                })
+                .listenForWhisper('typing', (e) => {
+                    setIsTyping(true);
+                    setUserWriting(e.name  + ' is Typing ...')
+                });
+        }
+    }, [myEcho])
+
+    const userTyping = (e) => {
+        setMessage(e.target.value)
+        myEcho
+            .join('room.'+ props.match.params.id)
+            .whisper('typing', {
+                name: auth.user.name
+            });
+    }
 
     useEffect(() => {
         if(socketMessage) {
@@ -235,17 +282,6 @@ const SingleRoom = props => {
         });
     }
 
-    useEffect(() => {
-        dispatchGlobalState(setBreadCrumbHeightAction(breadRef.current.clientHeight))
-        dispatchGlobalState(setPageHeightAction(globalState.pageContentHeight - globalState.navbarHeight))
-    }, [loading]);
-
-    // Get Room Height
-    useEffect(() => {
-        dispatchGlobalState(setRoomHeightAction(globalState.pageHeight - globalState.breadcrumbHeight))
-    },[globalState.breadcrumbHeight,globalState.pageHeight]);
-
-
     return (
         <div className="single-room" ref={singleRoom} style={{height: globalState.pageHeight + 'px'}}>
             <div ref={breadRef}>
@@ -280,9 +316,6 @@ const SingleRoom = props => {
                                                 <div className="username">
                                                     {member.name}
                                                 </div>
-                                                {
-                                                    console.log(activeUsers)
-                                                }
                                                 <div className={`${activeUsers.some(user => user.id === member.id) && 'active-user'}`} />
                                             </div>
                                         </div>
@@ -318,11 +351,14 @@ const SingleRoom = props => {
                             {
                                 renderMessages()
                             }
+                            {
+                                userWriting
+                            }
                         </div>
                         <form className="room-message-input" onSubmit={sendMessage}>
                             <input
                                 value={message}
-                                onChange={e => setMessage(e.target.value)}
+                                onChange={userTyping}
                                 placeholder="Write a message ..."
                             />
                             <div className="send" onClick={sendMessage}>
