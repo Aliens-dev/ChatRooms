@@ -75990,14 +75990,12 @@ var BreadCrumb = function BreadCrumb(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Nav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Nav */ "./resources/js/my-app/components/Nav.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 
 
 
 var BreadCrumbItem = function BreadCrumbItem(props) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     to: props.url || '#',
     className: "my-breadcrumb-item ".concat(props.active ? 'active' : '')
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -76180,8 +76178,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../context/AppContext */ "./resources/js/my-app/context/AppContext.js");
 /* harmony import */ var _Nav__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Nav */ "./resources/js/my-app/components/Nav.js");
 /* harmony import */ var _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../urls/AppBaseUrl */ "./resources/js/my-app/urls/AppBaseUrl.js");
-/* harmony import */ var _context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../context/actions/GlobalActions */ "./resources/js/my-app/context/actions/GlobalActions.js");
-
 
 
 
@@ -76191,13 +76187,7 @@ __webpack_require__.r(__webpack_exports__);
 var Navbar = function Navbar(props) {
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_1__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_2__["AppContext"]),
       auth = _useContext.auth,
-      _Logout = _useContext._Logout,
-      dispatchGlobalState = _useContext.dispatchGlobalState;
-
-  var navbarRef = Object(react__WEBPACK_IMPORTED_MODULE_1__["useRef"])(null);
-  Object(react__WEBPACK_IMPORTED_MODULE_1__["useEffect"])(function () {
-    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_5__["setNavbarHeightAction"])(navbarRef.current.clientHeight));
-  }, []);
+      _Logout = _useContext._Logout;
 
   var render = function render() {
     if (auth.token) {
@@ -76235,8 +76225,7 @@ var Navbar = function Navbar(props) {
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("nav", {
-    className: "navbar",
-    ref: navbarRef
+    className: "navbar"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
     className: "".concat(props.container ? 'container' : 'container-fluid')
   }, render()));
@@ -76257,18 +76246,16 @@ var Navbar = function Navbar(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Nav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Nav */ "./resources/js/my-app/components/Nav.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../urls/AppBaseUrl */ "./resources/js/my-app/urls/AppBaseUrl.js");
-/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../context/AppContext */ "./resources/js/my-app/context/AppContext.js");
-
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../urls/AppBaseUrl */ "./resources/js/my-app/urls/AppBaseUrl.js");
+/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../context/AppContext */ "./resources/js/my-app/context/AppContext.js");
 
 
 
 
 
 var Sidebar = function Sidebar() {
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_4__["AppContext"]),
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_3__["AppContext"]),
       _Logout = _useContext._Logout;
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -76277,32 +76264,32 @@ var Sidebar = function Sidebar() {
     className: "sidebar-header"
   }, "CR-AliensDev"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "sidebar-menu"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "sidebar-item",
-    to: _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__["APP_URL"]
+    to: _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_2__["APP_URL"]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fas fa-tachometer-alt"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Dashboard")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "sidebar-item",
-    to: _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__["ROOM_URL"]
+    to: _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_2__["ROOM_URL"]
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "far fa-comments"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "My rooms")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "My rooms")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "sidebar-item",
-    to: "".concat(_urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__["APP_URL"], "/public-rooms")
+    to: "".concat(_urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_2__["APP_URL"], "/public-rooms")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-globe-americas"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Public rooms")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Public rooms")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "sidebar-item",
-    to: "".concat(_urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__["APP_URL"], "/joined-rooms")
+    to: "".concat(_urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_2__["APP_URL"], "/joined-rooms")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-users"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Joined-in Rooms")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Joined-in Rooms")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "sidebar-item",
-    to: "".concat(_urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__["APP_URL"], "/profile")
+    to: "".concat(_urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_2__["APP_URL"], "/profile")
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-user"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Profile")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, "Profile")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
     className: "sidebar-item",
     to: "#",
     onClick: _Logout
@@ -76393,11 +76380,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var AppContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createContext"])();
 var AuthState = JSON.parse(localStorage.getItem('chatApp')) || {};
 var GlobalState = {
-  navbarHeight: 0,
-  breadcrumbHeight: 0,
-  roomHeight: 0,
-  pageHeight: 0,
-  pageContentHeight: 0,
   visibleModal: false
 };
 var AppProvider = function AppProvider(props) {
@@ -76476,62 +76458,17 @@ var UserLogoutAction = function UserLogoutAction() {
 /*!**************************************************************!*\
   !*** ./resources/js/my-app/context/actions/GlobalActions.js ***!
   \**************************************************************/
-/*! exports provided: SET_NAVBAR_HEIGHT, SET_BREADCRUMB_HEIGHT, SET_ROOM_HEIGHT, SET_PAGE_HEIGHT, SET_PAGE_CONTENT_HEIGHT, SHOW_MODAL, HIDE_MODAL, setNavbarHeightAction, setBreadCrumbHeightAction, setRoomHeightAction, setPageHeightAction, setPageContentHeightAction, setModalVisibleAction, setModalHiddenAction */
+/*! exports provided: SHOW_MODAL, HIDE_MODAL, setModalVisibleAction, setModalHiddenAction */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_NAVBAR_HEIGHT", function() { return SET_NAVBAR_HEIGHT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_BREADCRUMB_HEIGHT", function() { return SET_BREADCRUMB_HEIGHT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_ROOM_HEIGHT", function() { return SET_ROOM_HEIGHT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PAGE_HEIGHT", function() { return SET_PAGE_HEIGHT; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SET_PAGE_CONTENT_HEIGHT", function() { return SET_PAGE_CONTENT_HEIGHT; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOW_MODAL", function() { return SHOW_MODAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HIDE_MODAL", function() { return HIDE_MODAL; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setNavbarHeightAction", function() { return setNavbarHeightAction; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setBreadCrumbHeightAction", function() { return setBreadCrumbHeightAction; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setRoomHeightAction", function() { return setRoomHeightAction; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setPageHeightAction", function() { return setPageHeightAction; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setPageContentHeightAction", function() { return setPageContentHeightAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setModalVisibleAction", function() { return setModalVisibleAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setModalHiddenAction", function() { return setModalHiddenAction; });
-var SET_NAVBAR_HEIGHT = 'SET_NAVBAR_HEIGHT';
-var SET_BREADCRUMB_HEIGHT = 'SET_BREADCRUMB_HEIGHT';
-var SET_ROOM_HEIGHT = 'SET_ROOM_HEIGHT';
-var SET_PAGE_HEIGHT = 'SET_PAGE_HEIGHT';
-var SET_PAGE_CONTENT_HEIGHT = 'SET_PAGE_CONTENT_HEIGHT';
 var SHOW_MODAL = 'SHOW_MODAL';
 var HIDE_MODAL = 'HIDE_MODAL';
-var setNavbarHeightAction = function setNavbarHeightAction(height) {
-  return {
-    type: SET_NAVBAR_HEIGHT,
-    payload: height
-  };
-};
-var setBreadCrumbHeightAction = function setBreadCrumbHeightAction(height) {
-  return {
-    type: SET_BREADCRUMB_HEIGHT,
-    payload: height
-  };
-};
-var setRoomHeightAction = function setRoomHeightAction(height) {
-  return {
-    type: SET_ROOM_HEIGHT,
-    payload: height
-  };
-};
-var setPageHeightAction = function setPageHeightAction(height) {
-  return {
-    type: SET_PAGE_HEIGHT,
-    payload: height
-  };
-};
-var setPageContentHeightAction = function setPageContentHeightAction(height) {
-  return {
-    type: SET_PAGE_CONTENT_HEIGHT,
-    payload: height
-  };
-};
 var setModalVisibleAction = function setModalVisibleAction() {
   return {
     type: SHOW_MODAL
@@ -76594,31 +76531,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var GlobalReducer = function GlobalReducer(state, action) {
   switch (action.type) {
-    case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["SET_NAVBAR_HEIGHT"]:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        navbarHeight: action.payload
-      });
-
-    case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["SET_BREADCRUMB_HEIGHT"]:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        breadcrumbHeight: action.payload
-      });
-
-    case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["SET_ROOM_HEIGHT"]:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        roomHeight: action.payload
-      });
-
-    case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["SET_PAGE_HEIGHT"]:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        pageHeight: action.payload
-      });
-
-    case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["SET_PAGE_CONTENT_HEIGHT"]:
-      return _objectSpread(_objectSpread({}, state), {}, {
-        pageContentHeight: action.payload
-      });
-
     case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["SHOW_MODAL"]:
       return _objectSpread(_objectSpread({}, state), {}, {
         visibleModal: true
@@ -76945,29 +76857,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/Sidebar */ "./resources/js/my-app/components/Sidebar.js");
 /* harmony import */ var _components_Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Navbar */ "./resources/js/my-app/components/Navbar.js");
 /* harmony import */ var _routes_AppRoutes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../routes/AppRoutes */ "./resources/js/my-app/routes/AppRoutes.js");
-/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../context/AppContext */ "./resources/js/my-app/context/AppContext.js");
-/* harmony import */ var _context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../context/actions/GlobalActions */ "./resources/js/my-app/context/actions/GlobalActions.js");
-
-
 
 
 
 
 
 var Index = function Index() {
-  var pageContentRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
-
-  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_4__["AppContext"]),
-      dispatchGlobalState = _useContext.dispatchGlobalState;
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_5__["setPageContentHeightAction"])(pageContentRef.current.clientHeight));
-  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app-page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Sidebar__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "page-content",
-    ref: pageContentRef
+    className: "page-content"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], null), Object(_routes_AppRoutes__WEBPACK_IMPORTED_MODULE_3__["default"])()));
 };
 
@@ -77108,6 +77007,185 @@ var JoinedRooms = function JoinedRooms() {
 
 /***/ }),
 
+/***/ "./resources/js/my-app/pages/app/MessageUsers.js":
+/*!*******************************************************!*\
+  !*** ./resources/js/my-app/pages/app/MessageUsers.js ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_UserIcon__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/UserIcon */ "./resources/js/my-app/components/UserIcon.js");
+/* harmony import */ var _context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../context/actions/GlobalActions */ "./resources/js/my-app/context/actions/GlobalActions.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../context/AppContext */ "./resources/js/my-app/context/AppContext.js");
+/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/Modal */ "./resources/js/my-app/components/Modal.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+
+var MessageUsers = function MessageUsers(props) {
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      selectSearchUser = _useState2[0],
+      setSelectSearchUser = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState4 = _slicedToArray(_useState3, 2),
+      members = _useState4[0],
+      setMembers = _useState4[1]; // Search for users ...
+
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+      _useState6 = _slicedToArray(_useState5, 2),
+      users = _useState6[0],
+      setUsers = _useState6[1];
+
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+      _useState8 = _slicedToArray(_useState7, 2),
+      searchUser = _useState8[0],
+      setSearchUser = _useState8[1];
+
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_4__["AppContext"]),
+      auth = _useContext.auth,
+      dispatchGlobalState = _useContext.dispatchGlobalState;
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    getMembers();
+  }, []);
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    if (searchUser !== '') {
+      axios__WEBPACK_IMPORTED_MODULE_3___default()({
+        url: '/users',
+        method: 'GET',
+        params: {
+          email: searchUser
+        },
+        headers: {
+          Authorization: 'bearer ' + auth.token
+        }
+      }).then(function (res) {
+        setUsers(res.data.data);
+      })["catch"](function (err) {});
+    } else {
+      setUsers([]);
+    }
+  }, [searchUser]); // Get Room users ...
+
+  var getMembers = function getMembers() {
+    axios__WEBPACK_IMPORTED_MODULE_3___default()({
+      method: "GET",
+      url: '/rooms/' + props.id + '/users',
+      headers: {
+        Authorization: 'bearer ' + auth.token
+      }
+    }).then(function (res) {
+      setMembers(res.data.data);
+    })["catch"](function (err) {
+      console.log('error');
+    });
+  }; // add a member to the group
+
+
+  var addUser = function addUser() {
+    var selectedUser = users.find(function (user) {
+      return user.email === searchUser;
+    });
+    axios__WEBPACK_IMPORTED_MODULE_3___default()({
+      url: "/rooms/".concat(props.id, "/users/").concat(selectedUser.id),
+      method: 'POST',
+      headers: {
+        authorization: 'bearer ' + auth.token
+      }
+    }).then(function (res) {
+      getMembers();
+      dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_2__["setModalHiddenAction"])());
+      setSearchUser('');
+      setUsers([]);
+    })["catch"](function (err) {
+      console.log('Failed!');
+    });
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "room-users"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "room-user-search"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    className: "search-input",
+    placeholder: "Find a user..."
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-search"
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "room-users-list"
+  }, members.map(function (member) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "room-user",
+      key: member.id
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserIcon__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "user-info"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "username"
+    }, member.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "".concat(props.activeUsers.some(function (user) {
+        return user.id === member.id;
+      }) && 'active-user')
+    })));
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "room-controls"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    onClick: function onClick() {
+      return dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_2__["setModalVisibleAction"])());
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-plus"
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Modal__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    title: "Add User",
+    onClick: addUser
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "add-user"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+    value: searchUser,
+    onChange: function onChange(e) {
+      return setSearchUser(e.target.value);
+    },
+    placeholder: "search for user ..."
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "search-users-list"
+  }, users.map(function (user) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      className: "search-user",
+      key: user.id,
+      onClick: function onClick() {
+        return setSearchUser(user.email);
+      }
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.email));
+  })))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MessageUsers);
+
+/***/ }),
+
 /***/ "./resources/js/my-app/pages/app/MyProfile.js":
 /*!****************************************************!*\
   !*** ./resources/js/my-app/pages/app/MyProfile.js ***!
@@ -77122,12 +77200,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_BreadCrumb__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/BreadCrumb */ "./resources/js/my-app/components/BreadCrumb.js");
 /* harmony import */ var _components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/BreadCrumbItem */ "./resources/js/my-app/components/BreadCrumbItem.js");
 /* harmony import */ var _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../urls/AppBaseUrl */ "./resources/js/my-app/urls/AppBaseUrl.js");
-/* harmony import */ var _components_Loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/Loading */ "./resources/js/my-app/components/Loading.js");
-/* harmony import */ var _context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../context/actions/GlobalActions */ "./resources/js/my-app/context/actions/GlobalActions.js");
-/* harmony import */ var _components_Nav__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/Nav */ "./resources/js/my-app/components/Nav.js");
-/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../components/Modal */ "./resources/js/my-app/components/Modal.js");
+/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../context/AppContext */ "./resources/js/my-app/context/AppContext.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -77137,6 +77221,25 @@ __webpack_require__.r(__webpack_exports__);
 
 var MyProfile = function MyProfile(props) {
   //const [loading,setLoading] = useState(true);
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_4__["AppContext"]),
+      auth = _useContext.auth;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+      _useState2 = _slicedToArray(_useState, 2),
+      user = _useState2[0],
+      setUser = _useState2[1];
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    axios({
+      method: "POST",
+      url: '',
+      headers: {
+        authorization: 'bearer ' + auth.token
+      }
+    }).then(function (res) {})["catch"](function (err) {
+      console.log('Error');
+    });
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "home-page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumb__WEBPACK_IMPORTED_MODULE_1__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -77544,8 +77647,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../urls/AppBaseUrl */ "./resources/js/my-app/urls/AppBaseUrl.js");
 /* harmony import */ var _context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../context/actions/GlobalActions */ "./resources/js/my-app/context/actions/GlobalActions.js");
 /* harmony import */ var _components_Loading__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../components/Loading */ "./resources/js/my-app/components/Loading.js");
-/* harmony import */ var _components_UserIcon__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/UserIcon */ "./resources/js/my-app/components/UserIcon.js");
-/* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../components/Modal */ "./resources/js/my-app/components/Modal.js");
+/* harmony import */ var _MessageUsers__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./MessageUsers */ "./resources/js/my-app/pages/app/MessageUsers.js");
 var _this = undefined;
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -77580,93 +77682,67 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-
 var SingleRoom = function SingleRoom(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({}),
       _useState2 = _slicedToArray(_useState, 2),
       room = _useState2[0],
       setRoom = _useState2[1];
 
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState4 = _slicedToArray(_useState3, 2),
-      members = _useState4[0],
-      setMembers = _useState4[1];
+      myEcho = _useState4[0],
+      setMyEcho = _useState4[1]; // Active Users
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
+
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState6 = _slicedToArray(_useState5, 2),
-      myEcho = _useState6[0],
-      setMyEcho = _useState6[1]; // Search for users ...
-
+      activeUsers = _useState6[0],
+      setActiveUsers = _useState6[1];
 
   var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState8 = _slicedToArray(_useState7, 2),
-      users = _useState8[0],
-      setUsers = _useState8[1];
+      joinedUser = _useState8[0],
+      setJoinedUser = _useState8[1];
 
-  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+  var _useState9 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState10 = _slicedToArray(_useState9, 2),
-      searchUser = _useState10[0],
-      setSearchUser = _useState10[1];
+      leavingUser = _useState10[0],
+      setLeavingUser = _useState10[1]; // messages
 
-  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+
+  var _useState11 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState12 = _slicedToArray(_useState11, 2),
-      selectSearchUser = _useState12[0],
-      setSelectSearchUser = _useState12[1]; // Active Users
-
+      message = _useState12[0],
+      setMessage = _useState12[1];
 
   var _useState13 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState14 = _slicedToArray(_useState13, 2),
-      activeUsers = _useState14[0],
-      setActiveUsers = _useState14[1];
+      messages = _useState14[0],
+      setMessages = _useState14[1];
 
-  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState15 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
       _useState16 = _slicedToArray(_useState15, 2),
-      joinedUser = _useState16[0],
-      setJoinedUser = _useState16[1];
+      userWriting = _useState16[0],
+      setUserWriting = _useState16[1];
 
-  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState17 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState18 = _slicedToArray(_useState17, 2),
-      leavingUser = _useState18[0],
-      setLeavingUser = _useState18[1]; // messages
+      isTyping = _useState18[0],
+      setIsTyping = _useState18[1];
 
-
-  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
+  var _useState19 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
       _useState20 = _slicedToArray(_useState19, 2),
-      message = _useState20[0],
-      setMessage = _useState20[1];
-
-  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
-      _useState22 = _slicedToArray(_useState21, 2),
-      messages = _useState22[0],
-      setMessages = _useState22[1];
-
-  var _useState23 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(''),
-      _useState24 = _slicedToArray(_useState23, 2),
-      userWriting = _useState24[0],
-      setUserWriting = _useState24[1];
-
-  var _useState25 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState26 = _slicedToArray(_useState25, 2),
-      isTyping = _useState26[0],
-      setIsTyping = _useState26[1];
-
-  var _useState27 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState28 = _slicedToArray(_useState27, 2),
-      socketMessage = _useState28[0],
-      setSocketMessage = _useState28[1];
+      socketMessage = _useState20[0],
+      setSocketMessage = _useState20[1];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_4__["AppContext"]),
-      auth = _useContext.auth,
-      globalState = _useContext.globalState,
-      dispatchGlobalState = _useContext.dispatchGlobalState;
+      auth = _useContext.auth;
 
-  var _useState29 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
-      _useState30 = _slicedToArray(_useState29, 2),
-      loading = _useState30[0],
-      setLoading = _useState30[1];
+  var _useState21 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
+      _useState22 = _slicedToArray(_useState21, 2),
+      loading = _useState22[0],
+      setLoading = _useState22[1];
 
-  var singleRoom = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
-  var breadRef = Object(react__WEBPACK_IMPORTED_MODULE_0__["useRef"])(null);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     setActiveUsers([].concat(_toConsumableArray(activeUsers), [joinedUser]));
   }, [joinedUser]);
@@ -77677,9 +77753,6 @@ var SingleRoom = function SingleRoom(props) {
     setActiveUsers(filter);
   }, [leavingUser]);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    console.log(userWriting); //setIsTyping(true);
-  }, [userWriting]);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (isTyping) {
       setTimeout(function () {
         setUserWriting('');
@@ -77687,19 +77760,10 @@ var SingleRoom = function SingleRoom(props) {
         setIsTyping(false);
       }, 3000);
     }
-  }, [isTyping]);
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setBreadCrumbHeightAction"])(breadRef.current.clientHeight));
-    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setPageHeightAction"])(globalState.pageContentHeight - globalState.navbarHeight));
-  }, [loading]); // Get Room Height
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setRoomHeightAction"])(globalState.pageHeight - globalState.breadcrumbHeight));
-  }, [globalState.breadcrumbHeight, globalState.pageHeight]); // On Component Mount :
+  }, [isTyping]); // On Component Mount :
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     getRoom();
-    getMembers();
     getMessages();
     var echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_2__["default"]({
       broadcaster: 'pusher',
@@ -77758,21 +77822,6 @@ var SingleRoom = function SingleRoom(props) {
       console.log('error');
       setLoading(false);
     });
-  }; // Get Room users ...
-
-
-  var getMembers = function getMembers() {
-    axios__WEBPACK_IMPORTED_MODULE_1___default()({
-      method: "GET",
-      url: '/rooms/' + props.match.params.id + '/users',
-      headers: {
-        Authorization: 'bearer ' + auth.token
-      }
-    }).then(function (res) {
-      setMembers(res.data.data);
-    })["catch"](function (err) {
-      console.log('error');
-    });
   };
 
   var getMessages = function getMessages() {
@@ -77809,45 +77858,6 @@ var SingleRoom = function SingleRoom(props) {
     })["catch"](function (err) {});
   };
 
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    if (searchUser !== '') {
-      axios__WEBPACK_IMPORTED_MODULE_1___default()({
-        url: '/users',
-        method: 'GET',
-        params: {
-          email: searchUser
-        },
-        headers: {
-          Authorization: 'bearer ' + auth.token
-        }
-      }).then(function (res) {
-        setUsers(res.data.data);
-      })["catch"](function (err) {});
-    } else {
-      setUsers([]);
-    }
-  }, [searchUser]); // add a member to the group
-
-  var addUser = function addUser() {
-    var selectedUser = users.find(function (user) {
-      return user.email === searchUser;
-    });
-    axios__WEBPACK_IMPORTED_MODULE_1___default()({
-      url: "/rooms/".concat(room.id, "/users/").concat(selectedUser.id),
-      method: 'POST',
-      headers: {
-        authorization: 'bearer ' + auth.token
-      }
-    }).then(function (res) {
-      getMembers();
-      dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setModalHiddenAction"])());
-      setSearchUser('');
-      setUsers([]);
-    })["catch"](function (err) {
-      console.log('Failed!');
-    });
-  };
-
   var renderMessages = function renderMessages() {
     return messages.map(function (message) {
       if (message.sender_id === auth.user.id) {
@@ -77869,57 +77879,19 @@ var SingleRoom = function SingleRoom(props) {
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "single-room",
-    ref: singleRoom,
-    style: {
-      height: globalState.pageHeight + 'px'
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    ref: breadRef
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumb__WEBPACK_IMPORTED_MODULE_5__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    className: "single-room"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumb__WEBPACK_IMPORTED_MODULE_5__["default"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
     url: _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_7__["APP_URL"]
   }, "Dashboard"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
     url: _urls_AppBaseUrl__WEBPACK_IMPORTED_MODULE_7__["ROOM_URL"]
   }, "Rooms"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_BreadCrumbItem__WEBPACK_IMPORTED_MODULE_6__["default"], {
     active: true
   }, room.name))), loading ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Loading__WEBPACK_IMPORTED_MODULE_9__["default"], null) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "room-section",
-    style: {
-      height: globalState.roomHeight - 1 + 'px'
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "room-users"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "room-user-search"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    className: "search-input",
-    placeholder: "Find a user..."
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fa fa-search"
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "room-users-list"
-  }, members.map(function (member) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "room-user",
-      key: member.id
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserIcon__WEBPACK_IMPORTED_MODULE_10__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "user-info"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "username"
-    }, member.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "".concat(activeUsers.some(function (user) {
-        return user.id === member.id;
-      }) && 'active-user')
-    })));
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "room-controls"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    onClick: function onClick() {
-      return dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_8__["setModalVisibleAction"])());
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-    className: "fa fa-plus"
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "room-section"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_MessageUsers__WEBPACK_IMPORTED_MODULE_10__["default"], {
+    id: props.match.params.id,
+    activeUsers: activeUsers
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "room-messages"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "room-info"
@@ -77929,7 +77901,7 @@ var SingleRoom = function SingleRoom(props) {
     src: "https://unsplash.it/60/60"
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "room-name"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, room.name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, members.length && members[0].name + ' and ' + members.length + ' members'))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, room.name))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "room-message-container"
   }, renderMessages(), userWriting), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
     className: "room-message-input",
@@ -77943,27 +77915,6 @@ var SingleRoom = function SingleRoom(props) {
     onClick: sendMessage
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
     className: "fa fa-paper-plane"
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Modal__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    title: "Add User",
-    onClick: addUser
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "add-user"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-    value: searchUser,
-    onChange: function onChange(e) {
-      return setSearchUser(e.target.value);
-    },
-    placeholder: "search for user ..."
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "search-users-list"
-  }, users.map(function (user) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "search-user",
-      key: user.id,
-      onClick: function onClick() {
-        return setSearchUser(user.email);
-      }
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.email));
   }))))));
 };
 

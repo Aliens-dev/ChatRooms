@@ -29,6 +29,7 @@ Route::group(['middleware'=>'jwtauth'], function() {
     Route::get('rooms/{room}/messages', 'Rooms\RoomsMessagesController@index')->name('room.messages.index');
     Route::post('rooms/{room}/messages', 'Rooms\RoomsMessagesController@store')->name('room.messages.store');
 
-    Route::get('users', 'Users\UsersController@index')->name('users');
+    Route::get('users', 'Users\UsersController@index')->name('users.index');
+    Route::post('users/{id}', 'Users\UsersController@show')->name('users.show');
 
 });

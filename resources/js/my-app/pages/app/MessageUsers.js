@@ -1,0 +1,135 @@
+import React, {useContext, useState, useEffect} from 'react';
+import UserIcon from "../../components/UserIcon";
+import {setModalHiddenAction, setModalVisibleAction} from "../../context/actions/GlobalActions";
+import axios from "axios";
+import {AppContext} from "../../context/AppContext";
+import Modal from '../../components/Modal'
+
+const MessageUsers = (props) => {
+
+    const [selectSearchUser,setSelectSearchUser] = useState(false);
+    const [members,setMembers] = useState([]);
+    // Search for users ...
+    const [users,setUsers] = useState([]);
+    const [searchUser,setSearchUser] = useState('');
+    const {auth,dispatchGlobalState} = useContext(AppContext);
+
+    useEffect(() => {
+        getMembers();
+    },[])
+
+    useEffect(() => {
+        if(searchUser !== '') {
+            axios({
+                url: '/users',
+                method: 'GET',
+                params: {
+                    email : searchUser,
+                },
+                headers : {
+                    Authorization: 'bearer ' + auth.token,
+                }
+            })
+                .then(res => {
+                    setUsers(res.data.data);
+                })
+                .catch(err => {
+
+                })
+        }else {
+            setUsers([]);
+        }
+    }, [searchUser])
+
+    // Get Room users ...
+    const getMembers = () => {
+        axios({
+            method:"GET",
+            url: '/rooms/' + props.id + '/users',
+            headers : {
+                Authorization : 'bearer ' + auth.token,
+            }
+        })
+            .then(res => {
+                setMembers(res.data.data);
+            })
+            .catch(err => {
+                console.log('error');
+            })
+    }
+    // add a member to the group
+    const addUser  = () => {
+        let selectedUser = users.find(user => user.email === searchUser);
+        axios({
+            url: `/rooms/${props.id}/users/${selectedUser.id}`,
+            method:'POST',
+            headers : {
+                authorization : 'bearer ' + auth.token,
+            }
+        })
+            .then(res => {
+                getMembers();
+                dispatchGlobalState(setModalHiddenAction());
+                setSearchUser('');
+                setUsers([])
+            })
+            .catch(err => {
+                console.log('Failed!')
+            })
+    }
+    return (
+        <div className="room-users">
+            <div className="room-user-search">
+                <input className="search-input" placeholder="Find a user..."/>
+                <i className="fa fa-search"/>
+            </div>
+            <div className="room-users-list">
+                {
+                    members.map(member => {
+                        return (
+                            <div className="room-user" key={member.id}>
+                                <UserIcon />
+                                <div className="user-info">
+                                    <div className="username">
+                                        {member.name}
+                                    </div>
+                                    <div className={`${props.activeUsers.some(user => user.id === member.id) && 'active-user'}`} />
+                                </div>
+                            </div>
+                        )
+                    })
+                }
+            </div>
+            <div className="room-controls">
+                <div onClick={() => dispatchGlobalState(setModalVisibleAction())}>
+                    <i className="fa fa-plus" />
+                </div>
+            </div>
+            <Modal
+                title="Add User"
+                onClick={addUser}
+            >
+                <div className="add-user">
+                    <input
+                        value={searchUser}
+                        onChange={(e) => setSearchUser(e.target.value)}
+                        placeholder="search for user ..." />
+                    <div className="search-users-list">
+                        {
+                            users.map(user => {
+                                return (
+                                    <div className="search-user" key={user.id} onClick={() => setSearchUser(user.email)}>
+                                        <div>{user.email}</div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            </Modal>
+        </div>
+    )
+}
+
+
+export default MessageUsers;

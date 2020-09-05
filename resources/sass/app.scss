@@ -511,6 +511,7 @@ $main-blue : #455CC7;
     justify-content:center;
     align-items: flex-start;
     background-color:rgba(0,0,0,0.5);
+    z-index:100;
     .modal-content{
         background-color:#FFF;
         display:flex;

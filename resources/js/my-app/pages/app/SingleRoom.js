@@ -7,44 +7,29 @@ import BreadCrumb from "../../components/BreadCrumb";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
 import {APP_URL, ROOM_URL} from "../../urls/AppBaseUrl";
 import {
-    setBreadCrumbHeightAction, setModalHiddenAction,
-    setModalVisibleAction,
+    setBreadCrumbHeightAction,
     setPageHeightAction,
     setRoomHeightAction
 } from "../../context/actions/GlobalActions";
 import Loading from "../../components/Loading";
-import UserIcon from "../../components/UserIcon";
-import Modal from "../../components/Modal";
+import MessageUsers from "./MessageUsers";
 
 const SingleRoom = props => {
-
     const [room, setRoom] = useState({});
-    const [members,setMembers] = useState([]);
-
     const [myEcho,setMyEcho] = useState(null)
 
-    // Search for users ...
-    const [users,setUsers] = useState([]);
-    const [searchUser,setSearchUser] = useState('');
-    const [selectSearchUser,setSelectSearchUser] = useState(false);
-
     // Active Users
-
     const [activeUsers,setActiveUsers] = useState([]);
     const [joinedUser,setJoinedUser] = useState([]);
     const [leavingUser,setLeavingUser] = useState([]);
-
     // messages
     const [message,setMessage] = useState('');
     const [messages,setMessages] = useState([]);
     const [userWriting,setUserWriting] = useState('');
     const [isTyping,setIsTyping] = useState(false);
     const [socketMessage,setSocketMessage] = useState(null);
-    const {auth,globalState,dispatchGlobalState} = useContext(AppContext);
+    const {auth} = useContext(AppContext);
     const [loading,setLoading] = useState(true);
-    const singleRoom = useRef(null);
-    const breadRef = useRef(null);
-
 
     useEffect(()=> {
         setActiveUsers([...activeUsers, joinedUser]);
@@ -56,11 +41,6 @@ const SingleRoom = props => {
     },[leavingUser]);
 
     useEffect(() => {
-        console.log(userWriting);
-        //setIsTyping(true);
-    },[userWriting])
-
-    useEffect(() => {
         if(isTyping) {
             setTimeout(() => {
                 setUserWriting('')
@@ -70,22 +50,10 @@ const SingleRoom = props => {
         }
     },[isTyping])
 
-
-    useEffect(() => {
-        dispatchGlobalState(setBreadCrumbHeightAction(breadRef.current.clientHeight))
-        dispatchGlobalState(setPageHeightAction(globalState.pageContentHeight - globalState.navbarHeight))
-    }, [loading]);
-
-    // Get Room Height
-    useEffect(() => {
-        dispatchGlobalState(setRoomHeightAction(globalState.pageHeight - globalState.breadcrumbHeight))
-    },[globalState.breadcrumbHeight,globalState.pageHeight]);
-
     // On Component Mount :
 
     useEffect(() => {
         getRoom();
-        getMembers();
         getMessages();
 
         const echo = new Echo({
@@ -158,23 +126,6 @@ const SingleRoom = props => {
             })
     }
 
-    // Get Room users ...
-    const getMembers = () => {
-        axios({
-            method:"GET",
-            url: '/rooms/' + props.match.params.id + '/users',
-            headers : {
-                Authorization : 'bearer ' + auth.token,
-            }
-        })
-            .then(res => {
-                setMembers(res.data.data);
-            })
-            .catch(err => {
-                console.log('error');
-            })
-    }
-
     const getMessages = () => {
         axios({
             url:'/rooms/'+props.match.params.id+'/messages',
@@ -190,7 +141,6 @@ const SingleRoom = props => {
 
             })
     }
-
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -213,50 +163,6 @@ const SingleRoom = props => {
             })
             .catch(err => {
 
-            })
-    }
-
-    useEffect(() => {
-        if(searchUser !== '') {
-            axios({
-                url: '/users',
-                method: 'GET',
-                params: {
-                    email : searchUser,
-                },
-                headers : {
-                    Authorization: 'bearer ' + auth.token,
-                }
-            })
-                .then(res => {
-                    setUsers(res.data.data);
-                })
-                .catch(err => {
-
-                })
-        }else {
-            setUsers([]);
-        }
-    }, [searchUser])
-
-    // add a member to the group
-    const addUser  = () => {
-        let selectedUser = users.find(user => user.email === searchUser);
-        axios({
-            url: `/rooms/${room.id}/users/${selectedUser.id}`,
-            method:'POST',
-            headers : {
-                authorization : 'bearer ' + auth.token,
-            }
-        })
-            .then(res => {
-                getMembers();
-                dispatchGlobalState(setModalHiddenAction());
-                setSearchUser('');
-                setUsers([])
-            })
-            .catch(err => {
-                console.log('Failed!')
             })
     }
 
@@ -283,8 +189,8 @@ const SingleRoom = props => {
     }
 
     return (
-        <div className="single-room" ref={singleRoom} style={{height: globalState.pageHeight + 'px'}}>
-            <div ref={breadRef}>
+        <div className="single-room" >
+            <div>
                 <BreadCrumb>
                     <BreadCrumbItem url={APP_URL}>
                         Dashboard
@@ -300,35 +206,8 @@ const SingleRoom = props => {
             {
                 loading ? <Loading />
                 :
-                <div className="room-section" style={{height: (globalState.roomHeight - 1) + 'px'}}>
-                    <div className="room-users">
-                        <div className="room-user-search">
-                            <input className="search-input" placeholder="Find a user..."/>
-                            <i className="fa fa-search"/>
-                        </div>
-                        <div className="room-users-list">
-                            {
-                                members.map(member => {
-                                    return (
-                                        <div className="room-user" key={member.id}>
-                                            <UserIcon />
-                                            <div className="user-info">
-                                                <div className="username">
-                                                    {member.name}
-                                                </div>
-                                                <div className={`${activeUsers.some(user => user.id === member.id) && 'active-user'}`} />
-                                            </div>
-                                        </div>
-                                    )
-                                })
-                            }
-                        </div>
-                        <div className="room-controls">
-                            <div onClick={() => dispatchGlobalState(setModalVisibleAction())}>
-                                <i className="fa fa-plus" />
-                            </div>
-                        </div>
-                    </div>
+                <div className="room-section" >
+                    <MessageUsers id={props.match.params.id} activeUsers={activeUsers} />
                     <div className="room-messages">
                         <div className="room-info">
                             <div className="room-image">
@@ -338,11 +217,6 @@ const SingleRoom = props => {
                                 <span>
                                     {
                                         room.name
-                                    }
-                                </span>
-                                <span>
-                                    {
-                                        members.length && members[0].name + ' and ' + (members.length) + ' members'
                                     }
                                 </span>
                             </div>
@@ -366,28 +240,6 @@ const SingleRoom = props => {
                             </div>
                         </form>
                     </div>
-                    <Modal
-                        title="Add User"
-                        onClick={addUser}
-                    >
-                        <div className="add-user">
-                            <input
-                                value={searchUser}
-                                onChange={(e) => setSearchUser(e.target.value)}
-                                placeholder="search for user ..." />
-                            <div className="search-users-list">
-                                {
-                                    users.map(user => {
-                                        return (
-                                            <div className="search-user" key={user.id} onClick={() => setSearchUser(user.email)}>
-                                                <div>{user.email}</div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </Modal>
                 </div>
             }
         </div>

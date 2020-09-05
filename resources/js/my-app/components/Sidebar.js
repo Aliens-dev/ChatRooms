@@ -1,5 +1,4 @@
 import React, {useContext} from 'react';
-import Nav from "./Nav";
 import {Link} from "react-router-dom";
 import {APP_URL, ROOM_URL} from "../urls/AppBaseUrl";
 import {AppContext} from "../context/AppContext";

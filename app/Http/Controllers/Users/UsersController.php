@@ -50,12 +50,13 @@ class UsersController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return JsonResponse
      */
     public function show($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return $this->showOne($user);
     }
 
     /**

@@ -41,4 +41,16 @@ class UserTest extends TestCase
         $this->assertContains('johndoe@gmail.com', $emails);
         $this->assertContains('johdoe@gmail.com', $emails);
     }
+
+    /** @test */
+    public function a_user_can_view_his_own_info()
+    {
+        //$this->withoutExceptionHandling();
+
+        $user = $this->signIn();
+
+        $response = $this->actingAs($user)->json('POST', "/users/{$user->id}")
+            ->assertStatus(200);
+        $this->assertContains($user->name, $response->json(['data']));
+    }
 }

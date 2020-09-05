@@ -1,18 +1,28 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect,useContext} from 'react';
 import BreadCrumb from "../../components/BreadCrumb";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
 import {APP_URL} from "../../urls/AppBaseUrl";
-import Loading from "../../components/Loading";
-import {setModalVisibleAction} from "../../context/actions/GlobalActions";
-import Nav from "../../components/Nav";
-import Modal from "../../components/Modal";
-
-
+import {AppContext} from "../../context/AppContext";
 
 const MyProfile = (props) => {
     //const [loading,setLoading] = useState(true);
+    const {auth} = useContext(AppContext);
+    const [user,setUser] = useState(null)
+    useEffect(() => {
+        axios({
+            method:"POST",
+            url : '',
+            headers : {
+                authorization: 'bearer ' + auth.token
+            }
+        })
+            .then(res => {
 
-
+            })
+            .catch(err => {
+                console.log('Error');
+            })
+    },[])
 
     return (
         <div className="home-page">

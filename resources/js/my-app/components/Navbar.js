@@ -1,16 +1,11 @@
-import {Link, Redirect} from "react-router-dom";
-import React, { useContext,useEffect,useRef} from 'react';
+import {Link} from "react-router-dom";
+import React, { useContext} from 'react';
 import {AppContext} from "../context/AppContext";
 import Nav from "./Nav";
 import {ROOM_URL} from "../urls/AppBaseUrl";
-import {setNavbarHeightAction} from "../context/actions/GlobalActions";
-
 const Navbar = (props) => {
-    const { auth,_Logout,dispatchGlobalState } = useContext(AppContext)
-    const navbarRef = useRef(null)
-    useEffect(() => {
-        dispatchGlobalState(setNavbarHeightAction(navbarRef.current.clientHeight))
-    }, [])
+    const { auth,_Logout } = useContext(AppContext)
+
     const render = () => {
         if(auth.token) {
             return (
@@ -39,7 +34,7 @@ const Navbar = (props) => {
         }
     }
     return (
-        <nav className="navbar" ref={navbarRef}>
+        <nav className="navbar">
             <div className={`${props.container ? 'container' : 'container-fluid'}`}>
                 {
                     render()
