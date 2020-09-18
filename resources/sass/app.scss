@@ -83,7 +83,20 @@ $main-blue : #455CC7;
     }
     .rooms {
         .card {
+            a {
+                text-decoration: none;
+                &:hover {
+                    text-decoration: none;
+                }
+            }
             .card-body {
+                position:relative;
+                .settings {
+                    position:absolute;
+                    top:0;
+                    right:5px;
+                    padding:10px 20px;
+                }
                 .card-image {
                     display:flex;
                     justify-content: center;

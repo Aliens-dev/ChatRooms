@@ -74,8 +74,19 @@ class RoomController extends ApiController
      * @param Room $room
      * @return JsonResponse
      */
-    public function show(Room $room)
+    public function show($id)
     {
+
+        $room = Room::find($id);
+        if(is_null($room)) {
+            return $this->ErrorResponse();
+        }
+        $response = Gate::inspect('view',$room);
+
+        if($response->denied()) {
+            return $this->ErrorResponse();
+        }
+
         return $this->showOne($room);
     }
 

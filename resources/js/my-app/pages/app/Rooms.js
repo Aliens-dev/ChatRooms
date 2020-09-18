@@ -10,6 +10,7 @@ import Loading from "../../components/Loading";
 import {setModalHiddenAction, setModalVisibleAction} from "../../context/actions/GlobalActions";
 import Modal from '../../components/Modal';
 import Nav from "../../components/Nav";
+import {Link} from "react-router-dom";
 
 const Rooms = () => {
     const { auth, dispatchGlobalState } = useContext(AppContext);
@@ -56,24 +57,55 @@ const Rooms = () => {
 
             })
     }
+    const deleteRoom = (roomId) => {
+        event.stopPropagation()
+        axios({
+            url: "/rooms/"+ roomId,
+            method : 'DELETE',
+            headers : {
+                authorization: "Bearer "+ auth.token
+            }
+        })
+            .then(res => {
+                getRooms();
+            })
+            .catch(err => {
+                alert('Error Failed To delete!')
+            })
+    }
 
     const renderRooms = (type) => {
         return rooms.map( room => {
             if(room.type === type) {
                 return (
                     <div className="col-3" key={room.id}>
-                        <Card
-                            roomId={room.id}
-                        >
-                            <div className="card-image">
-                                <UserIcon letter={room.name[0]} />
+                        <Card>
+                            <div className="settings">
+                                <div className="dropdown">
+                                    <i className="fa fa-ellipsis-h"
+                                       data-toggle="dropdown"
+                                       aria-haspopup="true"
+                                       aria-expanded="false"
+                                    />
+                                    <div className="dropdown-menu">
+                                        <div className="dropdown-item"
+
+                                        >Edit</div>
+                                        <div className="dropdown-item"
+                                             onClick={() => deleteRoom(room.id)}
+                                        >Delete</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="card-title">
+                            <Link className="card-image" to={`/app/rooms/${room.id}`} >
+                                <UserIcon letter={room.name[0]} />
+                            </Link>
+                            <Link className="card-title" to={`/app/rooms/${room.id}`}>
                                 <i className="far fa-comments" />
                                 <div>
                                     { room.name }
                                 </div>
-                            </div>
+                            </Link>
                             <div className="card-foot">
                                 <UserIcon width={35} height={35}/>
                                 <UserIcon width={35} height={35}/>
@@ -90,8 +122,8 @@ const Rooms = () => {
     return (
         <div className="home-page">
             <div className="bread-container">
-                <BreadCrumb  >
-                    <BreadCrumbItem url={APP_URL}>
+                <BreadCrumb>
+                    <BreadCrumbItem url="/app">
                         Dashboard
                     </BreadCrumbItem>
                     <BreadCrumbItem active>

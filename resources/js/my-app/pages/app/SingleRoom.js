@@ -54,7 +54,6 @@ const SingleRoom = props => {
 
     useEffect(() => {
         getRoom();
-        getMessages();
 
         const echo = new Echo({
             broadcaster: 'pusher',
@@ -118,10 +117,11 @@ const SingleRoom = props => {
         })
             .then(res => {
                 setRoom(res.data.data);
+                getMessages();
                 setLoading(false)
             })
             .catch(err => {
-                console.log('error');
+                props.history.push('/app/rooms');
                 setLoading(false)
             })
     }

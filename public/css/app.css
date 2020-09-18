@@ -11011,6 +11011,25 @@ a.text-dark:focus {
   height: calc(100vh - 100px);
 }
 
+.home-page .rooms .card a {
+  text-decoration: none;
+}
+
+.home-page .rooms .card a:hover {
+  text-decoration: none;
+}
+
+.home-page .rooms .card .card-body {
+  position: relative;
+}
+
+.home-page .rooms .card .card-body .settings {
+  position: absolute;
+  top: 0;
+  right: 5px;
+  padding: 10px 20px;
+}
+
 .home-page .rooms .card .card-body .card-image {
   display: flex;
   justify-content: center;

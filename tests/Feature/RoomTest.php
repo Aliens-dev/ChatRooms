@@ -113,4 +113,21 @@ class RoomTest extends TestCase
         $this->assertDatabaseHas('rooms', ['id' => $room->id, 'name' => $room->name]);
     }
 
+    /** @test */
+
+    public function a_user_cannot_see_private_rooms_he_isnot_joined_or_owned()
+    {
+        $this->withoutExceptionHandling();
+        $user = $this->signIn();
+
+
+        $user2 = factory(User::class)->create();
+
+        $room = factory(Room::class)->create(['user_id' => $user2]);
+
+        $this->actingAs($user)->json('GET', "/rooms/{$room->id}")
+            ->assertStatus(401);
+
+    }
+
 }
