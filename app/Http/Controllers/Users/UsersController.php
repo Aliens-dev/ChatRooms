@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UsersController extends ApiController
 {
@@ -73,13 +75,37 @@ class UsersController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = [
+            "name" => "required",
+            "email" => "required|email|unique:users,email,". $id,
+            "image" => "required|sometimes|image",
+            "password" => "required"
+        ];
+        $validate = Validator::make($request->all(), $rules);
+        if ($validate->fails()) {
+            return $this->ErrorResponse();
+        }
+        $user = User::find($id);
+
+        if($request->has("image")) {
+            $image = $request->file('image')->store("avatar-".$id);
+            $user->image = $image;
+        }
+        if($request->has('password')) {
+            $request['password'] = Hash::make($request->password);
+        }
+        $user->name = $request->name;
+        $user->password = $request->password;
+        $user->email = $request->email;
+        $user->save();
+
+        return $this->SuccessResponse();
     }
 
     /**

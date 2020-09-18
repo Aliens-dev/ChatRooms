@@ -30,6 +30,7 @@ Route::group(['middleware'=>'jwtauth'], function() {
     Route::post('rooms/{room}/messages', 'Rooms\RoomsMessagesController@store')->name('room.messages.store');
 
     Route::get('users', 'Users\UsersController@index')->name('users.index');
-    Route::post('users/{id}', 'Users\UsersController@show')->name('users.show');
+    Route::get('users/{id}', 'Users\UsersController@show')->name('users.show');
+    Route::patch('users/{id}', 'Users\UsersController@update')->name('users.update');
 
 });

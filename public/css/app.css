@@ -11001,6 +11001,16 @@ a.text-dark:focus {
   flex-grow: 1;
 }
 
+.home-page {
+  max-height: calc(100vh - 50px);
+  height: calc(100vh - 50px);
+}
+
+.home-page .rooms-container {
+  max-height: calc(100vh - 100px);
+  height: calc(100vh - 100px);
+}
+
 .home-page .rooms .card .card-body .card-image {
   display: flex;
   justify-content: center;
@@ -11033,6 +11043,8 @@ a.text-dark:focus {
 }
 
 .navbar {
+  max-height: 50px;
+  height: 50px;
   background-color: #F8F9FF;
 }
 
@@ -11071,13 +11083,24 @@ a.text-dark:focus {
   padding: 3px 5px;
 }
 
-.room-section {
-  display: flex;
-  border-top: 1px solid #EEE;
-  height: 100%;
+.bread-container {
+  height: 50px !important;
+  max-height: 50px !important;
 }
 
-.room-section .room-users {
+.single-room {
+  height: calc(100vh - 50px) !important;
+  max-height: calc(100vh - 50px) !important;
+}
+
+.single-room .room-section {
+  display: flex;
+  border-top: 1px solid #EEE;
+  height: calc(100vh - 100px) !important;
+  max-height: calc(100vh - 100px) !important;
+}
+
+.single-room .room-section .room-users {
   display: flex;
   flex-direction: column;
   width: 300px;
@@ -11085,7 +11108,7 @@ a.text-dark:focus {
   border-right: 1px solid #EEE;
 }
 
-.room-section .room-users .room-user-search {
+.single-room .room-section .room-users .room-user-search {
   margin: 0;
   padding: 5px 10px;
   border-bottom: 1px solid #EEE;
@@ -11096,7 +11119,7 @@ a.text-dark:focus {
   position: relative;
 }
 
-.room-section .room-users .room-user-search:focus-within::after {
+.single-room .room-section .room-users .room-user-search:focus-within::after {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -11108,7 +11131,7 @@ a.text-dark:focus {
   background-color: #455CC7;
 }
 
-.room-section .room-users .room-user-search::after {
+.single-room .room-section .room-users .room-user-search::after {
   position: absolute;
   bottom: 0;
   left: 0;
@@ -11118,78 +11141,78 @@ a.text-dark:focus {
   transition: all 0.5s ease-in-out;
 }
 
-.room-section .room-users .room-user-search .search-input {
+.single-room .room-section .room-users .room-user-search .search-input {
   border: none;
   display: flex;
   flex-grow: 1;
   padding: 5px 0;
 }
 
-.room-section .room-users .room-user-search .search-input:focus {
+.single-room .room-section .room-users .room-user-search .search-input:focus {
   outline: none;
 }
 
-.room-section .room-users .room-user-search i {
+.single-room .room-section .room-users .room-user-search i {
   font-size: 18px;
   color: #666;
 }
 
-.room-section .room-users .room-users-list {
+.single-room .room-section .room-users .room-users-list {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   border-bottom: 1px solid #EEE;
 }
 
-.room-section .room-users .room-users-list .room-user {
+.single-room .room-section .room-users .room-users-list .room-user {
   padding: 5px 10px;
   border-bottom: 1px solid #EEE;
   display: flex;
   align-items: center;
 }
 
-.room-section .room-users .room-users-list .room-user .user-info {
+.single-room .room-section .room-users .room-users-list .room-user .user-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex: 1;
 }
 
-.room-section .room-users .room-users-list .room-user .user-info .username {
+.single-room .room-section .room-users .room-users-list .room-user .user-info .username {
   font-size: 15px;
   font-weight: 600;
 }
 
-.room-section .room-users .room-users-list .room-user .user-info .active-user {
+.single-room .room-section .room-users .room-users-list .room-user .user-info .active-user {
   width: 8px;
   height: 8px;
   background-color: #1d68a7;
   border-radius: 50%;
 }
 
-.room-section .room-users .room-controls {
+.single-room .room-section .room-users .room-controls {
   display: flex;
   align-items: center;
   padding: 10px;
   justify-content: flex-end;
 }
 
-.room-section .room-users .room-controls > div {
+.single-room .room-section .room-users .room-controls > div {
   margin: 0 5px;
   font-size: 16px;
 }
 
-.room-section .room-users .room-controls > div:hover {
+.single-room .room-section .room-users .room-controls > div:hover {
   cursor: pointer;
 }
 
-.room-section .room-messages {
+.single-room .room-section .room-messages {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
 
-.room-section .room-messages .room-info {
+.single-room .room-section .room-messages .room-info {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -11199,18 +11222,18 @@ a.text-dark:focus {
   border-bottom: 1px solid #EEE;
 }
 
-.room-section .room-messages .room-info .room-image {
+.single-room .room-section .room-messages .room-info .room-image {
   width: 45px;
   height: 45px;
 }
 
-.room-section .room-messages .room-info .room-image img {
+.single-room .room-section .room-messages .room-info .room-image img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
 }
 
-.room-section .room-messages .room-info .room-name {
+.single-room .room-section .room-messages .room-info .room-name {
   font-size: 16px;
   font-weight: 700;
   margin-left: 10px;
@@ -11218,12 +11241,12 @@ a.text-dark:focus {
   flex-direction: column;
 }
 
-.room-section .room-messages .room-info .room-name > span:nth-child(2) {
+.single-room .room-section .room-messages .room-info .room-name > span:nth-child(2) {
   font-size: 12px;
   font-weight: 600;
 }
 
-.room-section .room-messages .room-message-container {
+.single-room .room-section .room-messages .room-message-container {
   padding: 10px;
   display: block;
   height: 100%;
@@ -11232,35 +11255,35 @@ a.text-dark:focus {
   overflow: auto;
 }
 
-.room-section .room-messages .room-message-container .room-message-box {
+.single-room .room-section .room-messages .room-message-container .room-message-box {
   padding: 3px 0;
   position: relative;
 }
 
-.room-section .room-messages .room-message-container .room-message-left-box {
+.single-room .room-section .room-messages .room-message-container .room-message-left-box {
   display: flex;
 }
 
-.room-section .room-messages .room-message-container .room-message-left-box span {
+.single-room .room-section .room-messages .room-message-container .room-message-left-box span {
   border-radius: 100px;
   background-color: #F1F0F0;
   color: #000;
   padding: 8px 10px;
 }
 
-.room-section .room-messages .room-message-container .room-message-right-box {
+.single-room .room-section .room-messages .room-message-container .room-message-right-box {
   display: flex;
   justify-content: flex-end;
 }
 
-.room-section .room-messages .room-message-container .room-message-right-box span {
+.single-room .room-section .room-messages .room-message-container .room-message-right-box span {
   background-color: #5528FF;
   border-radius: 100px;
   color: #FFF;
   padding: 8px 10px;
 }
 
-.room-section .room-messages .room-message-input {
+.single-room .room-section .room-messages .room-message-input {
   height: 60px;
   min-height: 60px;
   display: flex;
@@ -11268,7 +11291,7 @@ a.text-dark:focus {
   align-items: center;
 }
 
-.room-section .room-messages .room-message-input input {
+.single-room .room-section .room-messages .room-message-input input {
   height: 60px;
   flex: 1;
   padding: 0 10px;
@@ -11276,27 +11299,27 @@ a.text-dark:focus {
   border: none;
 }
 
-.room-section .room-messages .room-message-input input:focus {
+.single-room .room-section .room-messages .room-message-input input:focus {
   outline: none;
 }
 
-.room-section .room-messages .room-message-input .send {
+.single-room .room-section .room-messages .room-message-input .send {
   width: 50px;
   height: 50px;
   display: flex;
   align-items: center;
 }
 
-.room-section .room-messages .room-message-input .send:hover {
+.single-room .room-section .room-messages .room-message-input .send:hover {
   color: #455CC7;
   cursor: pointer;
 }
 
-.room-section .room-messages .room-message-input .send i {
+.single-room .room-section .room-messages .room-message-input .send i {
   font-size: 25px;
 }
 
-.room-section .add-user {
+.single-room .room-section .add-user {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -11304,31 +11327,31 @@ a.text-dark:focus {
   flex: 1;
 }
 
-.room-section .add-user input {
+.single-room .room-section .add-user input {
   flex: 1;
   padding: 5px 10px;
   border: 1px solid #EEE;
   border-radius: 5px;
 }
 
-.room-section .add-user input:focus {
+.single-room .room-section .add-user input:focus {
   outline: none;
   border: 1px solid #CCC;
 }
 
-.room-section .add-user .search-users-list {
+.single-room .room-section .add-user .search-users-list {
   display: flex;
   flex-direction: column;
   padding: 5px 0;
 }
 
-.room-section .add-user .search-users-list .search-user {
+.single-room .room-section .add-user .search-users-list .search-user {
   padding: 5px 5px;
   border: 1px solid #EEE;
   border-radius: 3px;
 }
 
-.room-section .add-user .search-users-list .search-user:hover {
+.single-room .room-section .add-user .search-users-list .search-user:hover {
   cursor: pointer;
   background-color: #FEFEFE;
 }
@@ -11592,5 +11615,99 @@ a.text-dark:focus {
 
 .my-modal .modal-content .foot button {
   margin: 0 3px;
+}
+
+.profile-page .my-profile .my-card {
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.125), 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  padding: 10px 20px;
+}
+
+.profile-page .my-profile .profile-header {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+  position: relative;
+}
+
+.profile-page .my-profile .profile-header .user-image {
+  width: 60px;
+  height: 60px;
+  margin: 5px 0;
+}
+
+.profile-page .my-profile .profile-header .user-image img {
+  width: 100%;
+  height: 100%;
+}
+
+.profile-page .my-profile .profile-header .user-info {
+  margin: 5px 0;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.profile-page .my-profile .profile-header::after {
+  position: absolute;
+  bottom: -5px;
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: #CCC;
+  max-height: 1px;
+}
+
+.profile-page .my-profile .profile-info .item {
+  padding: 5px 0;
+  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.profile-page .my-profile .profile-info .item::after {
+  position: absolute;
+  bottom: -5px;
+  content: "";
+  height: 1px;
+  width: 100%;
+  background-color: #CCC;
+  max-height: 1px;
+}
+
+.profile-page .my-profile .profile-info .item span {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+.profile-page .my-profile .profile-info .item:last-child::after {
+  position: absolute;
+  content: "";
+  width: 0;
+  height: 0;
+}
+
+.profile-page .settings-tab .settings {
+  padding: 20px;
+  width: 80%;
+}
+
+.profile-page .settings-tab .settings label {
+  font-weight: 600;
+}
+
+.profile-page .settings-tab .settings .form-image {
+  border: 1px solid #CCC;
+  flex: 1;
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-page .settings-tab .settings .form-image button {
+  margin-right: 20px;
 }
 

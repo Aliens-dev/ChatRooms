@@ -89,7 +89,7 @@ const Rooms = () => {
     }
     return (
         <div className="home-page">
-            <div>
+            <div className="bread-container">
                 <BreadCrumb  >
                     <BreadCrumbItem url={APP_URL}>
                         Dashboard
@@ -103,7 +103,7 @@ const Rooms = () => {
                 loading ?
                     <Loading />
                     :
-                    <div className="container-fluid">
+                    <div className="rooms-container container-fluid">
                         <div className="row">
                             <div className="ml-3">
                                 <button className="btn btn-primary"

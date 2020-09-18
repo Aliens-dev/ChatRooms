@@ -2,11 +2,13 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use DateTimeInterface;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -36,9 +38,14 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime'
     ];
 
+
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('d M Y');
+    }
 
     public function rooms()
     {
@@ -49,7 +56,6 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Room::class,'room_user');
     }
-
 
     public function inviteMember(User $user,Room $room)
     {

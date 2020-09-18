@@ -75,6 +75,12 @@ $main-blue : #455CC7;
 }
 
 .home-page {
+    max-height: calc(100vh - 50px);
+    height: calc(100vh - 50px);
+    .rooms-container {
+        max-height: calc(100vh - 100px);
+        height: calc(100vh - 100px);
+    }
     .rooms {
         .card {
             .card-body {
@@ -110,6 +116,8 @@ $main-blue : #455CC7;
 }
 
 .navbar {
+    max-height:50px;
+    height:50px;
     background-color:#F8F9FF;
 }
 .card {
@@ -142,225 +150,234 @@ $main-blue : #455CC7;
         padding:3px 5px;
     }
 }
+.bread-container {
+    height:50px !important;
+    max-height: 50px !important;
+}
 
-.room-section {
-    display:flex;
-    border-top:1px solid #EEE;
-    height:100%;
-    .room-users {
+.single-room {
+    height: calc(100vh - 50px) !important;
+    max-height: calc(100vh - 50px) !important;
+    .room-section {
         display:flex;
-        flex-direction : column;
-        width:300px;
-        min-width:300px;
-        border-right:1px solid #EEE;
-        .room-user-search {
-            margin: 0;
-            padding: 5px 10px;
-            border-bottom: 1px solid #EEE;
-            height:60px;
-            max-height: 60px;
+        border-top:1px solid #EEE;
+        height: calc(100vh - 100px) !important;
+        max-height: calc(100vh - 100px) !important;
+        .room-users {
             display:flex;
-            align-items:center;
-            position:relative;
-            &:focus-within {
+            flex-direction : column;
+            width:300px;
+            min-width:300px;
+            border-right:1px solid #EEE;
+            .room-user-search {
+                margin: 0;
+                padding: 5px 10px;
+                border-bottom: 1px solid #EEE;
+                height:60px;
+                max-height: 60px;
+                display:flex;
+                align-items:center;
+                position:relative;
+                &:focus-within {
+                    &::after {
+                        position: absolute;
+                        bottom: 0;
+                        left:0;
+                        content: '';
+                        width:100%;
+                        animation: bottom-border 0.5s ease-in-out;
+                        height:1px;
+                        background-color:$main-blue;
+                    }
+                }
                 &::after {
                     position: absolute;
                     bottom: 0;
                     left:0;
                     content: '';
-                    width:100%;
-                    animation: bottom-border 0.5s ease-in-out;
+                    width:0;
                     height:1px;
-                    background-color:$main-blue;
+                    transition: all 0.5s ease-in-out;
                 }
-            }
-            &::after {
-                position: absolute;
-                bottom: 0;
-                left:0;
-                content: '';
-                width:0;
-                height:1px;
-                transition: all 0.5s ease-in-out;
-            }
-            .search-input {
-                border:none;
-                display:flex;
-                flex-grow:1;
-                padding:5px 0;
-                &:focus {
-                    outline:none;
-                }
-            }
-            i {
-                font-size:18px;
-                color:#666;
-            }
-        }
-        .room-users-list {
-            display:flex;
-            flex-direction:column;
-            flex-grow:1;
-            border-bottom: 1px solid #EEE;
-            .room-user {
-                padding: 5px 10px;
-                border-bottom: 1px solid #EEE;
-                display:flex;
-                align-items: center;
-                .user-info {
+                .search-input {
+                    border:none;
                     display:flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    flex:1;
-                    .username {
-                        font-size:15px;
-                        font-weight: 600;
+                    flex-grow:1;
+                    padding:5px 0;
+                    &:focus {
+                        outline:none;
                     }
-                    .active-user {
-                        width:8px;
-                        height:8px;
-                        background-color: #1d68a7;
-                        border-radius: 50%;
-                    }
-                }
-            }
-        }
-        .room-controls{
-            display:flex;
-            align-items: center;
-            padding:10px;
-            justify-content: flex-end;
-            &>div {
-                margin:0 5px;
-                font-size:16px;
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-        }
-    }
-    .room-messages {
-        flex-grow: 1;
-        display:flex;
-        flex-direction: column;
-        .room-info {
-            display:flex;
-            justify-content: flex-start;
-            align-items: center;
-            padding:0 10px;
-            max-height: 60px;
-            height: 60px;
-            border-bottom: 1px solid #EEE;
-            .room-image {
-                width:45px;
-                height:45px;
-                img {
-                    width:100%;
-                    height:100%;
-                    border-radius:50%;
-                }
-            }
-            .room-name {
-                font-size:16px;
-                font-weight:700;
-                margin-left:10px;
-                display:flex;
-                flex-direction: column;
-                &>span:nth-child(2) {
-                    font-size:12px;
-                    font-weight: 600;
-                }
-            }
-        }
-        .room-message-container {
-            padding: 10px;
-            display:block;
-            height:100%;
-            border-bottom: 1px solid #EEE;
-            position:relative;
-            overflow:auto;
-            .room-message-box {
-                padding:3px 0;
-                position: relative;
-            }
-            .room-message-left-box {
-                display:flex;
-                span {
-                    border-radius: 100px;
-                    background-color:#F1F0F0;
-                    color:#000;
-                    padding:8px 10px;
-                }
-            }
-            .room-message-right-box {
-                display: flex;
-                justify-content: flex-end;
-                span {
-                    background-color:#5528FF;
-                    border-radius: 100px;
-                    color:#FFF;
-                    padding:8px 10px;
-                }
-            }
-        }
-        .room-message-input {
-            height:60px;
-            min-height: 60px;
-            display:flex;
-            padding:5px 10px;
-            align-items: center;
-            input {
-                height:60px;
-                flex:1;
-                padding: 0 10px;
-                font-size:16px;
-                border:none;
-                &:focus {
-                    outline:none;
-                }
-            }
-            .send {
-                width:50px;
-                height:50px;
-                display:flex;
-                align-items: center;
-                &:hover {
-                    color:$main-blue;
-                    cursor:pointer;
                 }
                 i {
-                    font-size:25px;
+                    font-size:18px;
+                    color:#666;
+                }
+            }
+            .room-users-list {
+                display:flex;
+                flex-direction:column;
+                flex-grow:1;
+                border-bottom: 1px solid #EEE;
+                .room-user {
+                    padding: 5px 10px;
+                    border-bottom: 1px solid #EEE;
+                    display:flex;
+                    align-items: center;
+                    .user-info {
+                        display:flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex:1;
+                        .username {
+                            font-size:15px;
+                            font-weight: 600;
+                        }
+                        .active-user {
+                            width:8px;
+                            height:8px;
+                            background-color: #1d68a7;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+            }
+            .room-controls{
+                display:flex;
+                align-items: center;
+                padding:10px;
+                justify-content: flex-end;
+                &>div {
+                    margin:0 5px;
+                    font-size:16px;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
             }
         }
-    }
-    .add-user {
-        display:flex;
-        justify-content: center;
-        flex-direction: column;
-        padding:10px 0;
-        flex:1;
-        input {
-            flex:1;
-            padding:5px 10px;
-            border: 1px solid #EEE;
-            border-radius: 5px;
-            &:focus {
-               outline:none;
-                border: 1px solid #CCC;
-            }
-        }
-        .search-users-list {
+        .room-messages {
+            flex-grow: 1;
             display:flex;
             flex-direction: column;
-            padding:5px 0;
-            .search-user {
-                padding:5px 5px;
+            .room-info {
+                display:flex;
+                justify-content: flex-start;
+                align-items: center;
+                padding:0 10px;
+                max-height: 60px;
+                height: 60px;
+                border-bottom: 1px solid #EEE;
+                .room-image {
+                    width:45px;
+                    height:45px;
+                    img {
+                        width:100%;
+                        height:100%;
+                        border-radius:50%;
+                    }
+                }
+                .room-name {
+                    font-size:16px;
+                    font-weight:700;
+                    margin-left:10px;
+                    display:flex;
+                    flex-direction: column;
+                    &>span:nth-child(2) {
+                        font-size:12px;
+                        font-weight: 600;
+                    }
+                }
+            }
+            .room-message-container {
+                padding: 10px;
+                display:block;
+                height:100%;
+                border-bottom: 1px solid #EEE;
+                position:relative;
+                overflow:auto;
+                .room-message-box {
+                    padding:3px 0;
+                    position: relative;
+                }
+                .room-message-left-box {
+                    display:flex;
+                    span {
+                        border-radius: 100px;
+                        background-color:#F1F0F0;
+                        color:#000;
+                        padding:8px 10px;
+                    }
+                }
+                .room-message-right-box {
+                    display: flex;
+                    justify-content: flex-end;
+                    span {
+                        background-color:#5528FF;
+                        border-radius: 100px;
+                        color:#FFF;
+                        padding:8px 10px;
+                    }
+                }
+            }
+            .room-message-input {
+                height:60px;
+                min-height: 60px;
+                display:flex;
+                padding:5px 10px;
+                align-items: center;
+                input {
+                    height:60px;
+                    flex:1;
+                    padding: 0 10px;
+                    font-size:16px;
+                    border:none;
+                    &:focus {
+                        outline:none;
+                    }
+                }
+                .send {
+                    width:50px;
+                    height:50px;
+                    display:flex;
+                    align-items: center;
+                    &:hover {
+                        color:$main-blue;
+                        cursor:pointer;
+                    }
+                    i {
+                        font-size:25px;
+                    }
+                }
+            }
+        }
+        .add-user {
+            display:flex;
+            justify-content: center;
+            flex-direction: column;
+            padding:10px 0;
+            flex:1;
+            input {
+                flex:1;
+                padding:5px 10px;
                 border: 1px solid #EEE;
-                border-radius: 3px;
-                &:hover {
-                    cursor: pointer;
-                    background-color:#FEFEFE;
+                border-radius: 5px;
+                &:focus {
+                    outline:none;
+                    border: 1px solid #CCC;
+                }
+            }
+            .search-users-list {
+                display:flex;
+                flex-direction: column;
+                padding:5px 0;
+                .search-user {
+                    padding:5px 5px;
+                    border: 1px solid #EEE;
+                    border-radius: 3px;
+                    &:hover {
+                        cursor: pointer;
+                        background-color:#FEFEFE;
+                    }
                 }
             }
         }
@@ -564,3 +581,96 @@ $main-blue : #455CC7;
     }
 }
 
+
+.profile-page {
+
+    .my-profile {
+        .my-card {
+            box-shadow: 0 0 1px rgba(0,0,0,.125), 0 1px 3px rgba(0,0,0,.2);
+            border-radius:3px;
+            padding: 10px 20px;
+        }
+        .profile-header {
+            display:flex;
+            flex-direction:column;
+            padding:20px;
+            align-items:center;
+            position: relative;
+            .user-image {
+                width:60px;
+                height:60px;
+                margin:5px 0;
+                img {
+                    width:100%;
+                    height:100%;
+                }
+            }
+            .user-info {
+                margin:5px 0;
+                font-size:18px;
+                font-weight:500;
+                line-height: 20px;
+            }
+            &::after {
+                position:absolute;
+                bottom:-5px;
+                content: '';
+                height:1px;
+                width:100%;
+                background-color: #CCC;;
+                max-height: 1px;
+            }
+        }
+        .profile-info{
+            .item {
+                padding:5px 0;
+                margin: 10px 0;
+                display:flex;
+                justify-content:space-between;
+                position:relative;
+                &::after {
+                    position:absolute;
+                    bottom:-5px;
+                    content: '';
+                    height:1px;
+                    width:100%;
+                    background-color: #CCC;;
+                    max-height: 1px;
+                }
+                span {
+                    font-size:1.1em;
+                    font-weight:600;
+                }
+
+            }
+            .item:last-child {
+                &::after {
+                    position:absolute;
+                    content: '';
+                    width:0;
+                    height:0;
+                }
+            }
+        }
+    }
+    .settings-tab {
+        .settings {
+            padding: 20px;
+            width:80%;
+            label {
+                font-weight:600;
+            }
+            .form-image {
+                border:1px solid #CCC;
+                flex:1;
+                padding:10px 20px;
+                border-radius: 5px;
+                display: flex;
+                align-items: center;
+                button {
+                    margin-right:20px;
+                }
+            }
+        }
+    }
+}

@@ -65,7 +65,7 @@ const JoinedRooms = () => {
     }
     return (
         <div className="home-page">
-            <div>
+            <div className="bread-container">
                 <BreadCrumb  >
                     <BreadCrumbItem url={APP_URL}>
                         Dashboard

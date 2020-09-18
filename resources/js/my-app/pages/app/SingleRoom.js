@@ -190,7 +190,7 @@ const SingleRoom = props => {
 
     return (
         <div className="single-room" >
-            <div>
+            <div className="bread-container">
                 <BreadCrumb>
                     <BreadCrumbItem url={APP_URL}>
                         Dashboard

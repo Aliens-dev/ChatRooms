@@ -27,6 +27,9 @@
     "dependencies": {
         "laravel-echo": "^1.8.1",
         "pusher-js": "^7.0.0",
-        "react-router-dom": "^5.2.0"
+        "react-redux": "^7.2.1",
+        "react-router-dom": "^5.2.0",
+        "redux": "^4.0.5",
+        "redux-thunk": "^2.3.0"
     }
 }

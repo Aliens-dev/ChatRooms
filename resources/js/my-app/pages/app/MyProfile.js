@@ -1,52 +1,202 @@
-import React, {useState,useEffect,useContext} from 'react';
+import React, {useState,useEffect,useContext,useRef} from 'react';
 import BreadCrumb from "../../components/BreadCrumb";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
-import {APP_URL} from "../../urls/AppBaseUrl";
+import {APP_URL, FULL_URL} from "../../urls/AppBaseUrl";
 import {AppContext} from "../../context/AppContext";
+import Loading from "../../components/Loading";
+import UserIcon from "../../components/UserIcon";
 
 const MyProfile = (props) => {
-    //const [loading,setLoading] = useState(true);
+    const [loading,setLoading] = useState(true);
     const {auth} = useContext(AppContext);
-    const [user,setUser] = useState(null)
+    const [user,setUser] = useState(null);
+
+    const [editUser,setEditUser] = useState(null);
+    const [progress,setProgress] = useState(0);
+    const [previewImg,setPreviewImg] = useState('');
+    const avatarBtn = useRef(null)
+
+
     useEffect(() => {
+        getUserInfo()
+    },[])
+
+    const getUserInfo = () => {
         axios({
-            method:"POST",
-            url : '',
+            method:"GET",
+            url : '/users/' + auth.user.id,
             headers : {
                 authorization: 'bearer ' + auth.token
             }
         })
             .then(res => {
-
+                setUser(res.data.data);
+                setEditUser({...res.data.data, password : ''});
+                setLoading(false);
             })
             .catch(err => {
-                console.log('Error');
+                setLoading(false);
             })
-    },[])
+    }
 
-    return (
-        <div className="home-page">
-            <div>
-                <BreadCrumb  >
-                    <BreadCrumbItem url={APP_URL}>
-                        Dashboard
-                    </BreadCrumbItem>
-                    <BreadCrumbItem active>
-                        Profile
-                    </BreadCrumbItem>
-                </BreadCrumb>
-            </div>
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="ml-3">
-                        <button className="btn btn-primary">Edit Profile</button>
+    const EditUser = (e)=> {
+        e.preventDefault();
+        let formData = new FormData();
+
+        formData.append('name',editUser.name)
+        formData.append('email',editUser.email)
+        formData.append('password',editUser.password)
+        formData.append('image',editUser.image)
+        formData.append("_method", 'PATCH');
+        axios({
+            url: '/users/' + auth.user.id,
+            data: formData,
+            method: 'POST',
+            headers: {
+                authorization: "Bearer " + auth.token,
+                'Content-Type': 'multipart/form-data',
+            },
+            onUploadProgress: function (progressEvent) {
+                let progress = progressEvent.loaded / progressEvent.total;
+                setProgress(Math.floor(progress) * 100)
+            },
+        })
+            .then(res => {
+                getUserInfo()
+                setProgress(0);
+                setPreviewImg('')
+            })
+            .catch(err => {
+                setProgress(0);
+                setPreviewImg('')
+            })
+
+    }
+
+    const chooseAvatar = (e) => {
+        e.preventDefault();
+        avatarBtn.current.click();
+    }
+
+    const avatarBtnChange = () => {
+        setEditUser({...editUser, image: avatarBtn.current.files[0]});
+        setPreviewImg(URL.createObjectURL(avatarBtn.current.files[0]))
+    }
+
+
+    const render = () => {
+        if (loading) {
+            return (
+                <Loading />
+            )
+        }else {
+            return (
+                <div className="profile-page">
+                    <div>
+                        <BreadCrumb  >
+                            <BreadCrumbItem url={APP_URL}>
+                                Dashboard
+                            </BreadCrumbItem>
+                            <BreadCrumbItem active>
+                                Profile
+                            </BreadCrumbItem>
+                        </BreadCrumb>
+                    </div>
+                    <div className="container-fluid">
+                        <div className="row my-profile">
+                            <div className="col-3" >
+                                <div className="my-card">
+                                    <div className="profile-header">
+                                        <UserIcon img={FULL_URL+"/uploads/" + user.image}/>
+                                        <div className="user-info">
+                                            {
+                                                user.name
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className="profile-info">
+                                        <div className="item">
+                                            <span>Email</span>  {user.email}
+                                        </div>
+                                        <div className="item">
+                                            <span>Joined </span>  {user.created_at}
+                                        </div>
+                                        <div className="item">
+                                            <span>Groups</span>  20
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-9 settings-tab">
+                                <ul className="nav nav-tabs" id="myTab" role="tablist">
+                                    <li className="nav-item">
+                                        <a className="nav-link active" id="home-tab" data-toggle="tab" href="#settings"
+                                           role="tab" aria-controls="home" aria-selected="true">Settings</a>
+                                    </li>
+                                </ul>
+                                <div className="tab-content my-card" id="myTabContent">
+                                    <div className="tab-pane fade show active" id="settings" role="tabpanel"
+                                         aria-labelledby="home-tab">
+                                        <div className="settings">
+                                            <form className="form">
+                                                <div className="form-group row">
+                                                    <label htmlFor="name" className="col-3">Name:  </label>
+                                                    <input id="name" className="col-9 form-control"
+                                                           value={editUser.name}
+                                                           onChange={(e) => setEditUser({...editUser,name:e.target.value})}
+                                                           placeholder="Your name"
+                                                    />
+                                                </div>
+                                                <div className="form-group row">
+                                                    <label htmlFor="name" className="col-3">Email:  </label>
+                                                    <input id="name" type="email"
+                                                           value={editUser.email}
+                                                           onChange={(e) => setEditUser({...editUser,email:e.target.value})}
+                                                           className="form-control col-9" placeholder="Your Email" />
+                                                </div>
+                                                <div className="form-group row">
+                                                    <label htmlFor="name" className="col-3">Password:  </label>
+                                                    <input id="name" type="password" className="form-control col-9"
+                                                           value={editUser.password}
+                                                           onChange={(e) => setEditUser({...editUser,password:e.target.value})}
+                                                           placeholder="Password." />
+                                                </div>
+                                                <div className="form-group row">
+                                                    <label htmlFor="file" className="col-3">Avatar:  </label>
+                                                    <input ref={avatarBtn} onChange={avatarBtnChange} type="file" className="d-none col-9" />
+                                                    <div className="form-image">
+                                                        <button id="file" className="btn btn-primary"
+                                                                onClick={chooseAvatar}>
+                                                            Upload Avatar
+                                                        </button>
+                                                        {
+                                                            previewImg !== '' && <UserIcon img={previewImg} alt="preview" />
+                                                        }
+                                                        {
+                                                            progress > 0 && (
+                                                                <div>
+                                                                    <progress min="0" max="100" value={progress} />
+                                                                    <span>{ progress } %</span>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <button className="btn btn-primary" onClick={EditUser}>Edit</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className="row my-profile">
-                    My Profile
-                </div>
-            </div>
-        </div>
+            )
+        }
+    }
+
+    return (
+        render()
     )
 }
 

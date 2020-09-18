@@ -6,6 +6,7 @@ use App\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -49,8 +50,49 @@ class UserTest extends TestCase
 
         $user = $this->signIn();
 
-        $response = $this->actingAs($user)->json('POST', "/users/{$user->id}")
+        $response = $this->actingAs($user)->json('GET', "/users/{$user->id}")
             ->assertStatus(200);
         $this->assertContains($user->name, $response->json(['data']));
     }
+
+    /** @test */
+    public function a_user_can_update_his_info()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = $this->signIn();
+
+        $data = collect([
+            'name' => 'nabil',
+            'email' => 'nabil@nabil.com',
+            'password' => '123456'
+        ]);
+
+        $this->actingAs($user)->json('PATCH', "/users/{$user->id}", $data->toArray())
+            ->assertStatus(200);
+        $withoutPassword = $data->except("password")->toArray();
+        $this->assertDatabaseHas('users', $withoutPassword);
+        $this->assertTrue(Hash::check($data->get("password"),User::find($user->id)->password));
+    }
+
+    /** @test */
+
+    public function cannot_update_to_an_already_exsited_email()
+    {
+
+        $user = $this->signIn();
+
+        $otherUser = factory('App\User')->create();
+
+        $data = collect([
+            'name' => 'nabil',
+            'email' => $otherUser->email,
+            'password' => '123456'
+        ]);
+
+        $this->actingAs($user)->json('PATCH', "/users/{$user->id}", $data->toArray())
+            ->assertStatus(401);
+        $this->assertDatabaseHas('users', ["id" => $user->id,"email" => $user->email]);
+    }
+
 }
