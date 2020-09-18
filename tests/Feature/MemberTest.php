@@ -15,6 +15,25 @@ class MemberTest extends TestCase
 
     /** @test */
 
+    public function the_owner_is_added_as_a_participant_in_his_room()
+    {
+        $this->withoutExceptionHandling();
+        $user = $this->signIn();
+        $attr = [
+            'name' => 'room',
+            'type' => '0',
+            'user_id' => $user->id,
+        ];
+        $this->json('POST','/rooms', $attr)
+            ->assertStatus(201)
+            ->assertJson(['success' => true]);
+
+        $this->assertDatabaseHas('rooms', $attr);
+        $this->assertDatabaseHas('room_user',['user_id' => $user->id]);
+    }
+
+    /** @test */
+
     public function an_owner_can_add_participants_to_his_room()
     {
         $this->withoutExceptionHandling();

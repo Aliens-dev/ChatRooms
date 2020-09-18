@@ -63,6 +63,7 @@ class RoomController extends ApiController
             return $this->ErrorResponse(403);
         }
         $room = auth()->user()->addRoom($request->name,$request->type);
+        $room->members()->attach(auth()->user());
         //return response()->json(['success'=> true, 'room' => $room], 201);
         return $this->SuccessResponse(201);
     }
