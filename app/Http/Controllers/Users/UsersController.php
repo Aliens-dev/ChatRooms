@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends ApiController
@@ -94,6 +95,7 @@ class UsersController extends ApiController
         $user = User::find($id);
 
         if($request->has("image")) {
+            Storage::delete($user->image);
             $image = $request->file('image')->store("avatar-".$id);
             $user->image = $image;
         }
