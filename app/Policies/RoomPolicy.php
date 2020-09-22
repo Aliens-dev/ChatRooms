@@ -46,4 +46,12 @@ class RoomPolicy
         return $user->id === (int) $room->user_id;
     }
 
+    public function invite(User $owner,Room $room,User $user) {
+        return ($owner->id == $room->user_id) && (!$room->members->contains($user) && $room->user_id != $user->id);
+    }
+
+    public function remove_member(User $owner, Room $room, User $user)
+    {
+        return ($owner->id == $room->user_id) && ($room->members->contains($user) && $room->user_id != $user->id);
+    }
 }

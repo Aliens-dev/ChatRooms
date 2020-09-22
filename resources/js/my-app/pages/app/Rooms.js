@@ -16,9 +16,11 @@ const Rooms = (props) => {
     const { auth, dispatchGlobalState } = useContext(AppContext);
     const [ rooms, setRooms ] = useState([]);
     const [loading,setLoading] = useState(true);
+    const [users,setUsers] = useState([]);
 
     useEffect(() => {
         getRooms();
+        getUsers()
     }, [])
 
     const getRooms = () => {
@@ -40,7 +42,6 @@ const Rooms = (props) => {
     }
 
     const deleteRoom = (roomId) => {
-        event.stopPropagation()
         axios({
             url: "/rooms/"+ roomId,
             method : 'DELETE',
@@ -54,6 +55,26 @@ const Rooms = (props) => {
             .catch(err => {
                 alert('Error Failed To delete!')
             })
+    }
+
+    const getUsers = () => {
+        axios({
+            url : '/users',
+            method : 'GET',
+            headers :{
+                authorization : 'Bearer '+ auth.token,
+            }
+        })
+            .then((res) => {
+                setUsers(res.data.data)
+            })
+    }
+
+    const renderUser = (room) => {
+        const matchUsers = users.filter(user => user.id == room.user_id)
+        if(matchUsers.length) {
+            return matchUsers.map(user => <UserIcon key={user.id} img={"/uploads/"+user.image} width={35} height={35}/>)
+        }
     }
 
     const renderRooms = (type) => {
@@ -89,11 +110,9 @@ const Rooms = (props) => {
                                 </div>
                             </Link>
                             <div className="card-foot">
-                                <UserIcon width={35} height={35}/>
-                                <UserIcon width={35} height={35}/>
-                                <UserIcon width={35} height={35}/>
-                                <UserIcon width={35} height={35}/>
-                                <UserIcon width={35} height={35}/>
+                                {
+                                    renderUser(room)
+                                }
                             </div>
                         </Card>
                     </div>

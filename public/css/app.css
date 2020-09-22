@@ -11274,6 +11274,12 @@ a.text-dark:focus {
   overflow: auto;
 }
 
+.single-room .room-section .room-messages .room-message-container .message-typing {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+
 .single-room .room-section .room-messages .room-message-container .room-message-box {
   padding: 3px 0;
   position: relative;

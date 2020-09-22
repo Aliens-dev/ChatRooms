@@ -308,6 +308,11 @@ $main-blue : #455CC7;
                 border-bottom: 1px solid #EEE;
                 position:relative;
                 overflow:auto;
+                .message-typing {
+                    position: absolute;
+                    left:10px;
+                    bottom:10px;
+                }
                 .room-message-box {
                     padding:3px 0;
                     position: relative;

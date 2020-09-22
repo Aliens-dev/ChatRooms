@@ -1,9 +1,9 @@
 import React, {useContext, useState, useEffect} from 'react';
-import UserIcon from "../../components/UserIcon";
-import {setModalHiddenAction, setModalVisibleAction} from "../../context/actions/GlobalActions";
+import UserIcon from "../../../components/UserIcon";
+import {setModalHiddenAction, setModalVisibleAction} from "../../../context/actions/GlobalActions";
 import axios from "axios";
-import {AppContext} from "../../context/AppContext";
-import Modal from '../../components/Modal'
+import {AppContext} from "../../../context/AppContext";
+import Modal from '../../../components/Modal'
 
 const MessageUsers = (props) => {
 
@@ -40,6 +40,19 @@ const MessageUsers = (props) => {
             setUsers([]);
         }
     }, [searchUser])
+
+    const removeUser = (user) => {
+        axios({
+            method:"DELETE",
+            url: '/rooms/' + props.id + '/users/' + user.id,
+            headers : {
+                authorization: "bearer "+ auth.token,
+            }
+        })
+            .then((res) => {
+                getMembers();
+            })
+    }
 
     // Get Room users ...
     const getMembers = () => {
@@ -88,12 +101,18 @@ const MessageUsers = (props) => {
                     members.map(member => {
                         return (
                             <div className="room-user" key={member.id}>
-                                <UserIcon />
+                                <UserIcon img={"/uploads/" + member.image} />
                                 <div className="user-info">
                                     <div className="username">
                                         {member.name}
                                     </div>
                                     <div className={`${props.activeUsers.some(user => user.id === member.id) && 'active-user'}`} />
+                                    <div className="dropdown">
+                                        <i className="fa fa-ellipsis-h"  data-toggle="dropdown" />
+                                        <div className="dropdown-menu">
+                                            <div className="dropdown-item" onClick={() => removeUser(member)}>remove</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         )

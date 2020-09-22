@@ -6,15 +6,10 @@ import {AppContext} from "../../../context/AppContext";
 import BreadCrumb from "../../../components/BreadCrumb";
 import BreadCrumbItem from "../../../components/BreadCrumbItem";
 import {APP_URL, ROOM_URL} from "../../../urls/AppBaseUrl";
-import {
-    setBreadCrumbHeightAction,
-    setPageHeightAction,
-    setRoomHeightAction
-} from "../../../context/actions/GlobalActions";
 import Loading from "../../../components/Loading";
-import MessageUsers from "../MessageUsers";
+import MessageUsers from "./MessageUsers";
 import UserIcon from "../../../components/UserIcon";
-
+import {Link} from 'react-router-dom'
 const SingleRoom = props => {
     const [room, setRoom] = useState({});
     const [myEcho,setMyEcho] = useState(null)
@@ -166,6 +161,21 @@ const SingleRoom = props => {
 
             })
     }
+    const deleteRoom = () => {
+        axios({
+            url: "/rooms/"+ room.id,
+            method : 'DELETE',
+            headers : {
+                authorization: "Bearer "+ auth.token
+            }
+        })
+            .then(res => {
+                props.history.push('/app/rooms');
+            })
+            .catch(err => {
+                alert('Error Failed To delete!')
+            })
+    }
 
     const renderMessages = () => {
         return messages.map(message => {
@@ -221,14 +231,28 @@ const SingleRoom = props => {
                                     }
                                 </span>
                             </div>
+                            <div className="d-flex flex-grow-1"></div>
+                            <div className="dropleft">
+                                <i className="fa fa-ellipsis-h"
+                                   data-toggle="dropdown"
+                                   aria-haspopup="true"
+                                   aria-expanded="false"
+                                />
+                                <div className="dropdown-menu">
+                                    <Link to={`/app/rooms/${room.id}/edit`} className="dropdown-item">Edit</Link>
+                                    <div onClick={deleteRoom} className="dropdown-item">Delete</div>
+                                </div>
+                            </div>
                         </div>
                         <div className="room-message-container">
                             {
                                 renderMessages()
                             }
-                            {
-                                userWriting
-                            }
+                            <div className="message-typing">
+                                {
+                                    userWriting
+                                }
+                            </div>
                         </div>
                         <form className="room-message-input" onSubmit={sendMessage}>
                             <input

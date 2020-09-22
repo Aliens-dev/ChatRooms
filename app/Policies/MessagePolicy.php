@@ -18,7 +18,7 @@ class MessagePolicy
      */
     public function create(User $user)
     {
-        //
+
     }
 
     /**

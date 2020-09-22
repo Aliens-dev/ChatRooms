@@ -24,6 +24,7 @@ Route::group(['middleware'=>'jwtauth'], function() {
     // Participants
     Route::get('rooms/{room}/users','Rooms\RoomsUsersController@index')->name('room.user.index');
     Route::post('rooms/{room}/users/{user}','Rooms\RoomsUsersController@store')->name('room.user.store');
+    Route::delete('rooms/{room}/users/{user}','Rooms\RoomsUsersController@destroy')->name('room.user.destroy');
 
     // Messages
     Route::get('rooms/{room}/messages', 'Rooms\RoomsMessagesController@index')->name('room.messages.index');

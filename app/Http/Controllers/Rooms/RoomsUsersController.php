@@ -7,6 +7,7 @@ use App\Room;
 use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Validator;
 
 class RoomsUsersController extends ApiController
@@ -33,7 +34,12 @@ class RoomsUsersController extends ApiController
      */
     public function store(Request $request,Room $room,User $user)
     {
-        if($room->members->contains($user) || $room->user_id == $user->id) {
+        $inspect = Gate::inspect('invite',[$room,$user]);
+//        if($room->members->contains($user) || $room->user_id == $user->id) {
+//            return $this->ErrorResponse(401);
+//        }
+
+        if($inspect->denied()) {
             return $this->ErrorResponse(401);
         }
 
@@ -67,11 +73,18 @@ class RoomsUsersController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Room $room
+     * @param User $user
+     * @return JsonResponse
      */
-    public function destroy($id)
+    public function destroy(Room $room,User $user)
     {
-        //
+        $inspect = Gate::inspect('remove_member', [$room,$user]);
+
+        if($inspect->denied()) {
+            return $this->ErrorResponse(403);
+        }
+        $room->members()->detach($user);
+        return $this->SuccessResponse();
     }
 }
