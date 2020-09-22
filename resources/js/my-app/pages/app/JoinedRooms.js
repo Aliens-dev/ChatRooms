@@ -8,6 +8,7 @@ import {APP_URL} from "../../urls/AppBaseUrl";
 import UserIcon from "../../components/UserIcon";
 import Loading from "../../components/Loading";
 import Nav from "../../components/Nav";
+import {Link} from "react-router-dom";
 
 const JoinedRooms = () => {
     const { auth } = useContext(AppContext);
@@ -42,15 +43,15 @@ const JoinedRooms = () => {
                     <Card
                         roomId={room.id}
                     >
-                        <div className="card-image">
+                        <Link to={`/app/rooms/${room.id}`} className="card-image">
                             <UserIcon letter={room.name[0]} />
-                        </div>
-                        <div className="card-title">
+                        </Link>
+                        <Link to={`/app/rooms/${room.id}`} className="card-title">
                             <i className="far fa-comments" />
                             <div>
                                 { room.name }
                             </div>
-                        </div>
+                        </Link>
                         <div className="card-foot">
                             <UserIcon width={35} height={35}/>
                             <UserIcon width={35} height={35}/>

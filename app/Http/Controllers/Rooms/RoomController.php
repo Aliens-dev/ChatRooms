@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RoomController extends ApiController
@@ -56,13 +57,17 @@ class RoomController extends ApiController
     {
         $validate = Validator::make($request->all(),[
             'name' => 'required|min:3|max:50',
-            'type' => '',
+            'type' => 'required|sometimes',
+            'image' => 'required|image'
         ]);
         if($validate->fails()) {
             //return response()->json(['success' => false], 403);
             return $this->ErrorResponse(403);
         }
-        $room = auth()->user()->addRoom($request->name,$request->type);
+        if($request->has('image')) {
+            $image = $request->file('image')->store("rooms");
+        }
+        $room = auth()->user()->addRoom($request->name,$image,$request->type);
         $room->members()->attach(auth()->user());
         //return response()->json(['success'=> true, 'room' => $room], 201);
         return $this->SuccessResponse(201);
@@ -107,13 +112,21 @@ class RoomController extends ApiController
         $validate = Validator::make($request->all(),[
             'name' => 'required|min:3|max:50',
             'type' => 'sometimes',
+            'image' => 'required|sometimes'
         ]);
 
         if($validate->fails()) {
             return response()->json(['success' => false], 403);
         }
 
-        $room->update($validate->validated());
+        if($request->hasFile('image')) {
+            Storage::delete($room->image);
+            $image = $request->file('image')->store("rooms");
+            $room->image = $image;
+        }
+        $room->name = $request->name;
+        $room->save();
+
         //return response()->json(['success'=> true], 201);
         return $this->SuccessResponse(201);
     }

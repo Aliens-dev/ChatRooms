@@ -6,6 +6,8 @@ use App\Room;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Passport\Passport;
 use Tests\TestCase;
 
@@ -17,14 +19,23 @@ class RoomTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $user = $this->signIn();
+        Storage::fake('rooms');
+        $image = UploadedFile::fake()->image('image.gif');
         $attr = [
             'name' => 'room',
             'type' => '0',
-            'user_id' => $user->id,
+            'user_id' => $user->id
         ];
-        $this->json('POST','/rooms', $attr)
+        $this->json('POST','/rooms',[
+            'name' => 'room',
+            'type' => '0',
+            'user_id' => $user->id,
+            "image" => $image
+        ])
             ->assertStatus(201)
             ->assertJson(['success' => true]);
+
+        Storage::disk('images')->assertExists("rooms/".$image->hashName());
         $this->assertDatabaseHas('rooms', $attr);
     }
     /** @test */

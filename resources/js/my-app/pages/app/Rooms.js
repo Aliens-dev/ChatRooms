@@ -12,11 +12,10 @@ import Modal from '../../components/Modal';
 import Nav from "../../components/Nav";
 import {Link} from "react-router-dom";
 
-const Rooms = () => {
+const Rooms = (props) => {
     const { auth, dispatchGlobalState } = useContext(AppContext);
     const [ rooms, setRooms ] = useState([]);
     const [loading,setLoading] = useState(true);
-    const [newRoom,setNewRoom] = useState({name:'',type : 0});
 
     useEffect(() => {
         getRooms();
@@ -40,23 +39,6 @@ const Rooms = () => {
             })
     }
 
-    const addRoom = () => {
-        axios({
-            url: '/rooms',
-            method:'POST',
-            data : {...newRoom},
-            headers : {
-                authorization: 'bearer ' + auth.token,
-            }
-        })
-            .then(res => {
-                getRooms();
-                dispatchGlobalState(setModalHiddenAction())
-            })
-            .catch(err => {
-
-            })
-    }
     const deleteRoom = (roomId) => {
         event.stopPropagation()
         axios({
@@ -89,7 +71,7 @@ const Rooms = () => {
                                     />
                                     <div className="dropdown-menu">
                                         <div className="dropdown-item"
-
+                                             onClick={() => props.history.push('/app/rooms/'+ room.id + '/edit')}
                                         >Edit</div>
                                         <div className="dropdown-item"
                                              onClick={() => deleteRoom(room.id)}
@@ -138,9 +120,7 @@ const Rooms = () => {
                     <div className="rooms-container container-fluid">
                         <div className="row">
                             <div className="ml-3">
-                                <button className="btn btn-primary"
-                                        onClick={() => dispatchGlobalState(setModalVisibleAction())}
-                                >Add Room</button>
+                                <Link to="/app/rooms/add" className="btn btn-primary">Add Room</Link>
                             </div>
                         </div>
                         <Nav className="ml-1 mt-2 row">
@@ -161,28 +141,6 @@ const Rooms = () => {
                         </div>
                     </div>
             }
-            <Modal
-                title="Add new room"
-                onClick={addRoom}
-            >
-                <div className="modal-body">
-                    <div className="mb-2">
-                        <input type="text" placeholder="Room name..."
-                           value={newRoom.name}
-                           onChange={ e=> setNewRoom({...newRoom, name:e.target.value})}
-                        />
-                    </div>
-                    <div>
-                        <select
-                            onChange={ e=> setNewRoom({...newRoom, type:e.target.value})}
-                            value={newRoom.type}
-                        >
-                            <option value="0">Private</option>
-                            <option value="1">Public</option>
-                        </select>
-                    </div>
-                </div>
-            </Modal>
         </div>
     )
 }

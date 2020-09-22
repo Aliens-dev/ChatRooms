@@ -2,17 +2,18 @@ import React, {useContext, useRef, useState,useEffect} from 'react';
 import axios from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
-import {AppContext} from "../../context/AppContext";
-import BreadCrumb from "../../components/BreadCrumb";
-import BreadCrumbItem from "../../components/BreadCrumbItem";
-import {APP_URL, ROOM_URL} from "../../urls/AppBaseUrl";
+import {AppContext} from "../../../context/AppContext";
+import BreadCrumb from "../../../components/BreadCrumb";
+import BreadCrumbItem from "../../../components/BreadCrumbItem";
+import {APP_URL, ROOM_URL} from "../../../urls/AppBaseUrl";
 import {
     setBreadCrumbHeightAction,
     setPageHeightAction,
     setRoomHeightAction
-} from "../../context/actions/GlobalActions";
-import Loading from "../../components/Loading";
-import MessageUsers from "./MessageUsers";
+} from "../../../context/actions/GlobalActions";
+import Loading from "../../../components/Loading";
+import MessageUsers from "../MessageUsers";
+import UserIcon from "../../../components/UserIcon";
 
 const SingleRoom = props => {
     const [room, setRoom] = useState({});
@@ -211,7 +212,7 @@ const SingleRoom = props => {
                     <div className="room-messages">
                         <div className="room-info">
                             <div className="room-image">
-                                <img src="https://unsplash.it/60/60"/>
+                                <img src={`/uploads/${room.image}`} />
                             </div>
                             <div className="room-name">
                                 <span>

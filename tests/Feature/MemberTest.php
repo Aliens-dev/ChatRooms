@@ -6,6 +6,8 @@ use App\Room;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class MemberTest extends TestCase
@@ -19,16 +21,17 @@ class MemberTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $user = $this->signIn();
+        $image = UploadedFile::fake()->image('room.jpg');
         $attr = [
             'name' => 'room',
             'type' => '0',
             'user_id' => $user->id,
+            'image' => $image
         ];
         $this->json('POST','/rooms', $attr)
             ->assertStatus(201)
             ->assertJson(['success' => true]);
-
-        $this->assertDatabaseHas('rooms', $attr);
+        Storage::disk()->assertExists('rooms/'.$image->hashName());
         $this->assertDatabaseHas('room_user',['user_id' => $user->id]);
     }
 

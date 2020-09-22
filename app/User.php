@@ -20,7 +20,7 @@ class User extends Authenticatable implements JWTSubject
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','image'
     ];
 
     /**
@@ -68,9 +68,9 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    public function addRoom($name, $type=1)
+    public function addRoom($name,$image="", $type=1)
     {
-        return $this->rooms()->create(compact(['name','type']));
+        return $this->rooms()->create(compact(['name','image','type']));
     }
 
     /**
