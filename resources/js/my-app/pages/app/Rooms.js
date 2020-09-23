@@ -20,7 +20,6 @@ const Rooms = (props) => {
 
     useEffect(() => {
         getRooms();
-        getUsers()
     }, [])
 
     const getRooms = () => {
@@ -70,15 +69,30 @@ const Rooms = (props) => {
             })
     }
 
-    const renderUser = (room) => {
-        const matchUsers = users.filter(user => user.id == room.user_id)
-        if(matchUsers.length) {
-            return matchUsers.map(user => <UserIcon key={user.id} img={"/uploads/"+user.image} width={35} height={35}/>)
+    const getUser = (room) => {
+        axios({
+            url : '/rooms/' + room.id + '/users',
+            method: 'GET',
+            headers : {
+                authorization : 'bearer '+ auth.token,
+            }
+        })
+            .then(res => {
+
+            })
+    }
+
+    const renderUsers = (room) => {
+        if(users.length) {
+            console.log(users)
+            const roomUsers = users.filter(user => user.room.id == room.id);
+            return roomUsers.map(user => <div>{user.image}</div>)
         }
     }
 
     const renderRooms = (type) => {
         return rooms.map( room => {
+            getUser(room);
             if(room.type === type) {
                 return (
                     <div className="col-3" key={room.id}>
@@ -111,7 +125,7 @@ const Rooms = (props) => {
                             </Link>
                             <div className="card-foot">
                                 {
-                                    renderUser(room)
+                                    renderUsers(room)
                                 }
                             </div>
                         </Card>

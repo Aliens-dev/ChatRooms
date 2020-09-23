@@ -78438,7 +78438,6 @@ var Rooms = function Rooms(props) {
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     getRooms();
-    getUsers();
   }, []);
 
   var getRooms = function getRooms() {
@@ -78483,25 +78482,32 @@ var Rooms = function Rooms(props) {
     });
   };
 
-  var renderUser = function renderUser(room) {
-    var matchUsers = users.filter(function (user) {
-      return user.id == room.user_id;
-    });
+  var getUser = function getUser(room) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default()({
+      url: '/rooms/' + room.id + '/users',
+      method: 'GET',
+      headers: {
+        authorization: 'bearer ' + auth.token
+      }
+    }).then(function (res) {});
+  };
 
-    if (matchUsers.length) {
-      return matchUsers.map(function (user) {
-        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_UserIcon__WEBPACK_IMPORTED_MODULE_7__["default"], {
-          key: user.id,
-          img: "/uploads/" + user.image,
-          width: 35,
-          height: 35
-        });
+  var renderUsers = function renderUsers(room) {
+    if (users.length) {
+      console.log(users);
+      var roomUsers = users.filter(function (user) {
+        return user.room.id == room.id;
+      });
+      return roomUsers.map(function (user) {
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, user.image);
       });
     }
   };
 
   var renderRooms = function renderRooms(type) {
     return rooms.map(function (room) {
+      getUser(room);
+
       if (room.type === type) {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "col-3",
@@ -78539,7 +78545,7 @@ var Rooms = function Rooms(props) {
           className: "far fa-comments"
         }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, room.name)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "card-foot"
-        }, renderUser(room))));
+        }, renderUsers(room))));
       }
     });
   };
