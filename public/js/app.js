@@ -76299,6 +76299,48 @@ var Sidebar = function Sidebar() {
 
 /***/ }),
 
+/***/ "./resources/js/my-app/components/Toast.js":
+/*!*************************************************!*\
+  !*** ./resources/js/my-app/components/Toast.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../context/AppContext */ "./resources/js/my-app/context/AppContext.js");
+/* harmony import */ var _context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../context/actions/GlobalActions */ "./resources/js/my-app/context/actions/GlobalActions.js");
+
+
+
+
+var MyToast = function MyToast(props) {
+  var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_1__["AppContext"]),
+      globalState = _useContext.globalState,
+      dispatchGlobalState = _useContext.dispatchGlobalState;
+
+  var hideToast = function hideToast() {
+    dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_2__["setToastHiddenAction"])());
+  };
+
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "".concat(globalState.showToast ? 'my-toast' : 'd-none')
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "my-toast-header"
+  }, globalState.toastMessage.header, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+    className: "fa fa-times close-toast",
+    onClick: hideToast
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "my-toast-body"
+  }, globalState.toastMessage.body));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (MyToast);
+
+/***/ }),
+
 /***/ "./resources/js/my-app/components/UserIcon.js":
 /*!****************************************************!*\
   !*** ./resources/js/my-app/components/UserIcon.js ***!
@@ -76380,7 +76422,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var AppContext = /*#__PURE__*/Object(react__WEBPACK_IMPORTED_MODULE_0__["createContext"])();
 var AuthState = JSON.parse(localStorage.getItem('chatApp')) || {};
 var GlobalState = {
-  visibleModal: false
+  visibleModal: false,
+  showToast: false,
+  toastMessage: {
+    header: '',
+    body: ''
+  }
 };
 var AppProvider = function AppProvider(props) {
   var _useReducer = Object(react__WEBPACK_IMPORTED_MODULE_0__["useReducer"])(_reducers_AuthReducer__WEBPACK_IMPORTED_MODULE_1__["default"], AuthState),
@@ -76458,17 +76505,26 @@ var UserLogoutAction = function UserLogoutAction() {
 /*!**************************************************************!*\
   !*** ./resources/js/my-app/context/actions/GlobalActions.js ***!
   \**************************************************************/
-/*! exports provided: SHOW_MODAL, HIDE_MODAL, setModalVisibleAction, setModalHiddenAction */
+/*! exports provided: SHOW_MODAL, HIDE_MODAL, SHOW_TOAST, HIDE_TOAST, TOAST_MESSAGE, setModalVisibleAction, setModalHiddenAction, setToastHiddenAction, setToastShowAction, setToastMessage */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOW_MODAL", function() { return SHOW_MODAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HIDE_MODAL", function() { return HIDE_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SHOW_TOAST", function() { return SHOW_TOAST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "HIDE_TOAST", function() { return HIDE_TOAST; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TOAST_MESSAGE", function() { return TOAST_MESSAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setModalVisibleAction", function() { return setModalVisibleAction; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setModalHiddenAction", function() { return setModalHiddenAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToastHiddenAction", function() { return setToastHiddenAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToastShowAction", function() { return setToastShowAction; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setToastMessage", function() { return setToastMessage; });
 var SHOW_MODAL = 'SHOW_MODAL';
 var HIDE_MODAL = 'HIDE_MODAL';
+var SHOW_TOAST = 'SHOW_TOAST';
+var HIDE_TOAST = 'HIDE_TOAST';
+var TOAST_MESSAGE = 'TOAST_MESSAGE';
 var setModalVisibleAction = function setModalVisibleAction() {
   return {
     type: SHOW_MODAL
@@ -76477,6 +76533,25 @@ var setModalVisibleAction = function setModalVisibleAction() {
 var setModalHiddenAction = function setModalHiddenAction() {
   return {
     type: HIDE_MODAL
+  };
+};
+var setToastHiddenAction = function setToastHiddenAction() {
+  return {
+    type: HIDE_TOAST
+  };
+};
+var setToastShowAction = function setToastShowAction() {
+  return {
+    type: SHOW_TOAST
+  };
+};
+var setToastMessage = function setToastMessage(header, body) {
+  return {
+    type: TOAST_MESSAGE,
+    payload: {
+      header: header,
+      body: body
+    }
   };
 };
 
@@ -76539,6 +76614,21 @@ var GlobalReducer = function GlobalReducer(state, action) {
     case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["HIDE_MODAL"]:
       return _objectSpread(_objectSpread({}, state), {}, {
         visibleModal: false
+      });
+
+    case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["HIDE_TOAST"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        showToast: false
+      });
+
+    case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["SHOW_TOAST"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        showToast: true
+      });
+
+    case _actions_GlobalActions__WEBPACK_IMPORTED_MODULE_0__["TOAST_MESSAGE"]:
+      return _objectSpread(_objectSpread({}, state), {}, {
+        toastMessage: action.payload
       });
 
     default:
@@ -76817,6 +76907,8 @@ var Register = function Register(props) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_Toast__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/Toast */ "./resources/js/my-app/components/Toast.js");
+
 
 
 var Dashboard = function Dashboard(props) {
@@ -76857,6 +76949,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Sidebar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../components/Sidebar */ "./resources/js/my-app/components/Sidebar.js");
 /* harmony import */ var _components_Navbar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../components/Navbar */ "./resources/js/my-app/components/Navbar.js");
 /* harmony import */ var _routes_AppRoutes__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../routes/AppRoutes */ "./resources/js/my-app/routes/AppRoutes.js");
+/* harmony import */ var _components_Toast__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/Toast */ "./resources/js/my-app/components/Toast.js");
+
 
 
 
@@ -76867,7 +76961,7 @@ var Index = function Index() {
     className: "app-page"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Sidebar__WEBPACK_IMPORTED_MODULE_1__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "page-content"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], null), Object(_routes_AppRoutes__WEBPACK_IMPORTED_MODULE_3__["default"])()));
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Navbar__WEBPACK_IMPORTED_MODULE_2__["default"], null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_Toast__WEBPACK_IMPORTED_MODULE_4__["default"], null), Object(_routes_AppRoutes__WEBPACK_IMPORTED_MODULE_3__["default"])()));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Index);
@@ -77470,6 +77564,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _context_AppContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../context/AppContext */ "./resources/js/my-app/context/AppContext.js");
 /* harmony import */ var _components_Card__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../components/Card */ "./resources/js/my-app/components/Card.js");
 /* harmony import */ var _components_UserIcon__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../components/UserIcon */ "./resources/js/my-app/components/UserIcon.js");
+/* harmony import */ var _context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../context/actions/GlobalActions */ "./resources/js/my-app/context/actions/GlobalActions.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -77495,6 +77590,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var AddRoom = function AddRoom(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
     type: 0
@@ -77511,7 +77607,8 @@ var AddRoom = function AddRoom(props) {
       setPreviewAvatar = _useState4[1];
 
   var _useContext = Object(react__WEBPACK_IMPORTED_MODULE_0__["useContext"])(_context_AppContext__WEBPACK_IMPORTED_MODULE_3__["AppContext"]),
-      auth = _useContext.auth;
+      auth = _useContext.auth,
+      dispatchGlobalState = _useContext.dispatchGlobalState;
 
   var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
       _useState6 = _slicedToArray(_useState5, 2),
@@ -77544,6 +77641,8 @@ var AddRoom = function AddRoom(props) {
         "Content-Type": 'multipart/form-data'
       }
     }).then(function (res) {
+      dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_6__["setToastShowAction"])());
+      dispatchGlobalState(Object(_context_actions_GlobalActions__WEBPACK_IMPORTED_MODULE_6__["setToastMessage"])("Room added successfully", "".concat(room.name, " is Added")));
       props.history.push('/app/rooms');
     })["catch"](function (err) {});
   };
@@ -78390,6 +78489,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Modal__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../components/Modal */ "./resources/js/my-app/components/Modal.js");
 /* harmony import */ var _components_Nav__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../components/Nav */ "./resources/js/my-app/components/Nav.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _components_Toast__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../components/Toast */ "./resources/js/my-app/components/Toast.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -78401,6 +78501,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 

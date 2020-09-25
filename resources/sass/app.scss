@@ -438,6 +438,45 @@ $main-blue : #455CC7;
     }
 }
 
+.my-toast {
+    display:flex;
+    flex-direction: column;
+    position:absolute;
+    top:20px;
+    right:20px;
+    min-width:250px;
+    min-height:75px;
+    background-color:#4AAA4D;
+    color:#FFF;
+    z-index:100;
+    border-radius: 5px;
+    .my-toast-header {
+        padding:5px 10px;
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        .close-toast {
+            &:hover {
+                cursor: pointer;
+                color:#FFF;
+            }
+        }
+        &::after {
+            content:'';
+            position:absolute;
+            bottom:0;
+            left:0;
+            right:0;
+            height:1px;
+            width:100%;
+            background-color:#FFF;
+        }
+    }
+    .my-toast-body {
+        padding:5px 10px;
+    }
+}
 
 .loading {
     position:absolute;

@@ -2,6 +2,7 @@ import React from "react";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import AppRoutes from "../../routes/AppRoutes";
+import MyToast from "../../components/Toast";
 
 
 const Index = () => {
@@ -10,6 +11,7 @@ const Index = () => {
             <Sidebar />
             <div className="page-content" >
                 <Navbar />
+                <MyToast />
                 {
                     AppRoutes()
                 }

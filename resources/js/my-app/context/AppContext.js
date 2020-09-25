@@ -9,7 +9,7 @@ import {GlobalReducer} from "./reducers/GlobalReducer";
 export const AppContext = createContext();
 
 const AuthState = JSON.parse(localStorage.getItem('chatApp')) || {};
-const GlobalState = {visibleModal: false};
+const GlobalState = {visibleModal: false,showToast:false,toastMessage: {header:'',body:''}};
 
 export const AppProvider = (props) => {
 

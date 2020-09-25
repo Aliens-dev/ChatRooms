@@ -4,6 +4,7 @@ import BreadCrumbItem from "../../../components/BreadCrumbItem";
 import {AppContext} from "../../../context/AppContext";
 import Card from "../../../components/Card";
 import UserIcon from "../../../components/UserIcon";
+import {setToastMessage, setToastShowAction} from "../../../context/actions/GlobalActions";
 
 
 const AddRoom = (props) => {
@@ -11,7 +12,7 @@ const AddRoom = (props) => {
     const [room,setRoom] = useState({type:0})
     const avatarBtn = useRef(null);
     const [previewAvatar,setPreviewAvatar] = useState("");
-    const {auth} = useContext(AppContext);
+    const {auth,dispatchGlobalState} = useContext(AppContext);
     const [progress,setProgress] = useState(0);
 
     const chooseAvatar = (e) => {
@@ -38,6 +39,8 @@ const AddRoom = (props) => {
             }
         })
             .then(res => {
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("Room added successfully",`${room.name} is Added`))
                 props.history.push('/app/rooms')
             })
             .catch(err => {

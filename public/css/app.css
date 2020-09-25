@@ -11433,6 +11433,48 @@ a.text-dark:focus {
   }
 }
 
+.my-toast {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  min-width: 250px;
+  min-height: 75px;
+  background-color: #4AAA4D;
+  color: #FFF;
+  z-index: 100;
+  border-radius: 5px;
+}
+
+.my-toast .my-toast-header {
+  padding: 5px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.my-toast .my-toast-header .close-toast:hover {
+  cursor: pointer;
+  color: #FFF;
+}
+
+.my-toast .my-toast-header::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  width: 100%;
+  background-color: #FFF;
+}
+
+.my-toast .my-toast-body {
+  padding: 5px 10px;
+}
+
 .loading {
   position: absolute;
   top: 0;

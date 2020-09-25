@@ -11,6 +11,7 @@ import {setModalHiddenAction, setModalVisibleAction} from "../../context/actions
 import Modal from '../../components/Modal';
 import Nav from "../../components/Nav";
 import {Link} from "react-router-dom";
+import MyToast from "../../components/Toast";
 
 const Rooms = (props) => {
     const { auth, dispatchGlobalState } = useContext(AppContext);
