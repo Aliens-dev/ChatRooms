@@ -1,13 +1,17 @@
 import React, {useContext, useState, useEffect} from 'react';
 import UserIcon from "../../../components/UserIcon";
-import {setModalHiddenAction, setModalVisibleAction} from "../../../context/actions/GlobalActions";
+import {
+    setModalHiddenAction,
+    setModalVisibleAction,
+    setToastMessage,
+    setToastShowAction
+} from "../../../context/actions/GlobalActions";
 import axios from "axios";
 import {AppContext} from "../../../context/AppContext";
 import Modal from '../../../components/Modal'
 
 const MessageUsers = (props) => {
 
-    const [selectSearchUser,setSelectSearchUser] = useState(false);
     const [members,setMembers] = useState([]);
     // Search for users ...
     const [users,setUsers] = useState([]);
@@ -50,7 +54,13 @@ const MessageUsers = (props) => {
             }
         })
             .then((res) => {
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("User successfully removed",`${user.name} is removed`))
                 getMembers();
+            })
+            .catch(err => {
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("Error, failed to remove",`User failed to remove`))
             })
     }
 
@@ -83,11 +93,14 @@ const MessageUsers = (props) => {
             .then(res => {
                 getMembers();
                 dispatchGlobalState(setModalHiddenAction());
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("User successfully added",`${selectedUser.name} added`))
                 setSearchUser('');
                 setUsers([])
             })
             .catch(err => {
-                console.log('Failed!')
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("Error, failed to add",`User failed to add`))
             })
     }
     return (

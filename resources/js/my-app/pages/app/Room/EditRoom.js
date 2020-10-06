@@ -5,7 +5,7 @@ import Loading from "../../../components/Loading";
 import {AppContext} from "../../../context/AppContext";
 import Card from "../../../components/Card";
 import UserIcon from "../../../components/UserIcon";
-
+import {setToastMessage, setToastShowAction} from "../../../context/actions/GlobalActions";
 
 const EditRoom = (props) => {
 
@@ -13,7 +13,7 @@ const EditRoom = (props) => {
     const [loading,setLoading] = useState(true);
     const avatarBtn = useRef(null);
     const [previewAvatar,setPreviewAvatar] = useState("");
-    const {auth} = useContext(AppContext);
+    const {auth,dispatchGlobalState} = useContext(AppContext);
     const [progress,setProgress] = useState(0);
 
     console.log(room)
@@ -47,10 +47,13 @@ const EditRoom = (props) => {
             }
         })
             .then(res => {
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("Room edited successfully",`${room.name} is edited`))
                 props.history.push('/app/rooms/'+ room.id)
             })
             .catch(err => {
-
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("Error, try again",`${room.name} failed to edit`))
             })
     }
 

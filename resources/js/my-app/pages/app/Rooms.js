@@ -4,14 +4,11 @@ import Card from "../../components/Card";
 import {AppContext} from "../../context/AppContext";
 import BreadCrumb from "../../components/BreadCrumb";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
-import {APP_URL, ROOM_URL} from "../../urls/AppBaseUrl";
 import UserIcon from "../../components/UserIcon";
 import Loading from "../../components/Loading";
-import {setModalHiddenAction, setModalVisibleAction} from "../../context/actions/GlobalActions";
-import Modal from '../../components/Modal';
 import Nav from "../../components/Nav";
 import {Link} from "react-router-dom";
-import MyToast from "../../components/Toast";
+import {setToastMessage, setToastShowAction} from "../../context/actions/GlobalActions";
 
 const Rooms = (props) => {
     const { auth, dispatchGlobalState } = useContext(AppContext);
@@ -51,9 +48,12 @@ const Rooms = (props) => {
         })
             .then(res => {
                 getRooms();
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("Room successfully removed",`${room.name} is removed`))
             })
             .catch(err => {
-                alert('Error Failed To delete!')
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("Error, try again",`${room.name} failed to remove`))
             })
     }
 

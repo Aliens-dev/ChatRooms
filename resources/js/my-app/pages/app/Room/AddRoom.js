@@ -44,7 +44,8 @@ const AddRoom = (props) => {
                 props.history.push('/app/rooms')
             })
             .catch(err => {
-
+                dispatchGlobalState(setToastShowAction())
+                dispatchGlobalState(setToastMessage("Error, failed to add",`${room.name} failed to add`))
             })
     }
 
