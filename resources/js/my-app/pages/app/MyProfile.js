@@ -1,7 +1,7 @@
 import React, {useState,useEffect,useContext,useRef} from 'react';
 import BreadCrumb from "../../components/BreadCrumb";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
-import {APP_URL, FULL_URL} from "../../urls/AppBaseUrl";
+import {APP_URL, DASHBOARD_PAGE, FULL_URL, PROFILE_PAGE_API} from "../../urls/AppBaseUrl";
 import {AppContext} from "../../context/AppContext";
 import Loading from "../../components/Loading";
 import UserIcon from "../../components/UserIcon";
@@ -24,7 +24,7 @@ const MyProfile = (props) => {
     const getUserInfo = () => {
         axios({
             method:"GET",
-            url : '/users/' + auth.user.id,
+            url : PROFILE_PAGE_API + auth.user.id,
             headers : {
                 authorization: 'bearer ' + auth.token
             }
@@ -49,7 +49,7 @@ const MyProfile = (props) => {
         formData.append('image',editUser.image)
         formData.append("_method", 'PATCH');
         axios({
-            url: '/users/' + auth.user.id,
+            url: PROFILE_PAGE_API + auth.user.id,
             data: formData,
             method: 'POST',
             headers: {
@@ -94,7 +94,7 @@ const MyProfile = (props) => {
                 <div className="profile-page">
                     <div>
                         <BreadCrumb  >
-                            <BreadCrumbItem url={APP_URL}>
+                            <BreadCrumbItem url={DASHBOARD_PAGE}>
                                 Dashboard
                             </BreadCrumbItem>
                             <BreadCrumbItem active>
@@ -104,7 +104,7 @@ const MyProfile = (props) => {
                     </div>
                     <div className="container-fluid">
                         <div className="row my-profile">
-                            <div className="col-3" >
+                            <div className="col-lg-3 col-sm-12" >
                                 <div className="my-card">
                                     <div className="profile-header">
                                         <UserIcon img={FULL_URL+"/uploads/" + user.image}/>
@@ -121,13 +121,10 @@ const MyProfile = (props) => {
                                         <div className="item">
                                             <span>Joined </span>  {user.created_at}
                                         </div>
-                                        <div className="item">
-                                            <span>Groups</span>  20
-                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-9 settings-tab">
+                            <div className="col-lg-9 col-sm-12 settings-tab">
                                 <ul className="nav nav-tabs" id="myTab" role="tablist">
                                     <li className="nav-item">
                                         <a className="nav-link active" id="home-tab" data-toggle="tab" href="#settings"
@@ -141,7 +138,7 @@ const MyProfile = (props) => {
                                             <form className="form">
                                                 <div className="form-group row">
                                                     <label htmlFor="name" className="col-3">Name:  </label>
-                                                    <input id="name" className="col-9 form-control"
+                                                    <input id="name" className="col-lg-9 col-sm-12 form-control"
                                                            value={editUser.name}
                                                            onChange={(e) => setEditUser({...editUser,name:e.target.value})}
                                                            placeholder="Your name"
@@ -152,19 +149,19 @@ const MyProfile = (props) => {
                                                     <input id="name" type="email"
                                                            value={editUser.email}
                                                            onChange={(e) => setEditUser({...editUser,email:e.target.value})}
-                                                           className="form-control col-9" placeholder="Your Email" />
+                                                           className="form-control col-lg-9 col-sm-12" placeholder="Your Email" />
                                                 </div>
                                                 <div className="form-group row">
                                                     <label htmlFor="name" className="col-3">Password:  </label>
-                                                    <input id="name" type="password" className="form-control col-9"
+                                                    <input id="name" type="password" className="form-control col-lg-9 col-sm-12"
                                                            value={editUser.password}
                                                            onChange={(e) => setEditUser({...editUser,password:e.target.value})}
                                                            placeholder="Password." />
                                                 </div>
                                                 <div className="form-group row">
                                                     <label htmlFor="file" className="col-3">Avatar:  </label>
-                                                    <input ref={avatarBtn} onChange={avatarBtnChange} type="file" className="d-none col-9" />
-                                                    <div className="form-image">
+                                                    <input ref={avatarBtn} onChange={avatarBtnChange} type="file" className="d-none" />
+                                                    <div className="form-image col-lg-9 col-sm-11 ">
                                                         <button id="file" className="btn btn-primary"
                                                                 onClick={chooseAvatar}>
                                                             Upload Avatar

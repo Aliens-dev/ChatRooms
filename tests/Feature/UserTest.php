@@ -21,7 +21,7 @@ class UserTest extends TestCase
 
         $user = $this->signIn();
 
-        $res = $this->json('GET','/users')->assertStatus(200)
+        $res = $this->json('GET','/api/users')->assertStatus(200)
             ->assertJson(['success' => true]);
         $this->assertIsArray($res['data']);
     }
@@ -35,7 +35,7 @@ class UserTest extends TestCase
         factory(User::class)->create(['email' => 'johdoe@gmail.com']);
         factory(User::class)->create(['email' => 'joeoe@gmail.com']);
         factory(User::class)->create(['email' => 'joe@gmail.com']);
-        $res = $this->json('GET', '/users', [
+        $res = $this->json('GET', '/api/users', [
             'email' => 'joh'
         ])->assertStatus(200);
         $emails = array_column($res['data'], 'email');
@@ -50,7 +50,7 @@ class UserTest extends TestCase
 
         $user = $this->signIn();
 
-        $response = $this->actingAs($user)->json('GET', "/users/{$user->id}")
+        $response = $this->actingAs($user)->json('GET', "/api/users/{$user->id}")
             ->assertStatus(200);
         $this->assertContains($user->name, $response->json(['data']));
     }
@@ -68,7 +68,7 @@ class UserTest extends TestCase
             'password' => '123456'
         ]);
 
-        $this->actingAs($user)->json('PATCH', "/users/{$user->id}", $data->toArray())
+        $this->actingAs($user)->json('PATCH', "/api/users/{$user->id}", $data->toArray())
             ->assertStatus(200);
         $withoutPassword = $data->except("password")->toArray();
         $this->assertDatabaseHas('users', $withoutPassword);
@@ -90,7 +90,7 @@ class UserTest extends TestCase
             'password' => '123456'
         ]);
 
-        $this->actingAs($user)->json('PATCH', "/users/{$user->id}", $data->toArray())
+        $this->actingAs($user)->json('PATCH', "/api/users/{$user->id}", $data->toArray())
             ->assertStatus(401);
         $this->assertDatabaseHas('users', ["id" => $user->id,"email" => $user->email]);
     }

@@ -28,7 +28,7 @@ class MemberTest extends TestCase
             'user_id' => $user->id,
             'image' => $image
         ];
-        $this->json('POST','/rooms', $attr)
+        $this->json('POST','/api/rooms', $attr)
             ->assertStatus(201)
             ->assertJson(['success' => true]);
         Storage::disk()->assertExists('rooms/'.$image->hashName());
@@ -43,7 +43,7 @@ class MemberTest extends TestCase
         $user = $this->signIn();
         $anotherUser = factory(User::class)->create();
         $room = factory(Room::class)->create(['user_id'=> $user->id]);
-        $this->json('POST', "/rooms/{$room->id}/users/{$anotherUser->id}")
+        $this->json('POST', "/api/rooms/{$room->id}/users/{$anotherUser->id}")
             ->assertStatus(200)
             ->assertJson(['success' => true]);
         $this->assertDatabaseHas('room_user', ['user_id' => $anotherUser->id, 'room_id' => $room->id]);
@@ -60,7 +60,7 @@ class MemberTest extends TestCase
 
         $room = factory(Room::class)->create(['user_id'=> $user->id]);
 
-        $this->json('POST', "/rooms/{$room->id}/users/{$anotherUser->id}")
+        $this->json('POST', "/api/rooms/{$room->id}/users/{$anotherUser->id}")
             ->assertStatus(200)
             ->assertJson(['success' => true]);
 
@@ -68,7 +68,7 @@ class MemberTest extends TestCase
 
         // add the same user another time!
 
-        $this->json('POST', "/rooms/{$room->id}/users/{$anotherUser->id}")
+        $this->json('POST', "/api/rooms/{$room->id}/users/{$anotherUser->id}")
             ->assertStatus(401);
 
         $this->assertDatabaseCount('room_user',1);
@@ -83,7 +83,7 @@ class MemberTest extends TestCase
         $room = factory(Room::class)->create(['user_id' => $user->id]);
 
 
-        $this->json('POST', "/rooms/{$room->id}/users/{$user->id}")
+        $this->json('POST', "/api/rooms/{$room->id}/users/{$user->id}")
             ->assertStatus(401);
 
         $this->assertDatabaseMissing('room_user', ['user_id' => $user->id]);
@@ -108,7 +108,7 @@ class MemberTest extends TestCase
         $this->assertDatabaseHas('room_user', ['room_id' => $room->id]);
 
         $this->actingAs($owner)
-            ->json('DELETE',"/rooms/{$room->id}/users/{$user->id}")
+            ->json('DELETE',"/api/rooms/{$room->id}/users/{$user->id}")
             ->assertStatus(200);
 
         $this->assertDatabaseMissing("room_user",['user_id' => $user->id]);
@@ -131,7 +131,7 @@ class MemberTest extends TestCase
         $this->assertDatabaseHas('room_user', ['room_id' => $room->id]);
 
         $this->actingAs($owner)
-            ->json('DELETE',"/rooms/{$room->id}/users/{$owner->id}")
+            ->json('DELETE',"/api/rooms/{$room->id}/users/{$owner->id}")
             ->assertStatus(403);
 
         $this->assertDatabaseHas("room_user",['user_id' => $owner->id]);

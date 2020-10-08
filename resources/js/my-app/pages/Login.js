@@ -1,8 +1,10 @@
 import React, {useContext, useState , useEffect} from 'react';
+import { Link} from "react-router-dom";
 import Navbar from "../components/Navbar";
 import axios from 'axios';
 import {AppContext} from "../context/AppContext"
 import Loading from "../components/Loading";
+import {APP_URL, LOGIN_PAGE, REGISTER_PAGE, LOGIN_PAGE_API} from "../urls/AppBaseUrl";
 const Login = (props) => {
 
     const [email,setEmail] = useState('');
@@ -12,7 +14,7 @@ const Login = (props) => {
 
     useEffect(() => {
         if(auth.token !== '') {
-            axios.post('/checkToken', [],{
+            axios.post('/api/checkToken', [],{
                 headers : {
                     Authorization : 'Bearer ' + auth.token
                 }
@@ -22,7 +24,7 @@ const Login = (props) => {
                         localStorage.setItem('chatApp', JSON.stringify(res.data.data));
                         dispatchAuth({type : 'USER_LOGIN', payload: res.data.data})
                     }
-                    props.history.push('/app')
+                    props.history.push(APP_URL)
                     setCheck(true)
                 })
                 .catch(err => {
@@ -37,12 +39,12 @@ const Login = (props) => {
 
     const _Login = (e) => {
         e.preventDefault();
-        axios.post('/login', {email,password})
+        axios.post(LOGIN_PAGE_API, {email,password})
             .then(res => {
                 if(res.data.success) {
                     localStorage.setItem('chatApp',JSON.stringify(res.data.data));
                     dispatchAuth({type: 'USER_LOGIN', payload: res.data.data});
-                    props.history.push('/app')
+                    props.history.push(APP_URL)
                 }
             })
             .catch(err => {
@@ -55,31 +57,39 @@ const Login = (props) => {
         )
     }else {
         return (
-            <div>
-                <Navbar container />
-                <div className="container">
-                    <div className="login-form">
-                        <form className="form" method="POST" onSubmit={_Login}>
-                            <div className="form-group">
-                                <label htmlFor="email">Email :</label>
-                                <input
-                                    name="email" type="email"
-                                    id="email" className="form-control"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label htmlFor="password">Password :</label>
-                                <input
-                                    name="password" type="password"
-                                    id="password" className="form-control"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                />
-                            </div>
-                            <button className="btn btn-primary">Submit</button>
-                        </form>
+            <div className="auth-pages">
+                <div className="form-container">
+                    <form className="form" method="POST" onSubmit={_Login}>
+                        <div className="form-header">
+                             <h6>Chat <span>room</span></h6>
+                        </div>
+                        <div className="form-image">
+                            <img src="/img/login_image.PNG" alt="login image" />
+                        </div>
+                        <div className="form-group form-group-custom">
+                            <label htmlFor="email"><i className="fa fa-envelope"></i></label>
+                            <input
+                                name="email" type="email"
+                                id="email" className="form-control"
+                                value={email}
+                                placeholder="Email Address"
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
+                        <div className="form-group form-group-custom">
+                            <label htmlFor="password"><i className="fa fa-key"></i></label>
+                            <input
+                                name="password" type="password"
+                                id="password" className="form-control"
+                                value={password}
+                                placeholder="Password"
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
+                        </div>
+                        <button className="submit-button" >Login</button>
+                    </form>
+                    <div className="register">
+                        New to chatrooms? <Link to={REGISTER_PAGE}>Register Here</Link>
                     </div>
                 </div>
             </div>

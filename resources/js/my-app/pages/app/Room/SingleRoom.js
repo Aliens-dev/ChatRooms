@@ -5,11 +5,11 @@ import Pusher from 'pusher-js';
 import {AppContext} from "../../../context/AppContext";
 import BreadCrumb from "../../../components/BreadCrumb";
 import BreadCrumbItem from "../../../components/BreadCrumbItem";
-import {APP_URL, ROOM_URL} from "../../../urls/AppBaseUrl";
+import {DASHBOARD_PAGE, ROOMS_PAGE, ROOMS_PAGE_API} from "../../../urls/AppBaseUrl";
 import Loading from "../../../components/Loading";
 import MessageUsers from "./MessageUsers";
-import UserIcon from "../../../components/UserIcon";
-import {Link} from 'react-router-dom'
+import {Link} from 'react-router-dom';
+
 const SingleRoom = props => {
     const [room, setRoom] = useState({});
     const [myEcho,setMyEcho] = useState(null)
@@ -106,7 +106,7 @@ const SingleRoom = props => {
     const getRoom = () => {
         axios({
             method:"GET",
-            url: '/rooms/' + props.match.params.id,
+            url: ROOMS_PAGE_API + props.match.params.id,
             headers : {
                 Authorization : 'bearer ' + auth.token,
             }
@@ -117,14 +117,14 @@ const SingleRoom = props => {
                 setLoading(false)
             })
             .catch(err => {
-                props.history.push('/app/rooms');
+                props.history.push(ROOMS_PAGE);
                 setLoading(false)
             })
     }
 
     const getMessages = () => {
         axios({
-            url:'/rooms/'+props.match.params.id+'/messages',
+            url:ROOMS_PAGE_API+props.match.params.id+'/messages',
             method:'GET',
             headers : {
                 authorization : 'bearer '+ auth.token,
@@ -144,7 +144,7 @@ const SingleRoom = props => {
             return;
         }
         axios({
-            url:'/rooms/'+props.match.params.id+'/messages',
+            url:ROOMS_PAGE_API+props.match.params.id+'/messages',
             method:'POST',
             data: {
                 message,
@@ -163,14 +163,14 @@ const SingleRoom = props => {
     }
     const deleteRoom = () => {
         axios({
-            url: "/rooms/"+ room.id,
+            url: ROOMS_PAGE_API+ room.id,
             method : 'DELETE',
             headers : {
                 authorization: "Bearer "+ auth.token
             }
         })
             .then(res => {
-                props.history.push('/app/rooms');
+                props.history.push(ROOMS_PAGE);
             })
             .catch(err => {
                 alert('Error Failed To delete!')
@@ -203,10 +203,10 @@ const SingleRoom = props => {
         <div className="single-room" >
             <div className="bread-container">
                 <BreadCrumb>
-                    <BreadCrumbItem url={APP_URL}>
+                    <BreadCrumbItem url={DASHBOARD_PAGE}>
                         Dashboard
                     </BreadCrumbItem>
-                    <BreadCrumbItem url={ROOM_URL}>
+                    <BreadCrumbItem url={ROOMS_PAGE}>
                         Rooms
                     </BreadCrumbItem>
                     <BreadCrumbItem active>
@@ -239,7 +239,7 @@ const SingleRoom = props => {
                                    aria-expanded="false"
                                 />
                                 <div className="dropdown-menu">
-                                    <Link to={`/app/rooms/${room.id}/edit`} className="dropdown-item">Edit</Link>
+                                    <Link to={ROOMS_PAGE+room.id+'/edit'} className="dropdown-item">Edit</Link>
                                     <div onClick={deleteRoom} className="dropdown-item">Delete</div>
                                 </div>
                             </div>

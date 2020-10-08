@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import {AppContext} from "../../../context/AppContext";
 import Modal from '../../../components/Modal'
+import {PROFILE_PAGE_API, ROOMS_PAGE_API} from "../../../urls/AppBaseUrl";
 
 const MessageUsers = (props) => {
 
@@ -25,7 +26,7 @@ const MessageUsers = (props) => {
     useEffect(() => {
         if(searchUser !== '') {
             axios({
-                url: '/users',
+                url: PROFILE_PAGE_API,
                 method: 'GET',
                 params: {
                     email : searchUser,
@@ -48,7 +49,7 @@ const MessageUsers = (props) => {
     const removeUser = (user) => {
         axios({
             method:"DELETE",
-            url: '/rooms/' + props.id + '/users/' + user.id,
+            url: ROOMS_PAGE_API + props.id + '/users/' + user.id,
             headers : {
                 authorization: "bearer "+ auth.token,
             }
@@ -68,7 +69,7 @@ const MessageUsers = (props) => {
     const getMembers = () => {
         axios({
             method:"GET",
-            url: '/rooms/' + props.id + '/users',
+            url: ROOMS_PAGE_API + props.id + '/users',
             headers : {
                 Authorization : 'bearer ' + auth.token,
             }
@@ -84,7 +85,7 @@ const MessageUsers = (props) => {
     const addUser  = () => {
         let selectedUser = users.find(user => user.email === searchUser);
         axios({
-            url: `/rooms/${props.id}/users/${selectedUser.id}`,
+            url: ROOMS_PAGE_API + props.id+'/users/'+ selectedUser.id,
             method:'POST',
             headers : {
                 authorization : 'bearer ' + auth.token,
@@ -114,7 +115,10 @@ const MessageUsers = (props) => {
                     members.map(member => {
                         return (
                             <div className="room-user" key={member.id}>
-                                <UserIcon img={"/uploads/" + member.image} />
+                                {
+                                    member.image ? <UserIcon img={"/uploads/" + member.image} /> :
+                                        <UserIcon />
+                                }
                                 <div className="user-info">
                                     <div className="username">
                                         {member.name}

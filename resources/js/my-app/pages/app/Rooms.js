@@ -9,6 +9,7 @@ import Loading from "../../components/Loading";
 import Nav from "../../components/Nav";
 import {Link} from "react-router-dom";
 import {setToastMessage, setToastShowAction} from "../../context/actions/GlobalActions";
+import {DASHBOARD_PAGE, PROFILE_PAGE_API, ROOMS_PAGE_API} from "../../urls/AppBaseUrl";
 
 const Rooms = (props) => {
     const { auth, dispatchGlobalState } = useContext(AppContext);
@@ -23,7 +24,7 @@ const Rooms = (props) => {
     const getRooms = () => {
         axios({
             method : 'GET',
-            url : '/rooms',
+            url : ROOMS_PAGE_API,
             headers : {
                 Authorization : 'bearer ' + auth.token,
             }
@@ -40,7 +41,7 @@ const Rooms = (props) => {
 
     const deleteRoom = (roomId) => {
         axios({
-            url: "/rooms/"+ roomId,
+            url: ROOMS_PAGE_API+ roomId,
             method : 'DELETE',
             headers : {
                 authorization: "Bearer "+ auth.token
@@ -59,7 +60,7 @@ const Rooms = (props) => {
 
     const getUsers = () => {
         axios({
-            url : '/users',
+            url : PROFILE_PAGE_API,
             method : 'GET',
             headers :{
                 authorization : 'Bearer '+ auth.token,
@@ -72,7 +73,7 @@ const Rooms = (props) => {
 
     const getUser = (room) => {
         axios({
-            url : '/rooms/' + room.id + '/users',
+            url : ROOMS_PAGE_API + room.id + '/users',
             method: 'GET',
             headers : {
                 authorization : 'bearer '+ auth.token,
@@ -96,7 +97,7 @@ const Rooms = (props) => {
             getUser(room);
             if(room.type === type) {
                 return (
-                    <div className="col-3" key={room.id}>
+                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12" key={room.id}>
                         <Card>
                             <div className="settings">
                                 <div className="dropdown">
@@ -107,7 +108,7 @@ const Rooms = (props) => {
                                     />
                                     <div className="dropdown-menu">
                                         <div className="dropdown-item"
-                                             onClick={() => props.history.push('/app/rooms/'+ room.id + '/edit')}
+                                             onClick={() => props.history.push('/rooms/'+ room.id + '/edit')}
                                         >Edit</div>
                                         <div className="dropdown-item"
                                              onClick={() => deleteRoom(room.id)}
@@ -115,10 +116,10 @@ const Rooms = (props) => {
                                     </div>
                                 </div>
                             </div>
-                            <Link className="card-image" to={`/app/rooms/${room.id}`} >
+                            <Link className="card-image" to={`/rooms/${room.id}`} >
                                 <UserIcon letter={room.name[0]} />
                             </Link>
-                            <Link className="card-title" to={`/app/rooms/${room.id}`}>
+                            <Link className="card-title" to={`/rooms/${room.id}`}>
                                 <i className="far fa-comments" />
                                 <div>
                                     { room.name }
@@ -139,7 +140,7 @@ const Rooms = (props) => {
         <div className="home-page">
             <div className="bread-container">
                 <BreadCrumb>
-                    <BreadCrumbItem url="/app">
+                    <BreadCrumbItem url={DASHBOARD_PAGE}>
                         Dashboard
                     </BreadCrumbItem>
                     <BreadCrumbItem active>
@@ -154,7 +155,7 @@ const Rooms = (props) => {
                     <div className="rooms-container container-fluid">
                         <div className="row">
                             <div className="ml-3">
-                                <Link to="/app/rooms/add" className="btn btn-primary">Add Room</Link>
+                                <Link to="/rooms/add" className="btn btn-primary">Add Room</Link>
                             </div>
                         </div>
                         <Nav className="ml-1 mt-2 row">
@@ -165,7 +166,7 @@ const Rooms = (props) => {
                                 renderRooms(1)
                             }
                         </div>
-                        <Nav className="ml-1 mt-2  row">
+                        <Nav className="ml-1 mt-2 row">
                             Private Rooms
                         </Nav>
                         <div className="row rooms">

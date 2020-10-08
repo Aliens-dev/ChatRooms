@@ -9,7 +9,7 @@ import {GlobalReducer} from "./reducers/GlobalReducer";
 export const AppContext = createContext();
 
 const AuthState = JSON.parse(localStorage.getItem('chatApp')) || {};
-const GlobalState = {visibleModal: false,showToast:false,toastMessage: {header:'',body:''}};
+const GlobalState = {visibleModal: false,showToast:false,toastMessage: {header:'',body:''}, sidebarClass:'sidebar'};
 
 export const AppProvider = (props) => {
 
@@ -18,7 +18,7 @@ export const AppProvider = (props) => {
 
     const _Logout = (event) => {
         event.preventDefault();
-        axios.post('/logout', [], {
+        axios.post('/api/logout', [], {
             headers: {
                 authorization : 'Bearer ' + auth.token
             }

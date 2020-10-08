@@ -26,7 +26,7 @@ class RoomTest extends TestCase
             'type' => '0',
             'user_id' => $user->id
         ];
-        $this->json('POST','/rooms',[
+        $this->json('POST','/api/rooms',[
             'name' => 'room',
             'type' => '0',
             'user_id' => $user->id,
@@ -46,7 +46,7 @@ class RoomTest extends TestCase
         $attr = [
             'type' => '0',
         ];
-        $this->json('POST','/rooms', $attr)
+        $this->json('POST','/api/rooms', $attr)
             ->assertStatus(403)
             ->assertJson(['success' => false]);
         $this->assertDatabaseMissing('rooms',$attr);
@@ -63,7 +63,7 @@ class RoomTest extends TestCase
             'name' => 'test',
             'type' => 0,
         ];
-        $this->json('PATCH', "/rooms/{$room->id}", $attr)
+        $this->json('PATCH', "/api/rooms/{$room->id}", $attr)
             ->assertJson(['success' => true]);
         $this->assertDatabaseHas('rooms', $attr);
     }
@@ -84,7 +84,7 @@ class RoomTest extends TestCase
             'name' => 'new test',
             'type' => 1
         ];
-        $this->actingAs($me)->json('PATCH', "/rooms/{$room->id}", $newAttr)
+        $this->actingAs($me)->json('PATCH', "/api/rooms/{$room->id}", $newAttr)
             ->assertJson(['success' => false])
             ->assertStatus(401);
     }
@@ -99,7 +99,7 @@ class RoomTest extends TestCase
 
         $this->assertDatabaseHas('rooms', ['name' => $room->name, 'id' => $room->id]);
 
-        $this->json('DELETE', '/rooms/'. $room->id)
+        $this->json('DELETE', '/api/rooms/'. $room->id)
             ->assertStatus(200);
         $this->assertDatabaseMissing('rooms',['name' => $room->name, 'id' => $room->id]);
     }
@@ -118,7 +118,7 @@ class RoomTest extends TestCase
         $this->assertDatabaseHas('rooms', ['id' => $room->id, 'name' => $room->name]);
 
         $this->actingAs($me);
-        $this->json('DELETE', "/rooms/{$room->id}")
+        $this->json('DELETE', "/api/rooms/{$room->id}")
             ->assertStatus(401);
 
         $this->assertDatabaseHas('rooms', ['id' => $room->id, 'name' => $room->name]);
@@ -136,7 +136,7 @@ class RoomTest extends TestCase
 
         $room = factory(Room::class)->create(['user_id' => $user2]);
 
-        $this->actingAs($user)->json('GET', "/rooms/{$room->id}")
+        $this->actingAs($user)->json('GET', "/api/rooms/{$room->id}")
             ->assertStatus(401);
 
     }

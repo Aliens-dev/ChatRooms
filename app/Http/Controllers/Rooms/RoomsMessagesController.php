@@ -61,7 +61,6 @@ class RoomsMessagesController extends ApiController
         $message->save();
 
         broadcast(new UserSendMessageEvent($message));
-
         return $this->showOne($message);
     }
 

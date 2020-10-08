@@ -5,6 +5,7 @@ import {AppContext} from "../../../context/AppContext";
 import Card from "../../../components/Card";
 import UserIcon from "../../../components/UserIcon";
 import {setToastMessage, setToastShowAction} from "../../../context/actions/GlobalActions";
+import {ROOMS_PAGE, ROOMS_PAGE_API,APP_URL} from "../../../urls/AppBaseUrl";
 
 
 const AddRoom = (props) => {
@@ -31,7 +32,7 @@ const AddRoom = (props) => {
         formData.append('type', room.type);
         axios({
             method:'POST',
-            url : '/rooms/',
+            url : ROOMS_PAGE_API,
             data:formData,
             headers : {
                 authorization : "Bearer " + auth.token,
@@ -41,7 +42,7 @@ const AddRoom = (props) => {
             .then(res => {
                 dispatchGlobalState(setToastShowAction())
                 dispatchGlobalState(setToastMessage("Room added successfully",`${room.name} is Added`))
-                props.history.push('/app/rooms')
+                props.history.push(ROOMS_PAGE)
             })
             .catch(err => {
                 dispatchGlobalState(setToastShowAction())
@@ -53,10 +54,10 @@ const AddRoom = (props) => {
         <div className="room-page">
             <div className="bread-container">
                 <BreadCrumb>
-                    <BreadCrumbItem url="/app">
+                    <BreadCrumbItem url={APP_URL}>
                         Dashboard
                     </BreadCrumbItem>
-                    <BreadCrumbItem url="/app/rooms">
+                    <BreadCrumbItem url={ROOMS_PAGE}>
                         Rooms
                     </BreadCrumbItem>
                     <BreadCrumbItem active>

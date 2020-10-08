@@ -4,7 +4,7 @@ import Card from "../../components/Card";
 import {AppContext} from "../../context/AppContext";
 import BreadCrumb from "../../components/BreadCrumb";
 import BreadCrumbItem from "../../components/BreadCrumbItem";
-import {APP_URL} from "../../urls/AppBaseUrl";
+import {APP_URL, DASHBOARD_PAGE, JOINED_ROOMS_PAGE_API, ROOMS_PAGE} from "../../urls/AppBaseUrl";
 import UserIcon from "../../components/UserIcon";
 import Loading from "../../components/Loading";
 import Nav from "../../components/Nav";
@@ -22,7 +22,7 @@ const JoinedRooms = () => {
     const getRooms = () => {
         axios({
             method : 'GET',
-            url : '/rooms/joined',
+            url : JOINED_ROOMS_PAGE_API,
             headers : {
                 Authorization : 'bearer ' + auth.token,
             }
@@ -33,20 +33,19 @@ const JoinedRooms = () => {
             })
             .catch(err => {
                 setLoading(false)
-                console.log(err)
             })
     }
     const render = () => {
         return rooms.map( room => {
             return (
-                <div className="col-3" key={room.id}>
+                <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12" key={room.id}>
                     <Card
                         roomId={room.id}
                     >
-                        <Link to={`/app/rooms/${room.id}`} className="card-image">
+                        <Link to={ROOMS_PAGE+room.id} className="card-image">
                             <UserIcon letter={room.name[0]} />
                         </Link>
-                        <Link to={`/app/rooms/${room.id}`} className="card-title">
+                        <Link to={ROOMS_PAGE+room.id} className="card-title">
                             <i className="far fa-comments" />
                             <div>
                                 { room.name }
@@ -68,7 +67,7 @@ const JoinedRooms = () => {
         <div className="home-page">
             <div className="bread-container">
                 <BreadCrumb  >
-                    <BreadCrumbItem url={APP_URL}>
+                    <BreadCrumbItem url={DASHBOARD_PAGE}>
                         Dashboard
                     </BreadCrumbItem>
                     <BreadCrumbItem active>

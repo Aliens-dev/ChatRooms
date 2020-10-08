@@ -29,7 +29,7 @@ class MessageTest extends TestCase
             'message' => 'hello world'
         ];
 
-        $this->actingAs($me)->json('POST', "/rooms/{$room->id}/messages", $attr)->assertStatus(200);
+        $this->actingAs($me)->json('POST', "/api/rooms/{$room->id}/messages", $attr)->assertStatus(200);
 
         $this->assertDatabaseHas('messages', $attr);
     }
@@ -49,7 +49,7 @@ class MessageTest extends TestCase
             'message' => 'hello world'
         ];
 
-        $this->actingAs($user)->json('POST', "/rooms/{$room->id}/messages", $attr)
+        $this->actingAs($user)->json('POST', "/api/rooms/{$room->id}/messages", $attr)
             ->assertStatus(401);
     }
 
@@ -59,7 +59,7 @@ class MessageTest extends TestCase
         $this->withoutExceptionHandling();
         $user = $this->signIn();
         $room = $user->addRoom('new room');
-        $this->json('POST', "/rooms/{$room->id}/messages", [])->assertStatus(401);
+        $this->json('POST', "/api/rooms/{$room->id}/messages", [])->assertStatus(401);
 
         $this->assertDatabaseCount('messages', 0);
     }
@@ -74,9 +74,9 @@ class MessageTest extends TestCase
         $user = factory(User::class)->create();
         $owner->inviteMember($user,$room);
 
-        $this->json('POST', "/rooms/{$room->id}/messages", ['message' => 'hello world']);
+        $this->json('POST', "/api/rooms/{$room->id}/messages", ['message' => 'hello world']);
 
-        $this->actingAs($owner)->json('GET', "/rooms/{$room->id}/messages")
+        $response = $this->actingAs($owner)->json('GET', "/api/rooms/{$room->id}/messages")
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -85,7 +85,6 @@ class MessageTest extends TestCase
                     ]
                 ]
             ]);
-
     }
 
     /** @test */
@@ -98,9 +97,9 @@ class MessageTest extends TestCase
         $user = factory(User::class)->create();
         $owner->inviteMember($user,$room);
 
-        $this->json('POST', "/rooms/{$room->id}/messages", ['message' => 'hello world']);
+        $this->json('POST', "/api/rooms/{$room->id}/messages", ['message' => 'hello world']);
 
-        $this->actingAs($user)->json('GET', "/rooms/{$room->id}/messages")
+        $this->actingAs($user)->json('GET', "/api/rooms/{$room->id}/messages")
             ->assertStatus(200)
             ->assertJson([
                 'data' => [
@@ -121,9 +120,9 @@ class MessageTest extends TestCase
         $room = $owner->addRoom('new room');
         $user = factory(User::class)->create();
 
-        $this->json('POST', "/rooms/{$room->id}/messages", ['message' => 'hello world']);
+        $this->json('POST', "/api/rooms/{$room->id}/messages", ['message' => 'hello world']);
 
-        $this->actingAs($user)->json('GET', "/rooms/{$room->id}/messages")
+        $this->actingAs($user)->json('GET', "/api/rooms/{$room->id}/messages")
             ->assertStatus(401);
 
     }

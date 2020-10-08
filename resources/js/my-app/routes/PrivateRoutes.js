@@ -4,6 +4,7 @@ import {AppContext} from "../context/AppContext";
 import axios from 'axios';
 import {UserLoginAction, UserLogoutAction} from "../context/actions/AuthActions";
 import Loading from "../components/Loading";
+import {LOGIN_PAGE} from "../urls/AppBaseUrl";
 
 
 const PrivateRoutes = (props) => {
@@ -12,7 +13,7 @@ const PrivateRoutes = (props) => {
 
     useEffect(() => {
         if(auth.token) {
-            axios.post('/checkToken', [],{
+            axios.post('/api/checkToken', [],{
                 headers : {
                     Authorization : 'bearer ' + auth.token,
                 }
@@ -40,7 +41,7 @@ const PrivateRoutes = (props) => {
     }else {
         if( !auth.token ) {
             return (
-                <Redirect to="/login" />
+                <Redirect to={LOGIN_PAGE} />
             )
         }else {
             return (

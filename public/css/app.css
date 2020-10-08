@@ -10940,10 +10940,71 @@ a.text-dark:focus {
   flex-grow: 1;
 }
 
+.app-page .sidebar-collapsed {
+  min-height: 100vh;
+  max-height: 100%;
+  width: 50px;
+  min-width: 50px;
+  transition: all 0.3s ease-in-out;
+  background-color: #455CC7;
+  color: #FFF;
+  padding: 10px 0;
+}
+
+.app-page .sidebar-collapsed .sidebar-header {
+  padding: 10px 5px;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #FFF;
+}
+
+.app-page .sidebar-collapsed .sidebar-header span:nth-child(2) {
+  display: none;
+}
+
+.app-page .sidebar-collapsed .sidebar-menu {
+  display: flex;
+  flex-direction: column;
+}
+
+.app-page .sidebar-collapsed .sidebar-menu .sidebar-item {
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 3px;
+  color: #FFF;
+  display: flex;
+  justify-content: center;
+}
+
+.app-page .sidebar-collapsed .sidebar-menu .sidebar-item > div {
+  margin: 0 10px;
+}
+
+.app-page .sidebar-collapsed .sidebar-menu .sidebar-item span {
+  display: none;
+}
+
+.app-page .sidebar-collapsed .sidebar-menu .sidebar-item:hover {
+  text-decoration: none;
+  background-color: #6174CF;
+}
+
+.app-page .sidebar-collapsed .sidebar-menu .sidebar-item a {
+  text-decoration: none;
+  color: #FFF;
+}
+
 .app-page .sidebar {
   min-height: 100vh;
+  max-height: 100%;
   width: 250px;
   min-width: 250px;
+  transition: all 0.3s ease-in-out;
   background-color: #455CC7;
   color: #FFF;
   padding: 10px 20px;
@@ -10991,6 +11052,37 @@ a.text-dark:focus {
 .app-page .sidebar .sidebar-menu .sidebar-item a {
   text-decoration: none;
   color: #FFF;
+}
+
+@media (max-width: 768px) {
+  .app-page .sidebar {
+    width: 50px;
+    min-width: 50px;
+    transition: width 0.3s ease-in-out;
+    padding: 10px 0;
+  }
+
+  .app-page .sidebar .sidebar-header {
+    padding: 10px 5px;
+  }
+
+  .app-page .sidebar .sidebar-header span:nth-child(2) {
+    display: none;
+  }
+
+  .app-page .sidebar .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .app-page .sidebar .sidebar-menu .sidebar-item {
+    padding: 10px 0;
+    justify-content: center;
+  }
+
+  .app-page .sidebar .sidebar-menu .sidebar-item span {
+    display: none;
+  }
 }
 
 .app-page .page-content {
@@ -11067,6 +11159,16 @@ a.text-dark:focus {
   background-color: #F8F9FF;
 }
 
+.navbar i:hover {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .navbar .nav-link:first-child {
+    display: none;
+  }
+}
+
 .card {
   margin: 10px 0;
   padding: 5px 10px;
@@ -11125,6 +11227,41 @@ a.text-dark:focus {
   width: 300px;
   min-width: 300px;
   border-right: 1px solid #EEE;
+  transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 992px) {
+  .single-room .room-section .room-users {
+    width: 60px;
+    min-width: 60px;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .single-room .room-section .room-users .room-users-list {
+    position: relative;
+  }
+
+  .single-room .room-section .room-users .room-users-list .room-user {
+    padding: 5px !important;
+  }
+
+  .single-room .room-section .room-users .room-users-list .room-user .user-image {
+    margin: 0;
+  }
+
+  .single-room .room-section .room-users .room-users-list .room-user .user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex: 1;
+    position: absolute;
+    right: 5px;
+    top: 10px;
+  }
+
+  .single-room .room-section .room-users .room-users-list .room-user .dropdown {
+    display: none;
+  }
 }
 
 .single-room .room-section .room-users .room-user-search {
@@ -11136,6 +11273,13 @@ a.text-dark:focus {
   display: flex;
   align-items: center;
   position: relative;
+}
+
+@media (max-width: 992px) {
+  .single-room .room-section .room-users .room-user-search {
+    width: 120px;
+    min-width: 120px;
+  }
 }
 
 .single-room .room-section .room-users .room-user-search:focus-within::after {
@@ -11167,6 +11311,14 @@ a.text-dark:focus {
   padding: 5px 0;
 }
 
+@media (max-width: 992px) {
+  .single-room .room-section .room-users .room-user-search .search-input {
+    width: 100px;
+    min-width: 100px;
+    transition: all 0.3s ease-in-out;
+  }
+}
+
 .single-room .room-section .room-users .room-user-search .search-input:focus {
   outline: none;
 }
@@ -11174,6 +11326,12 @@ a.text-dark:focus {
 .single-room .room-section .room-users .room-user-search i {
   font-size: 18px;
   color: #666;
+}
+
+@media (max-width: 992px) {
+  .single-room .room-section .room-users .room-user-search i {
+    display: none;
+  }
 }
 
 .single-room .room-section .room-users .room-users-list {
@@ -11202,10 +11360,16 @@ a.text-dark:focus {
   font-weight: 600;
 }
 
+@media (max-width: 992px) {
+  .single-room .room-section .room-users .room-users-list .room-user .user-info .username {
+    display: none;
+  }
+}
+
 .single-room .room-section .room-users .room-users-list .room-user .user-info .active-user {
   width: 8px;
   height: 8px;
-  background-color: #1d68a7;
+  background-color: #0099FF;
   border-radius: 50%;
 }
 
@@ -11756,6 +11920,12 @@ a.text-dark:focus {
   height: 0;
 }
 
+@media (max-width: 991.98px) {
+  .profile-page .settings-tab {
+    margin-top: 50px;
+  }
+}
+
 .profile-page .settings-tab .settings {
   padding: 20px;
   width: 80%;
@@ -11776,5 +11946,160 @@ a.text-dark:focus {
 
 .profile-page .settings-tab .settings .form-image button {
   margin-right: 20px;
+}
+
+.auth-pages {
+  background-color: #3CDEE4 !important;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  width: 350px;
+  border-radius: 10px;
+  background-color: #FFF;
+  padding: 10px 20px;
+}
+
+.form-container .form .form-header {
+  margin: 10px 0;
+}
+
+.form-container .form .form-header h6 {
+  font-family: sans-serif;
+  text-align: center;
+  font-size: 17px;
+  font-weight: 700;
+  color: #3CE1ED;
+  text-transform: uppercase;
+}
+
+.form-container .form .form-header h6 span {
+  color: #FDBA2C;
+  text-transform: uppercase;
+}
+
+.form-container .form .form-image {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.form-container .form .form-image img {
+  width: 200px;
+  height: 200px;
+}
+
+.form-container .form .submit-button {
+  background-color: #0B294C;
+  color: #FFF;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 18px;
+  padding: 15px 50px;
+  margin: 30px auto;
+  display: block;
+  border: none;
+  border-radius: 100px;
+}
+
+.form-container .form .submit-button:focus {
+  outline: none;
+}
+
+.form-container .register {
+  margin: 25px 0 15px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.form-container .register a {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: #3CE1ED;
+  text-decoration: none;
+}
+
+.form-container .register a:hover {
+  color: #1d68a7;
+}
+
+.form-container .image-preview {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.form-container .image-preview img {
+  height: 80px;
+  width: 80px;
+}
+
+.form-group-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 0 2px rgba(52, 144, 220, 0.25), 0 0 3px rgba(52, 144, 220, 0.25);
+  border-radius: 100px;
+  padding: 0;
+  margin: 20px 10px;
+}
+
+.form-group-custom label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0;
+  padding: 0 10px;
+}
+
+.form-group-custom input {
+  border: none;
+  border-radius: 100px;
+  font-weight: 700;
+}
+
+.form-group-custom input:focus {
+  box-shadow: none;
+}
+
+.form-group-custom input:-internal-autofill-selected {
+  background-color: none;
+}
+
+.form-group-custom:focus-within {
+  box-shadow: 0 0 0 0.2rem rgba(52, 144, 220, 0.25);
+}
+
+.form-group-custom .upload-icon {
+  height: 40px;
+  border: none;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  font-weight: 600;
+  padding: 5px 105px;
+  color: #FFF;
+  width: 100%;
+  background-color: #3CDEE4;
+}
+
+.form-group-custom .upload-icon:focus {
+  outline: none;
+}
+
+.form-group-custom .select {
+  border: none;
+  border-radius: 100px;
+}
+
+.form-group-custom .select:focus {
+  outline: none;
+  box-shadow: none;
 }
 

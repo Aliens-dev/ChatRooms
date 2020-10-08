@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/login', 'AuthController@loginPost')->name('login');
+Route::post('/register', 'AuthController@register')->name('register');
 
 Route::group(['middleware'=>'jwtauth'], function() {
 
