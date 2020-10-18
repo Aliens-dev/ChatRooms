@@ -1,9 +1,6 @@
 import React , {useEffect,useState,useContext,useRef} from 'react';
-import BreadCrumb from "../../../components/BreadCrumb";
-import BreadCrumbItem from "../../../components/BreadCrumbItem";
-import Loading from "../../../components/Loading";
 import {AppContext} from "../../../context/AppContext";
-import Card from "../../../components/Card";
+import {Card,Loading,BreadCrumb} from "../../../components";
 import UserIcon from "../../../components/UserIcon";
 import {setToastMessage, setToastShowAction} from "../../../context/actions/GlobalActions";
 import {APP_URL, ROOMS_PAGE, ROOMS_PAGE_API} from "../../../urls/AppBaseUrl";
@@ -76,32 +73,36 @@ const EditRoom = (props) => {
     const render = () => {
         if(loading) {
             return (
-                <Loading />
+                <Loading>
+                    <Loading.Large />
+                </Loading>
             )
         }else {
             return (
                 <div className="room-page">
-                    <div className="bread-container">
-                        <BreadCrumb>
-                            <BreadCrumbItem url={APP_URL}>
-                                Dashboard
-                            </BreadCrumbItem>
-                            <BreadCrumbItem url={ROOMS_PAGE}>
-                                Rooms
-                            </BreadCrumbItem>
-                            <BreadCrumbItem url={ROOMS_PAGE+room.id}>
-                                {
-                                    room.name
-                                }
-                            </BreadCrumbItem>
-                            <BreadCrumbItem active>
-                                Edit
-                            </BreadCrumbItem>
-                        </BreadCrumb>
-                    </div>
+                    <BreadCrumb>
+                        <BreadCrumb.Item url={APP_URL}>
+                            Dashboard
+                        </BreadCrumb.Item>
+                        <BreadCrumb.Item url={ROOMS_PAGE}>
+                            Rooms
+                        </BreadCrumb.Item>
+                        <BreadCrumb.Item url={ROOMS_PAGE+room.id}>
+                            {
+                                room.name
+                            }
+                        </BreadCrumb.Item>
+                        <BreadCrumb.Active>
+                            Edit
+                        </BreadCrumb.Active>
+                    </BreadCrumb>
                     <div className="form-container mr-auto ml-auto" style={{width:'500px'}} >
                         <Card style={{margin:"0 auto"}}>
-                            <h1>Edit Room</h1>
+                            <Card.Header>
+                                <Card.Title>
+                                    Edit Room
+                                </Card.Title>
+                            </Card.Header>
                             <form className="form" onSubmit={updateRoom}>
                                 <div className="form-group form-group-custom">
                                     <label htmlFor="name"><i className="far fa-comments" /></label>

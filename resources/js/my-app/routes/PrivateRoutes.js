@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom';
 import {AppContext} from "../context/AppContext";
 import axios from 'axios';
 import {UserLoginAction, UserLogoutAction} from "../context/actions/AuthActions";
-import Loading from "../components/Loading";
+import {Loading} from "../components";
 import {LOGIN_PAGE} from "../urls/AppBaseUrl";
 
 
@@ -37,7 +37,11 @@ const PrivateRoutes = (props) => {
     },[])
 
     if(!check) {
-        return <Loading />
+        return (
+            <Loading>
+                <Loading.Large />
+            </Loading>
+        )
     }else {
         if( !auth.token ) {
             return (

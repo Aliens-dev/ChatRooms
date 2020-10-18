@@ -3,10 +3,8 @@ import axios from 'axios';
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import {AppContext} from "../../../context/AppContext";
-import BreadCrumb from "../../../components/BreadCrumb";
-import BreadCrumbItem from "../../../components/BreadCrumbItem";
+import {BreadCrumb,Loading} from "../../../components";
 import {DASHBOARD_PAGE, ROOMS_PAGE, ROOMS_PAGE_API} from "../../../urls/AppBaseUrl";
-import Loading from "../../../components/Loading";
 import MessageUsers from "./MessageUsers";
 import {Link} from 'react-router-dom';
 
@@ -201,21 +199,22 @@ const SingleRoom = props => {
 
     return (
         <div className="single-room" >
-            <div className="bread-container">
-                <BreadCrumb>
-                    <BreadCrumbItem url={DASHBOARD_PAGE}>
-                        Dashboard
-                    </BreadCrumbItem>
-                    <BreadCrumbItem url={ROOMS_PAGE}>
-                        Rooms
-                    </BreadCrumbItem>
-                    <BreadCrumbItem active>
-                        {room.name}
-                    </BreadCrumbItem>
-                </BreadCrumb>
-            </div>
+            <BreadCrumb>
+                <BreadCrumb.Item url={DASHBOARD_PAGE}>
+                    Dashboard
+                </BreadCrumb.Item>
+                <BreadCrumb.Item url={ROOMS_PAGE}>
+                    Public rooms
+                </BreadCrumb.Item>
+                <BreadCrumb.Active>
+                    {room.name}
+                </BreadCrumb.Active>
+            </BreadCrumb>
             {
-                loading ? <Loading />
+                loading ?
+                    <Loading>
+                        <Loading.Large />
+                    </Loading>
                 :
                 <div className="room-section" >
                     <MessageUsers id={props.match.params.id} activeUsers={activeUsers} />

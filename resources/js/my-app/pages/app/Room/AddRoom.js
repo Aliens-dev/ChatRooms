@@ -1,8 +1,6 @@
 import React , {useState,useContext,useRef} from 'react';
-import BreadCrumb from "../../../components/BreadCrumb";
-import BreadCrumbItem from "../../../components/BreadCrumbItem";
 import {AppContext} from "../../../context/AppContext";
-import Card from "../../../components/Card";
+import {Card,BreadCrumb} from "../../../components";
 import UserIcon from "../../../components/UserIcon";
 import {setToastMessage, setToastShowAction} from "../../../context/actions/GlobalActions";
 import {ROOMS_PAGE, ROOMS_PAGE_API,APP_URL} from "../../../urls/AppBaseUrl";
@@ -52,22 +50,24 @@ const AddRoom = (props) => {
 
     return (
         <div className="room-page">
-            <div className="bread-container">
-                <BreadCrumb>
-                    <BreadCrumbItem url={APP_URL}>
-                        Dashboard
-                    </BreadCrumbItem>
-                    <BreadCrumbItem url={ROOMS_PAGE}>
-                        Rooms
-                    </BreadCrumbItem>
-                    <BreadCrumbItem active>
-                        Add Room
-                    </BreadCrumbItem>
-                </BreadCrumb>
-            </div>
+            <BreadCrumb>
+                <BreadCrumb.Item url={APP_URL}>
+                    Dashboard
+                </BreadCrumb.Item>
+                <BreadCrumb.Item url={ROOMS_PAGE}>
+                    Rooms
+                </BreadCrumb.Item>
+                <BreadCrumb.Active>
+                    Add Room
+                </BreadCrumb.Active>
+            </BreadCrumb>
             <div>
                 <Card style={{width:"500px", margin:"0 auto"}}>
-                    <h1>Add new room</h1>
+                    <Card.Header>
+                        <Card.Title>
+                            Add new room
+                        </Card.Title>
+                    </Card.Header>
                     <div className="form-group">
                         <label htmlFor="name">Name </label>
                         <input type="text" className="form-control"

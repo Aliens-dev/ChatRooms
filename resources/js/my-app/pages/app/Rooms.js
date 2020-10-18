@@ -1,12 +1,8 @@
 import React, { useEffect,useContext,useState } from 'react';
 import axios from 'axios';
-import Card from "../../components/Card";
+import {Card,BreadCrumb,DropDown,Loading,Navbar} from "../../components";
 import {AppContext} from "../../context/AppContext";
-import BreadCrumb from "../../components/BreadCrumb";
-import BreadCrumbItem from "../../components/BreadCrumbItem";
 import UserIcon from "../../components/UserIcon";
-import Loading from "../../components/Loading";
-import Nav from "../../components/Nav";
 import {Link} from "react-router-dom";
 import {setToastMessage, setToastShowAction} from "../../context/actions/GlobalActions";
 import {DASHBOARD_PAGE, PROFILE_PAGE_API, ROOMS_PAGE_API} from "../../urls/AppBaseUrl";
@@ -99,37 +95,36 @@ const Rooms = (props) => {
                 return (
                     <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12" key={room.id}>
                         <Card>
-                            <div className="settings">
-                                <div className="dropdown">
-                                    <i className="fa fa-ellipsis-h"
-                                       data-toggle="dropdown"
-                                       aria-haspopup="true"
-                                       aria-expanded="false"
-                                    />
-                                    <div className="dropdown-menu">
-                                        <div className="dropdown-item"
-                                             onClick={() => props.history.push('/rooms/'+ room.id + '/edit')}
-                                        >Edit</div>
-                                        <div className="dropdown-item"
-                                             onClick={() => deleteRoom(room.id)}
-                                        >Delete</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <Link className="card-image" to={`/rooms/${room.id}`} >
-                                <UserIcon letter={room.name[0]} />
-                            </Link>
-                            <Link className="card-title" to={`/rooms/${room.id}`}>
-                                <i className="far fa-comments" />
-                                <div>
-                                    { room.name }
-                                </div>
-                            </Link>
-                            <div className="card-foot">
+                            <Card.Settings>
+                                <DropDown className="fa fa-ellipsis-h">
+                                    <DropDown.Menu>
+                                        <DropDown.Item action={() => props.history.push('/rooms/'+ room.id + '/edit')}>
+                                            Edit
+                                        </DropDown.Item>
+                                        <DropDown.Item action={() => deleteRoom(room.id)}>
+                                            Delete
+                                        </DropDown.Item>
+                                    </DropDown.Menu>
+                                </DropDown>
+                            </Card.Settings>
+                            <Card.Image>
+                                <Card.CardLink to={`/rooms/${room.id}`}>
+                                    <UserIcon letter={room.name[0]} />
+                                </Card.CardLink>
+                            </Card.Image>
+                            <Card.Header>
+                                <Card.CardLink to={`/rooms/${room.id}`}>
+                                    <i className="far fa-comments" />
+                                    <Card.Title>
+                                        { room.name }
+                                    </Card.Title>
+                                </Card.CardLink>
+                            </Card.Header>
+                            <Card.Footer>
                                 {
                                     renderUsers(room)
                                 }
-                            </div>
+                            </Card.Footer>
                         </Card>
                     </div>
                 )
@@ -138,19 +133,19 @@ const Rooms = (props) => {
     }
     return (
         <div className="home-page">
-            <div className="bread-container">
-                <BreadCrumb>
-                    <BreadCrumbItem url={DASHBOARD_PAGE}>
-                        Dashboard
-                    </BreadCrumbItem>
-                    <BreadCrumbItem active>
-                        Rooms
-                    </BreadCrumbItem>
-                </BreadCrumb>
-            </div>
+            <BreadCrumb>
+                <BreadCrumb.Item url={DASHBOARD_PAGE}>
+                    Dashboard
+                </BreadCrumb.Item>
+                <BreadCrumb.Active>
+                    Rooms
+                </BreadCrumb.Active>
+            </BreadCrumb>
             {
                 loading ?
-                    <Loading />
+                    <Loading>
+                        <Loading.Large />
+                    </Loading>
                     :
                     <div className="rooms-container container-fluid">
                         <div className="row">
@@ -158,17 +153,17 @@ const Rooms = (props) => {
                                 <Link to="/rooms/add" className="btn btn-primary">Add Room</Link>
                             </div>
                         </div>
-                        <Nav className="ml-1 mt-2 row">
+                        <Navbar.Nav className="ml-1 mt-2 row">
                             Public Rooms
-                        </Nav>
+                        </Navbar.Nav>
                         <div className="row rooms">
                             {
                                 renderRooms(1)
                             }
                         </div>
-                        <Nav className="ml-1 mt-2 row">
+                        <Navbar.Nav className="ml-1 mt-2 row">
                             Private Rooms
-                        </Nav>
+                        </Navbar.Nav>
                         <div className="row rooms">
                             {
                                 renderRooms(0)

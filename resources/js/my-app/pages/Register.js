@@ -2,7 +2,7 @@ import React, {useContext, useState , useEffect,useRef} from 'react';
 import { Link} from "react-router-dom";
 import axios from 'axios';
 import {AppContext} from "../context/AppContext"
-import Loading from "../components/Loading";
+import {Loading} from "../components";
 import {APP_URL, LOGIN_PAGE, REGISTER_PAGE_API} from "../urls/AppBaseUrl";
 import {setToastMessage, setToastShowAction} from "../context/actions/GlobalActions";
 
@@ -80,7 +80,9 @@ const Register = () => {
     }
     if(!check) {
         return (
-            <Loading />
+            <Loading>
+                <Loading.Large />
+            </Loading>
         )
     }else {
         return (

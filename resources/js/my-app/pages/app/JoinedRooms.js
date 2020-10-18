@@ -1,14 +1,9 @@
 import React, { useEffect,useContext,useState } from 'react';
 import axios from 'axios';
-import Card from "../../components/Card";
+import {Card,BreadCrumb,Loading,Navbar} from "../../components";
 import {AppContext} from "../../context/AppContext";
-import BreadCrumb from "../../components/BreadCrumb";
-import BreadCrumbItem from "../../components/BreadCrumbItem";
 import {APP_URL, DASHBOARD_PAGE, JOINED_ROOMS_PAGE_API, ROOMS_PAGE} from "../../urls/AppBaseUrl";
 import UserIcon from "../../components/UserIcon";
-import Loading from "../../components/Loading";
-import Nav from "../../components/Nav";
-import {Link} from "react-router-dom";
 
 const JoinedRooms = () => {
     const { auth } = useContext(AppContext);
@@ -39,25 +34,27 @@ const JoinedRooms = () => {
         return rooms.map( room => {
             return (
                 <div className="col-xl-3 col-lg-4 col-md-6 col-sm-12" key={room.id}>
-                    <Card
-                        roomId={room.id}
-                    >
-                        <Link to={ROOMS_PAGE+room.id} className="card-image">
-                            <UserIcon letter={room.name[0]} />
-                        </Link>
-                        <Link to={ROOMS_PAGE+room.id} className="card-title">
-                            <i className="far fa-comments" />
-                            <div>
-                                { room.name }
-                            </div>
-                        </Link>
-                        <div className="card-foot">
+                    <Card roomId={room.id}>
+                        <Card.Image>
+                            <Card.CardLink to={ROOMS_PAGE+room.id} >
+                                <UserIcon letter={room.name[0]} />
+                            </Card.CardLink>
+                        </Card.Image>
+                        <Card.Header>
+                            <Card.CardLink to={ROOMS_PAGE+room.id}>
+                                <i className="far fa-comments" />
+                                <Card.Title>
+                                    { room.name }
+                                </Card.Title>
+                            </Card.CardLink>
+                        </Card.Header>
+                        <Card.Footer>
                             <UserIcon width={35} height={35}/>
                             <UserIcon width={35} height={35}/>
                             <UserIcon width={35} height={35}/>
                             <UserIcon width={35} height={35}/>
                             <UserIcon width={35} height={35}/>
-                        </div>
+                        </Card.Footer>
                     </Card>
                 </div>
             )
@@ -65,26 +62,26 @@ const JoinedRooms = () => {
     }
     return (
         <div className="home-page">
-            <div className="bread-container">
-                <BreadCrumb  >
-                    <BreadCrumbItem url={DASHBOARD_PAGE}>
-                        Dashboard
-                    </BreadCrumbItem>
-                    <BreadCrumbItem active>
-                        Joined rooms
-                    </BreadCrumbItem>
-                </BreadCrumb>
-            </div>
+            <BreadCrumb>
+                <BreadCrumb.Item url={DASHBOARD_PAGE}>
+                    Dashboard
+                </BreadCrumb.Item>
+                <BreadCrumb.Active>
+                    Joined rooms
+                </BreadCrumb.Active>
+            </BreadCrumb>
             {
                 loading ?
-                    <Loading />
+                    <Loading>
+                        <Loading.Large />
+                    </Loading>
                     :
                     <div className="container-fluid">
-                        <Nav className="ml-1 mt-2 row">
+                        <Navbar.Nav className="ml-1 mt-2 row">
                             {
                                 rooms.length ? "Joined Rooms" : "You aren't joining any room..."
                             }
-                        </Nav>
+                        </Navbar.Nav>
                         <div className="row rooms">
                             {
                                 render()

@@ -1,9 +1,8 @@
 import React, {useContext, useState , useEffect} from 'react';
-import { Link} from "react-router-dom";
-import Navbar from "../components/Navbar";
+import {Link} from "react-router-dom";
 import axios from 'axios';
 import {AppContext} from "../context/AppContext"
-import Loading from "../components/Loading";
+import {Loading} from "../components";
 import {APP_URL, LOGIN_PAGE, REGISTER_PAGE, LOGIN_PAGE_API} from "../urls/AppBaseUrl";
 const Login = (props) => {
 
@@ -53,7 +52,9 @@ const Login = (props) => {
     }
     if(!check) {
         return (
-            <Loading />
+            <Loading>
+                <Loading.Large />
+            </Loading>
         )
     }else {
         return (

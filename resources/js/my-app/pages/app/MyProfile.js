@@ -1,9 +1,7 @@
 import React, {useState,useEffect,useContext,useRef} from 'react';
-import BreadCrumb from "../../components/BreadCrumb";
-import BreadCrumbItem from "../../components/BreadCrumbItem";
+import {BreadCrumb,Loading} from "../../components";
 import {APP_URL, DASHBOARD_PAGE, FULL_URL, PROFILE_PAGE_API} from "../../urls/AppBaseUrl";
 import {AppContext} from "../../context/AppContext";
-import Loading from "../../components/Loading";
 import UserIcon from "../../components/UserIcon";
 
 const MyProfile = (props) => {
@@ -87,21 +85,21 @@ const MyProfile = (props) => {
     const render = () => {
         if (loading) {
             return (
-                <Loading />
+                <Loading>
+                    <Loading.Large />
+                </Loading>
             )
         }else {
             return (
                 <div className="profile-page">
-                    <div>
-                        <BreadCrumb  >
-                            <BreadCrumbItem url={DASHBOARD_PAGE}>
-                                Dashboard
-                            </BreadCrumbItem>
-                            <BreadCrumbItem active>
-                                Profile
-                            </BreadCrumbItem>
-                        </BreadCrumb>
-                    </div>
+                    <BreadCrumb>
+                        <BreadCrumb.Item url={DASHBOARD_PAGE}>
+                            Dashboard
+                        </BreadCrumb.Item>
+                        <BreadCrumb.Active>
+                            Profile
+                        </BreadCrumb.Active>
+                    </BreadCrumb>
                     <div className="container-fluid">
                         <div className="row my-profile">
                             <div className="col-lg-3 col-sm-12" >

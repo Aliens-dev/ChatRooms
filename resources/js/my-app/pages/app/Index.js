@@ -1,16 +1,16 @@
 import React from "react";
-import Sidebar from "../../components/Sidebar";
-import Navbar from "../../components/Navbar";
 import AppRoutes from "../../routes/AppRoutes";
 import MyToast from "../../components/Toast";
+import NavbarContainer from "../../containers/Navbar";
+import SidebarContainer from "../../containers/Sidebar";
 
 
 const Index = () => {
     return (
         <div className="app-page">
-            <Sidebar />
+            <SidebarContainer />
             <div className="page-content" >
-                <Navbar />
+                <NavbarContainer />
                 <MyToast />
                 {
                     AppRoutes()
