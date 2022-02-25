@@ -23,6 +23,7 @@ const SingleRoom = props => {
     const [message, setMessage] = useState('');
 
     useEffect(() => {
+        // check this later !
         if(window.Echo) {
             window.Echo
                 .join('room.'+ params.id)
