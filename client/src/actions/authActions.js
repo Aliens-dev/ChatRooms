@@ -1,6 +1,6 @@
 import {LOGIN, LOGIN_FAILED, LOGIN_SUCCESS, LOGOUT, START_LOADING, STOP_LOADING} from "./index";
 import axios from "axios";
-import {CHECKTOKEN, LOGIN_PAGE_API, REGISTER_PAGE_API} from "../urls/AppBaseUrl";
+import {CHECKTOKEN, LOGIN_PAGE_API, LOGOUT_PAGE_API, REGISTER_PAGE_API} from "../urls/AppBaseUrl";
 import {SHOW_TOAST_ACTION,START_BUTTON_LOADING_ACTION, STOP_BUTTON_LOADING_ACTION} from "./popupsActions";
 
 
@@ -40,10 +40,26 @@ export const REGISTER_ACTION = (data) => async dispatch => {
     }
 }
 
-export const LOGOUT_ACTION = () => {
-    return {
-        type:LOGOUT
-    }
+export const LOGOUT_ACTION = () => (dispatch, getState) =>{
+    return new Promise(async (resolve, reject) => {
+        try {
+            let res = await axios.post(LOGOUT_PAGE_API,null,
+                {
+                    headers: {
+                    Authorization : 'Bearer ' + getState().auth.user.token,
+                }
+            })
+            dispatch({
+                type:LOGOUT
+            })
+            resolve()
+        }catch(e) {
+            dispatch({
+                type:LOGOUT
+            })
+            reject();
+        }
+    })
 }
 
 export const CHECK_AUTH = () => async (dispatch,getState) => {

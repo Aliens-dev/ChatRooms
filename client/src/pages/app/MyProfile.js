@@ -2,12 +2,10 @@ import React, {useState,useEffect,useContext,useRef} from 'react';
 import axios from 'axios'
 import {BreadCrumb,Loading} from "../../components";
 import {APP_URL, DASHBOARD_PAGE, FULL_URL, PROFILE_PAGE_API} from "../../urls/AppBaseUrl";
-import {AppContext} from "../../context/AppContext";
 import UserIcon from "../../components/UserIcon";
 
 const MyProfile = (props) => {
     const [loading,setLoading] = useState(true);
-    const {auth} = useContext(AppContext);
     const [user,setUser] = useState(null);
 
     const [editUser,setEditUser] = useState(null);
@@ -16,71 +14,71 @@ const MyProfile = (props) => {
     const avatarBtn = useRef(null)
 
 
-    useEffect(() => {
-        getUserInfo()
-    },[])
+    // useEffect(() => {
+    //     getUserInfo()
+    // },[])
 
-    const getUserInfo = () => {
-        axios({
-            method:"GET",
-            url : PROFILE_PAGE_API + auth.user.id,
-            headers : {
-                authorization: 'bearer ' + auth.token
-            }
-        })
-            .then(res => {
-                setUser(res.data.data);
-                setEditUser({...res.data.data, password : ''});
-                setLoading(false);
-            })
-            .catch(err => {
-                setLoading(false);
-            })
-    }
+    // const getUserInfo = () => {
+    //     axios({
+    //         method:"GET",
+    //         url : PROFILE_PAGE_API + auth.user.id,
+    //         headers : {
+    //             authorization: 'bearer ' + auth.token
+    //         }
+    //     })
+    //         .then(res => {
+    //             setUser(res.data.data);
+    //             setEditUser({...res.data.data, password : ''});
+    //             setLoading(false);
+    //         })
+    //         .catch(err => {
+    //             setLoading(false);
+    //         })
+    // }
 
-    const EditUser = (e)=> {
-        e.preventDefault();
-        let formData = new FormData();
+    // const EditUser = (e)=> {
+    //     e.preventDefault();
+    //     let formData = new FormData();
 
-        formData.append('name',editUser.name)
-        formData.append('email',editUser.email)
-        formData.append('password',editUser.password)
-        formData.append('image',editUser.image)
-        formData.append("_method", 'PATCH');
-        axios({
-            url: PROFILE_PAGE_API + auth.user.id,
-            data: formData,
-            method: 'POST',
-            headers: {
-                authorization: "Bearer " + auth.token,
-                'Content-Type': 'multipart/form-data',
-            },
-            onUploadProgress: function (progressEvent) {
-                let progress = progressEvent.loaded / progressEvent.total;
-                setProgress(Math.floor(progress) * 100)
-            },
-        })
-            .then(res => {
-                getUserInfo()
-                setProgress(0);
-                setPreviewImg('')
-            })
-            .catch(err => {
-                setProgress(0);
-                setPreviewImg('')
-            })
+    //     formData.append('name',editUser.name)
+    //     formData.append('email',editUser.email)
+    //     formData.append('password',editUser.password)
+    //     formData.append('image',editUser.image)
+    //     formData.append("_method", 'PATCH');
+    //     axios({
+    //         url: PROFILE_PAGE_API + auth.user.id,
+    //         data: formData,
+    //         method: 'POST',
+    //         headers: {
+    //             authorization: "Bearer " + auth.token,
+    //             'Content-Type': 'multipart/form-data',
+    //         },
+    //         onUploadProgress: function (progressEvent) {
+    //             let progress = progressEvent.loaded / progressEvent.total;
+    //             setProgress(Math.floor(progress) * 100)
+    //         },
+    //     })
+    //         .then(res => {
+    //             getUserInfo()
+    //             setProgress(0);
+    //             setPreviewImg('')
+    //         })
+    //         .catch(err => {
+    //             setProgress(0);
+    //             setPreviewImg('')
+    //         })
 
-    }
+    // }
 
-    const chooseAvatar = (e) => {
-        e.preventDefault();
-        avatarBtn.current.click();
-    }
+    // const chooseAvatar = (e) => {
+    //     e.preventDefault();
+    //     avatarBtn.current.click();
+    // }
 
-    const avatarBtnChange = () => {
-        setEditUser({...editUser, image: avatarBtn.current.files[0]});
-        setPreviewImg(URL.createObjectURL(avatarBtn.current.files[0]))
-    }
+    // const avatarBtnChange = () => {
+    //     setEditUser({...editUser, image: avatarBtn.current.files[0]});
+    //     setPreviewImg(URL.createObjectURL(avatarBtn.current.files[0]))
+    // }
 
 
     const render = () => {
@@ -159,10 +157,12 @@ const MyProfile = (props) => {
                                                 </div>
                                                 <div className="form-group row">
                                                     <label htmlFor="file" className="col-3">Avatar:  </label>
-                                                    <input ref={avatarBtn} onChange={avatarBtnChange} type="file" className="d-none" />
+                                                    <input ref={avatarBtn} //onChange={avatarBtnChange} 
+                                                    type="file" className="d-none" />
                                                     <div className="form-image col-lg-9 col-sm-11 ">
                                                         <button id="file" className="btn btn-primary"
-                                                                onClick={chooseAvatar}>
+                                                                //onClick={chooseAvatar}
+                                                        >
                                                             Upload Avatar
                                                         </button>
                                                         {
@@ -178,7 +178,10 @@ const MyProfile = (props) => {
                                                         }
                                                     </div>
                                                 </div>
-                                                <button className="btn btn-primary" onClick={EditUser}>Edit</button>
+                                                <button className="btn btn-primary" 
+                                                    //onClick={EditUser}
+                                                
+                                                >Edit</button>
                                             </form>
                                         </div>
                                     </div>

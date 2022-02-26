@@ -10,6 +10,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {GET_MESSAGES_ACTION, SEND_MESSAGE_ACTION, UPDATE_ACTIVE_USERS_ACTION, UPDATE_JOINED_USERS_ACTION, UPDATE_LEAVING_USERS_ACTION, UPDATE_MESSAGES_ACTION, UPDATE_TYPING_USER_ACTION} from "../../../actions/MessagesActions";
 import { GET_ROOM_ACTION, REMOVE_ROOM_ACTION } from '../../../actions/roomsActions';
 import { SHOW_TOAST_ACTION } from '../../../actions/popupsActions';
+import dingSoundAudio from '../../../assets/sound/ding.mp3'
+import useAudio from '../../../hooks/UseAudio';
+import {BiSend} from 'react-icons/bi'
 
 const SingleRoom = props => {
 
@@ -22,6 +25,8 @@ const SingleRoom = props => {
     const room = useSelector(state => state.rooms.singleRoom)
     const [message, setMessage] = useState('');
 
+    const [playAudio,toggleAudio] = useAudio(dingSoundAudio)
+
     useEffect(() => {
         // check this later !
         if(window.Echo) {
@@ -29,26 +34,24 @@ const SingleRoom = props => {
                 .join('room.'+ params.id)
                 .listen('.message.sent', (e) => {
                     //setSocketMessage(e.data);
+                    if(! playAudio) {
+                        toggleAudio();
+                    }
                     dispatch(UPDATE_MESSAGES_ACTION(e.message))
                 })
                 .here(users => {
-                    //setActiveUsers(users);
                     console.log('active users', users)
                     dispatch(UPDATE_ACTIVE_USERS_ACTION(users))
                 })
                 .joining(user => {
-                    // setJoinedUser(user);
                     console.log('joined user', user)
                     dispatch(UPDATE_JOINED_USERS_ACTION(user))
                 })
                 .leaving(user => {
-                    //setLeavingUser(user)
                     console.log('left user', user)
                     dispatch(UPDATE_LEAVING_USERS_ACTION(user))
                 })
                 .listenForWhisper('typing', (user) => {
-                    //setIsTyping(true);
-                    //setUserWriting(e.name  + ' is Typing ...')
                     if(! userTyping) {
                         dispatch(UPDATE_TYPING_USER_ACTION(user))
                         setTimeout(() => {
@@ -75,6 +78,7 @@ const SingleRoom = props => {
         }
         dispatch(SEND_MESSAGE_ACTION(params.id, message))
         .then(res => {
+            dispatch(UPDATE_MESSAGES_ACTION(res.data.data))
             setMessage('')
         })
         .catch(error => {
@@ -188,7 +192,7 @@ const SingleRoom = props => {
                         <div className="send"
                             onClick={sendMessage}
                         >
-                            <i className="fa fa-paper-plane"/>
+                            <BiSend size={24}/>
                         </div>
                     </form>
                 </div>
