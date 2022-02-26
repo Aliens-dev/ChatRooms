@@ -16,6 +16,6 @@ export const PopupsReducer = (state = initState, action) => {
         case HIDE_TOAST: return {...state, showToast: false, toastMessage: {title:'', message: ''}}
         case START_BUTTON_LOADING: return {...state, buttonLoading: true}
         case STOP_BUTTON_LOADING: return {...state, buttonLoading: false}
-        default: return initState;
+        default: return state;
     }
 }

@@ -363,6 +363,7 @@ a:hover {
         justify-content: space-between;
         align-items: center;
         position: relative;
+        cursor: pointer;
         .close-toast {
             &:hover {
                 cursor: pointer;
@@ -676,5 +677,34 @@ a:hover {
             outline: none;
             box-shadow: none;
         }
+    }
+}
+
+.invitation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    cursor: pointer;
+    .count {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        top: 0;
+        right: -5px;
+        background-color: #0099ff;
+        color: #fff;
+        font-size: 8px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.dropdown {
+    .dropdown-menu.show {
+        right: 0;
+        left: auto;
     }
 }

@@ -1,9 +1,7 @@
 import React , {useEffect,useState,useContext,useRef} from 'react';
 import axios from 'axios'
-import {AppContext} from "../../../context/AppContext";
 import {Card,Loading,BreadCrumb} from "../../../components";
 import UserIcon from "../../../components/UserIcon";
-import {setToastMessage, setToastShowAction} from "../../../context/actions/GlobalActions";
 import {APP_URL, ROOMS_PAGE, ROOMS_PAGE_API} from "../../../urls/AppBaseUrl";
 
 const EditRoom = (props) => {
@@ -12,7 +10,6 @@ const EditRoom = (props) => {
     const [loading,setLoading] = useState(true);
     const avatarBtn = useRef(null);
     const [previewAvatar,setPreviewAvatar] = useState("");
-    const {auth,dispatchGlobalState} = useContext(AppContext);
     const [progress,setProgress] = useState(0);
 
     console.log(room)
@@ -31,44 +28,44 @@ const EditRoom = (props) => {
         setPreviewAvatar(URL.createObjectURL(avatarBtn.current.files[0]))
     }
     const updateRoom = (e) => {
-        e.preventDefault();
-        let formData = new FormData();
-        formData.append('name', room.name);
-        formData.append('image', room.image);
-        formData.append('type', room.type);
-        formData.append('_method', 'PATCH');
-        axios({
-            method:'POST',
-            url : ROOMS_PAGE_API + room.id,
-            data:formData,
-            headers : {
-                authorization : "Bearer " + auth.token,
-                "Content-Type" : 'multipart/form-data'
-            }
-        })
-            .then(res => {
-                dispatchGlobalState(setToastShowAction())
-                dispatchGlobalState(setToastMessage("Room edited successfully",`${room.name} is edited`))
-                props.history.push('/app/rooms/'+ room.id)
-            })
-            .catch(err => {
-                dispatchGlobalState(setToastShowAction())
-                dispatchGlobalState(setToastMessage("Error, try again",`${room.name} failed to edit`))
-            })
+        // e.preventDefault();
+        // let formData = new FormData();
+        // formData.append('name', room.name);
+        // formData.append('image', room.image);
+        // formData.append('type', room.type);
+        // formData.append('_method', 'PATCH');
+        // axios({
+        //     method:'POST',
+        //     url : ROOMS_PAGE_API + room.id,
+        //     data:formData,
+        //     headers : {
+        //         authorization : "Bearer " + auth.token,
+        //         "Content-Type" : 'multipart/form-data'
+        //     }
+        // })
+        //     .then(res => {
+        //         dispatchGlobalState(setToastShowAction())
+        //         dispatchGlobalState(setToastMessage("Room edited successfully",`${room.name} is edited`))
+        //         props.history.push('/app/rooms/'+ room.id)
+        //     })
+        //     .catch(err => {
+        //         dispatchGlobalState(setToastShowAction())
+        //         dispatchGlobalState(setToastMessage("Error, try again",`${room.name} failed to edit`))
+        //     })
     }
 
     const getRoom = () => {
-        axios({
-            url: ROOMS_PAGE_API+ props.match.params.id,
-            method: "GET",
-            headers : {
-                authorization : 'Bearer '+ auth.token,
-            }
-        })
-            .then(res => {
-                setRoom(res.data.data)
-                setLoading(false)
-            })
+        // axios({
+        //     url: ROOMS_PAGE_API+ props.match.params.id,
+        //     method: "GET",
+        //     headers : {
+        //         authorization : 'Bearer '+ auth.token,
+        //     }
+        // })
+        //     .then(res => {
+        //         setRoom(res.data.data)
+        //         setLoading(false)
+        //     })
     }
 
     const render = () => {

@@ -5,9 +5,7 @@ const initState = {
     messages: [],
     loading: true,
     userTyping: null,
-    joinedUsers: [],
     activeUsers: [],
-    leavingUsers: []
 };
 
 

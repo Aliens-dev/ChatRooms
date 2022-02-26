@@ -1,35 +1,34 @@
 import React, { useEffect,useContext,useState } from 'react';
 import axios from 'axios';
 import {Card,BreadCrumb,Loading,Navbar} from "../../components";
-import {AppContext} from "../../context/AppContext";
 import {APP_URL, DASHBOARD_PAGE, JOINED_ROOMS_PAGE_API, ROOMS_PAGE} from "../../urls/AppBaseUrl";
 import UserIcon from "../../components/UserIcon";
 
 const JoinedRooms = () => {
-    const { auth } = useContext(AppContext);
+    
     const [ rooms, setRooms ] = useState([]);
     const [loading,setLoading] = useState(true);
 
-    useEffect(() => {
-        getRooms();
-    }, [])
+    // useEffect(() => {
+    //     getRooms();
+    // }, [])
 
-    const getRooms = () => {
-        axios({
-            method : 'GET',
-            url : JOINED_ROOMS_PAGE_API,
-            headers : {
-                Authorization : 'bearer ' + auth.token,
-            }
-        })
-            .then(res => {
-                setRooms(res.data.data);
-                setLoading(false)
-            })
-            .catch(err => {
-                setLoading(false)
-            })
-    }
+    // const getRooms = () => {
+    //     axios({
+    //         method : 'GET',
+    //         url : JOINED_ROOMS_PAGE_API,
+    //         headers : {
+    //             Authorization : 'bearer ' + auth.token,
+    //         }
+    //     })
+    //         .then(res => {
+    //             setRooms(res.data.data);
+    //             setLoading(false)
+    //         })
+    //         .catch(err => {
+    //             setLoading(false)
+    //         })
+    // }
     const render = () => {
         return rooms.map( room => {
             return (

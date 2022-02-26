@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {HIDE_TOAST_ACTION} from "../actions/popupsActions";
-
+import {FaTimes} from 'react-icons/fa'
 
 const MyToast = (props) => {
 
@@ -16,7 +16,7 @@ const MyToast = (props) => {
                 {
                     toastMessage.title
                 }
-                <i className="fa fa-times close-toast" onClick={hideToast} />
+                <FaTimes onClick={hideToast} />
             </div>
             <div className="my-toast-body">
                 {

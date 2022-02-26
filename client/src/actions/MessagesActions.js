@@ -35,6 +35,7 @@ export const SEND_MESSAGE_ACTION = (roomId, message) => (dispatch, getState) => 
                 },
                 headers : {
                     authorization : 'Bearer '+ getState().auth.user.token,
+                    "X-Socket-Id": window.Echo.socketId(),
                 }
             })
             //dispatch(UPDATE_MESSAGES_ACTION(message))
